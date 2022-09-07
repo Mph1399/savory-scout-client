@@ -101,6 +101,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "savory-scout-client:build:production",
+            "firebaseProject": "savoryscout",
+            "firebaseHostingSite": "savoryscout"
+          }
         }
       }
     }

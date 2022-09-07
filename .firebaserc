@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "savoryscout"
+  },
+  "targets": {
+    "savoryscout": {
+      "hosting": {
+        "savory-scout-client": [
+          "savoryscout"
+        ]
+      }
+    }
+  }
+}
