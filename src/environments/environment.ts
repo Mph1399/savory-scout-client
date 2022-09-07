@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyAUMnV34ARb-r1YAPVpUMeG3aMG-u0dgjo",
+    authDomain: "savoryscout.firebaseapp.com",
+    databaseURL: "https://savoryscout.firebaseio.com",
+    projectId: "savoryscout",
+    storageBucket: "savoryscout.appspot.com",
+    messagingSenderId: "224070695253"
+  },
+  stripeKey: "pk_test_vSoDRzStphR0SIkoidjPEFXk",
+  googleApiKey: 'AIzaSyAUMnV34ARb-r1YAPVpUMeG3aMG-u0dgjo',
+  code : 'UA-XXXXX-XXXXXXX',
+  state : 'dev'
 };
 
 /*

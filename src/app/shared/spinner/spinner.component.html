@@ -1,0 +1,7 @@
+<ng-container *ngIf="(spinnerState$ | async)">
+  <div class="backdrop"></div>
+  <div class="lds-circle">
+    <div></div>
+    <p>{{ message }}..</p>
+  </div>
+</ng-container>
