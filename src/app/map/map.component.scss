@@ -1,0 +1,18 @@
+  // Make the map full screen
+  agm-map {
+    height: 90vh;
+    width: 100%;
+  }
+ 
+ // Loading Screen background
+ .loading-background {
+    background: url("./../../assets/imgs/desktop_map_loading.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+    opacity: .6;
+  }

@@ -7,10 +7,12 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { AddToHomeSafariComponent } from './dialogs/add-to-home-safari/add-to-home-safari.component';
 import {  MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CitySelectComponent } from './city-select/city-select.component';
+
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent,],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -19,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ],
   providers: [FirestoreService],
-  exports: [SpinnerComponent],
+  exports: [SpinnerComponent, CitySelectComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

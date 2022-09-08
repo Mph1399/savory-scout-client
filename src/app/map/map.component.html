@@ -1,0 +1,21 @@
+<p>Map Works!</p>
+<div>
+<google-map 
+height="86vh"
+width="100vw"
+[center]="center"
+[zoom]="13"
+[options]="options"
+>
+<map-marker 
+#somemarker="mapMarker" 
+*ngFor="let marker of markers; let i = index" 
+[position]="marker.position"
+[title]="marker.title"
+
+></map-marker>
+<!-- (mapClick)="openInfo(somemarker, marker.info)" -->
+<!-- <map-info-window>{{ infoContent }}</map-info-window> -->
+</google-map>
+</div>
+

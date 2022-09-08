@@ -1,18 +1,18 @@
  
   <!-- Showing active special -->
-        <p *ngIf="filterValues.active && (filteredLocations$ | async).restaurants.length > 0 && connectionStatus !== 'OFFLINE'" class="blinking-blue info-bar">
-          Displaying Active Specials</p>
+        <!-- <p *ngIf="filterValues.active && (filteredLocations$ | async).restaurants.length > 0 && connectionStatus !== 'OFFLINE'" class="blinking-blue info-bar">
+          Displaying Active Specials</p> -->
   <!-- No Active Specials are available. Showing local restaurants that have specials on the current date but not at this time -->
-        <p *ngIf="!(filteredLocations$ | async).noResultsInThisArea && !filterValues.active && connectionStatus !== 'OFFLINE'" class="blinking-yellow info-bar">
-          No <span style="color: #0049ff;"> ACTIVE </span> specials in this area<br>The Restaurants below have specials today.</p>
+        <!-- <p *ngIf="!(filteredLocations$ | async).noResultsInThisArea && !filterValues.active && connectionStatus !== 'OFFLINE'" class="blinking-yellow info-bar">
+          No <span style="color: #0049ff;"> ACTIVE </span> specials in this area<br>The Restaurants below have specials today.</p> -->
     
   <!-- There are no results in the users area -->
         <!-- <p *ngIf="(filteredLocations$ | async).noResultsInThisArea && !filterValues.active && connectionStatus !== 'OFFLINE'" class="blinking-yellow info-bar">
           There are no restaurants located <br> near you that have specials today<br>Try expanding the search radius using the filter</p> -->
    
   <!-- No restaurants are meeting the filter selections on this date.   -->
-        <p *ngIf="(filteredLocations$ | async).noResultsWithFilterSettings && connectionStatus !== 'OFFLINE'" class="blinking-yellow info-bar">
-          <strong>No Specials available on this date<br>with the current filter settings</strong></p>
+        <!-- <p *ngIf="(filteredLocations$ | async).noResultsWithFilterSettings && connectionStatus !== 'OFFLINE'" class="blinking-yellow info-bar">
+          <strong>No Specials available on this date<br>with the current filter settings</strong></p> -->
   <!-- No Internet Error Message -->
-        <p id='geoErrorMessage' *ngIf="connectionStatus === 'OFFLINE'" appTextCenter appNoPadding appNoMargin class=" info-bar blinking-red" style="height: 30px; line-height: 25px;">
-          Your device is offline.<br> Please reconnect to the internet</p>
+        <!-- <p id='geoErrorMessage' *ngIf="connectionStatus === 'OFFLINE'" appTextCenter appNoPadding appNoMargin class=" info-bar blinking-red" style="height: 30px; line-height: 25px;">
+          Your device is offline.<br> Please reconnect to the internet</p> -->

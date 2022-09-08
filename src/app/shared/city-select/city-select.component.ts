@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CitiesService } from 'src/services/cities.service';
-import { RestaurantService } from 'src/services/restaurant.service';
+import { City, CitySelectService } from './city-select.service';
+// import { RestaurantService } from 'src/services/restaurant.service';
 
 @Component({
   selector: 'app-city-select',
@@ -8,19 +8,20 @@ import { RestaurantService } from 'src/services/restaurant.service';
   styleUrls: ['./city-select.component.scss']
 })
 export class CitySelectComponent implements OnInit {
-cities = this.citiesService.getCities();
+cities = this.cityService.getCities();
 
   constructor(
-    public citiesService: CitiesService,
-    public restaurantService: RestaurantService
+    public cityService: CitySelectService,
+   // public restaurantService: RestaurantService
     ) { }
 
   ngOnInit(): void {
   }
-onSearch = (city) => {
-  this.restaurantService.seachbarSubmitted(city.value);
+onSearch = (city: Event) => {
+  console.log("City Selected: ", (city.target as HTMLInputElement).value)
+ // this.restaurantService.seachbarSubmitted(city.value);
 }
-directCityChosen = (event) => {
+directCityChosen = (event: any) => {
 
 }
 }
