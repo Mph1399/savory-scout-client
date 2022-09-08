@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import "~firebaseui/dist/firebaseui.css";
+@import '~@angular/material/theming';
+@import './variables';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-blue);
+$my-app-accent:  mat-palette($mat-green, A400);
+$my-app-warn:    mat-palette($mat-deep-orange, 900);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent:  mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}
+// Import Material Icons
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 

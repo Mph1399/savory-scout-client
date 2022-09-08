@@ -1,0 +1,102 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async) && router.url === '/dashboard' ? true : false">
+    <!-- [opened]="(isHandset$ | async) === false" -->
+    <mat-toolbar>
+      <img src="../../../assets/imgs/logo_120x120.png" class="logo">
+    </mat-toolbar>
+    <mat-nav-list>
+
+    
+      <mat-divider></mat-divider>
+      <a mat-list-item href="dashboard">
+        <mat-icon>dashboard</mat-icon> Dashboard</a>
+     
+
+      <mat-divider></mat-divider>
+      <a mat-list-item href="specials">
+        <mat-icon>restaurant</mat-icon>Specials</a>
+
+
+    
+      <mat-divider></mat-divider>
+    <a mat-list-item href="identity">
+      <mat-icon>business</mat-icon>Identity</a>
+  
+
+   
+    <mat-divider></mat-divider>
+    <a mat-list-item href="map">
+      <mat-icon>map</mat-icon>Map</a>
+  
+
+   
+    <mat-divider></mat-divider>
+    <a mat-list-item href="image">
+      <mat-icon>image</mat-icon>Image</a>
+     
+
+
+      <ng-container *ngIf="(auth$ | async)?.user">
+    <mat-divider></mat-divider>
+    <a mat-list-item href="register">
+      <mat-icon>app_registration</mat-icon>Register New</a>
+      </ng-container>
+      
+    <mat-divider></mat-divider>
+   <ng-container *ngIf="!( auth$ | async )?.user">
+    <a mat-list-item href="login">
+      <mat-icon>login</mat-icon>Login</a>
+    <mat-divider></mat-divider>
+   </ng-container>
+  </mat-nav-list>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" style="z-index: 100000">
+      <span>Savory Scout</span>
+      <!-- Spacer to put hamburger on the far right side per @material docs-->
+      <span style="flex: 1 1 auto"></span>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        style="float: right">
+        <!-- *ngIf="isHandset$ | async" -->
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <!--     *ngIf="(storeSub$ | async).user" -->
+      <button
+        *ngIf="(auth$ | async)?.user"
+        type="button"
+        aria-label="Profile"
+        mat-icon-button
+        [matMenuTriggerFor]="menu">
+        <mat-icon aria-label="Profile Icon">account_circle</mat-icon>
+      </button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+  <div (click)="cancelClick($event)" class="dropdown">
+    <div>
+      <button
+        mat-flat-button
+        class="profile-btn"
+        color="primary"
+        (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+</mat-menu>
