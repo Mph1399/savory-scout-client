@@ -1,0 +1,34 @@
+// remove the top margin on the title above the active speacials
+.active-title {
+    margin: 0px;
+    background-color: #00a4ef;
+    color: white;
+  }
+
+.inactive-date {
+    margin: 0 0 -12px 0;
+    background-color: #00a4ef;
+    text-align: center;
+}
+
+.specials-list {
+    padding-left: 0;
+    margin: 0;
+    padding-bottom: 3px;
+  }
+
+.specials-item {
+    padding-left: 7px;
+    height: 16px;
+  }
+
+mat-icon {
+    font-size: 12px
+}
+
+.map-adjust-font {
+    font-size: 10px !important;
+}
+.map-adjust-height {
+    height: 15px !important;
+}

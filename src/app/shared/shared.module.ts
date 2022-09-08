@@ -1,16 +1,22 @@
+import { MatCardModule } from '@angular/material/card';
 import { FirestoreService } from './firestore/firestore.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainNavComponent } from './main-nav/main-nav.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { AddToHomeSafariComponent } from './dialogs/add-to-home-safari/add-to-home-safari.component';
+import {  MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [SpinnerComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent,],
   imports: [
     CommonModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [FirestoreService],
   exports: [SpinnerComponent],

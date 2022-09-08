@@ -1,0 +1,12 @@
+@media only screen and (max-width: 800px) {
+    // Adjust the mobile footer search bar
+    .form-field-searchbar {
+      min-width: 0px;
+      max-width: 250px;
+    }
+}
+
+.searchbar {
+  font-size: 12px;
+    line-height: 10px;
+}

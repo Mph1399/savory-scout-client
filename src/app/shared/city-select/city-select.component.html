@@ -1,0 +1,29 @@
+     <!-- Popup for when search results aren't found  -->
+     <div appTextCenter class='geo-div'>
+        <mat-card class="geo-card">
+        <h3 class="geo-div-title">{{ 'Restaurant specials near you!' | uppercase }}</h3>
+        <hr appNoMargin style="border-top: 1px solid lightgray; margin-bottom: 0;">
+        <h4 style="background-color: #ffc800;margin-top: 0; padding: 6px;">We haven't reached this area yet. </h4>
+        <h4 style="margin-bottom: 0;" >Choose a Participating City:</h4>
+        <mat-form-field style="z-index: 1005;">
+          <mat-label>Select a City</mat-label>
+          <mat-select (selectionChange)="onSearch($event); directCityChosen($event)">
+            <mat-option #citySelection *ngFor="let city of cities" [value]="city.city" >
+              {{city.city}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <hr width="75%" style="border-top: 1px solid lightgray;">
+        <h5 style="margin: auto 8px">Help contribute by visiting our suggest page to let us know about your favorite local specials.</h5>
+       <!-- <h4> Additional Search options: </h4>
+        <div class="grid-container-1">
+          <div>
+            <button mat-raised-button color="accent" (click)="getUserLocation(); geoChosen()">Use My Location</button>
+          </div>
+           <div>
+            <button mat-raised-button color="warn" (click)="manualSearch()">Search Manually</button>
+          </div> 
+        </div>s
+        <h5 style="margin-bottom: 0">A Map search is also available</h5> -->
+      </mat-card>
+      </div>

@@ -1,0 +1,100 @@
+@import '../../../variables';
+.filter-wrapper {
+    z-index: 9900;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #ffffffd9;
+    top: 0;
+  }
+
+  .filter {
+    z-index: 10005;
+    background-color: #ffffff;
+    padding-top: 10px;
+    border: 1px solid #787878;
+    display: block;
+    width: 30vw;
+    height: 100%;
+    margin: 0 auto;
+    overflow: scroll;
+    border: none;
+    font-size: 18px;
+
+  }
+
+  #filter-datepicker {
+    width: 130px; 
+    padding-right: 20px; 
+    padding-left: 22px;
+    margin: 10px;
+  }
+  .filter-action-bar {
+    margin-top: -7px;
+    margin-bottom: 20px;
+  }
+  .filter-close-btn {
+    float: right;
+    padding-top: 10px;
+    margin-right: 22px;
+    color: $warn;
+  }
+
+  .filter-close-btn-icon {
+    font-size: 47px;
+  
+  }
+  ::ng-deep .mat-dialog-container {
+    padding-top: 0 !important;
+  }
+
+.distance-slider {
+ width: 100%;
+ margin: auto;
+}
+.apply-btn {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.reset-btn {
+  font-size: 20px;
+  min-width: 25px;
+  margin-left: 16px;
+}
+.reset-btn :focus {
+    background-color: transparent;
+}
+::ng-deep .reset-btn .mat-button-focus-overlay {
+    display:none;
+}
+    // If the browser window is 800px or Smaller,
+    @media only screen and (max-width: 800px) {
+        ::ng-deep .cdk-overlay-pane {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+        }
+        ::ng-deep .mat-dialog-container {
+            padding: 0 !important;
+        }
+        mat-slide-toggle {
+            padding: 10px !important;
+        }
+        .filter {
+          font-size: 22px !important;
+          width: 50vw;
+        }
+    }
+    // Media Queries over 801px
+    @media only scren and (min-width: 801px) {
+     ::ng-deep .cdk-overlay-container {
+        position: fixed;
+        z-index: 1000;
+        top: 18px;
+        right: 122px;
+    }
+  }

@@ -1,0 +1,83 @@
+@import '/src/variables';
+// // Set up the blinking keyframes
+@keyframes activeBlinkBlue  {
+    0% {background:#00a4ef78;}
+    50% {background:$primary;}
+    100% {background:#00a4ef78;}
+  }
+  
+  @-moz-keyframes activeBlinkBlue /* Firefox */ {
+      0% {background:#00a4ef78;}
+      50% {background:$primary;}
+      100% {background:#00a4ef78;}
+  }
+  @-webkit-keyframes activeBlinkBlue /* Safari and Chrome */ {
+    0% {background:#00a4ef78;}
+    50% {background: $primary;}
+    100% {background:#00a4ef78;}
+  }
+
+  @keyframes activeBlinkYellow {
+    0% {background:#ffcc2f8a;}
+    50% {background:$caution;;}
+    100% {background:#ffcc2f8a;}
+  }
+  
+  @-moz-keyframes activeBlinkYellow /* Firefox */ {
+      0% {background:#ffcc2f8a;}
+      50% {background:$caution;;}
+      100% {background:#ffcc2f8a;}
+  }
+  @-webkit-keyframes activeBlinkYellow /* Safari and Chrome */ {
+    0% {background:#ffcc2f8a;}
+    50% {background:$caution;;}
+    100% {background:#ffcc2f8a;}
+  }
+
+  @keyframes activeBlinkRed {
+    0% {background:#f2502273;}
+    50% {background:$warn;;}
+    100% {background:#f2502273;}
+  }
+  
+  @-moz-keyframes activeBlinkRed /* Firefox */ {
+      0% {background:#f2502273;}
+      50% {background: $warn;}
+      100% {background:#f2502273;}
+  }
+  @-webkit-keyframes activeBlinkRed /* Safari and Chrome */ {
+    0% {background:#f2502273;}
+    50% {background:$warn;}
+    100% {background:#f2502273;}
+  }
+
+
+  // CSS Class for a blinking div. Notably used in the "Showing Active specials" div
+  .blinking-blue {
+    width:100%;
+    font-size: 14px;
+    color: white;
+    background: $primary;
+    animation:activeBlinkBlue 8s infinite;
+    -moz-animation:activeBlinkBlue 8s infinite; /* Firefox */
+    -webkit-animation:activeBlinkBlue 8s infinite; /* Safari and Chrome */
+}
+.blinking-yellow {
+  width:100%;
+  font-size: 14px;
+  color: white;
+  background: $caution;
+  animation:activeBlinkYellow 6s infinite;
+  -moz-animation:activeBlinkYellow 6s infinite; /* Firefox */
+  -webkit-animation:activeBlinkYellow 6s infinite; /* Safari and Chrome */
+}
+
+.blinking-red {
+  width:100%;
+  font-size: 14px;
+  color: white;
+  background: $warn;
+  animation:activeBlinkRed 6s infinite;
+  -moz-animation:activeBlinkRed 6s infinite; /* Firefox */
+  -webkit-animation:activeBlinkRed 6s infinite; /* Safari and Chrome */
+}

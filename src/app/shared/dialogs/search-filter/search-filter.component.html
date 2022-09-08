@@ -1,0 +1,58 @@
+<!-- FILTER OPTIONS START -->
+<!-- <hr width="85%" style="margin: 0 auto 14px; border-top: 2px solid dodgerblue"> -->
+<div>
+  <div class='grid-container-2 filter' [formGroup]="formGroup">
+    <div class='grid-container-2 filter-action-bar'>
+      <div><button mat-icon-button id="reset-btn" type="button" onclick="this.blur()" [autofocus]="false" 
+       (click)="reset()" [disableRipple]="true" class="reset-btn">Reset</button></div>
+      <div><button mat-icon-button class="filter-close-btn" (click)="closeFilter(false, null)">
+          <mat-icon class="filter-close-btn-icon">close</mat-icon>
+        </button></div>
+    </div>
+
+    <div class='grid-container-2' style="max-width: 355px;"></div>
+    <div>
+      <mat-slide-toggle formControlName="active" class="checkbox-margin" [ngModelOptions]="{standalone: true}">Active
+      </mat-slide-toggle>
+      <mat-slide-toggle formControlName="food" class="checkbox-margin" [ngModelOptions]="{standalone: true}">Food
+      </mat-slide-toggle>
+    </div>
+    <div>
+      <mat-slide-toggle formControlName="drinks" class="checkbox-margin" [ngModelOptions]="{standalone: true}">Drinks
+      </mat-slide-toggle>
+      <mat-slide-toggle formControlName="events" class="checkbox-margin" [ngModelOptions]="{standalone: true}">Events
+      </mat-slide-toggle>
+    </div>
+    <div>
+      <mat-slide-toggle class="checkbox-margin" formControlName="outdoor" [ngModelOptions]="{standalone: true}">Outdoor
+        Seating</mat-slide-toggle><br>
+      <mat-slide-toggle class="checkbox-margin" formControlName="happyHour" [ngModelOptions]="{standalone: true}">Happy
+        Hour</mat-slide-toggle><br>
+      <mat-slide-toggle class="checkbox-margin" formControlName="brunch" [ngModelOptions]="{standalone: true}">Brunch
+      </mat-slide-toggle><br>
+      <mat-slide-toggle class="checkbox-margin" formControlName="kids" [ngModelOptions]="{standalone: true}">Kids
+      </mat-slide-toggle>
+    </div>
+
+      <div>
+        <mat-form-field style="margin-left: 10px;">
+          <mat-label>Choose a date</mat-label>
+          <input matInput readonly formControlName="date" [matDatepicker]="picker3" [(ngModel)]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker3" style="font-size: 29px"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="grid-container-2 distance-slider-wrapper" style="padding: 0 10px;">
+          <div><label id="example-name-label" class="example-name-label">Search Distance:</label></div>
+          <div style="text-align:right"><label class="example-value-label">{{ radius }}mi</label></div>  
+      </div>
+
+        <mat-slider formControlName="radius" class="distance-slider" [invert]="false" [max]="50" [min]="1" [step]="'auto'"
+        [thumbLabel]="true" [tickInterval]="1" [(ngModel)]="radius" value="radius" [vertical]="false"
+        aria-labelledby="distance-slider" [ngModelOptions]="{standalone: true}">
+        </mat-slider>
+     
+    <button mat-raised-button color="accent" class="apply-btn" (click)="closeFilter(true, formGroup.value)">Apply Settings</button>
+  </div>
+</div>
+<!-- FILTER OPTIONS END -->
