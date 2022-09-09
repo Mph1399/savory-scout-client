@@ -32,13 +32,22 @@ export interface LocationsState {
 };
     export const locationsReducer = createReducer(initialState,
         on(FirestoreActions.GET_LOCATIONS, (state, action) => {
-           console.log('Action in CREATE_LOCATION Reducer: ', action.lat)
+           console.log('Action in GET_LOCATION Reducer: ', action.lat)
           // console.log()
           // localStorage.setItem('location', JSON.stringify(action.location));
            return {
              ...state,
            }
          }),
+         on(FirestoreActions.SET_LOCATIONS, (state, action) => {
+          console.log('Action in SET_LOCATION Reducer: ', action)
+         // console.log()
+         // localStorage.setItem('location', JSON.stringify(action.location));
+          return {
+            ...state,
+            locations: action.locations
+          }
+        })
     )
 
   

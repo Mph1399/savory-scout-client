@@ -1,5 +1,6 @@
-import { GeoPoint } from '@firebase/firestore-types';
+
 import * as firestore from '@firebase/firestore'
+import { GeoPoint } from 'firebase/firestore';
 
 export interface Location {
   name: string;
