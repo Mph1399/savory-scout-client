@@ -1,0 +1,244 @@
+.mat-card {
+  padding: 0;
+}
+
+.location-card {
+  max-width: 350px;
+  min-width: 350px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.mat-card-header {
+  background-color: transparent;
+  z-index: 1000000;
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0 5px !important;
+  overflow: hidden;
+}
+::ng-deep .mat-form-field-infix {
+  line-height: 21px;
+}
+
+// set the image size
+.mat-card-image {
+  max-width: 380px;
+  width: 333px;
+  height: 170px;
+  margin: auto;
+}
+
+// Prevent the location text from wrapping
+.mat-card-subtitle,
+.mat-card-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 235px;
+}
+
+.mat-card-subtitle,
+.mat-card-title {
+  padding: 2px 2px 2px 5px;
+  margin-bottom: 0px !important;
+}
+
+.mat-card-subtitle {
+  font-size: 11px;
+}
+
+// format the specials listed
+ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 4px;
+  font-size: 12px;
+}
+
+.see-info-text {
+  text-align: right;
+}
+
+// center the categories vertically
+.line {
+  line-height: 35px;
+}
+
+// set icon size
+i {
+  font-size: 10px;
+}
+
+// set the height of the active specials 
+.specials-container {
+  height: 185px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.inactive-date {
+  text-align: center;
+  margin: 1px 0;
+  background-color: #00a4ef;
+  color: white;
+}
+
+.card-specials {
+  min-height: 150px;
+  max-height: 150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+// Allow scrolling through specials but hide the scrollbar when
+//* Hide scrollbar for Chrome, Safari and Opera */
+.specials-container::-webkit-scrollbar {
+  display: none;
+}
+
+.specials-container // remove the top margin on the title above the active speacials
+
+.active-title {
+  margin: 0px;
+  background-color: #00a4ef;
+  color: white;
+  font-size: 10px;
+}
+
+.avatar {
+  background-size: contain;
+  height: auto;
+  width: 95px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0;
+}
+
+.mat-card-title {
+  margin: -7px 0 0 0px;
+}
+
+.mat-card-subtitle:first-child {
+  margin-top: -13px;
+}
+
+
+.location-card {
+  width: 100vw;
+  max-width: 100vw;
+  display: block;
+  overflow: scroll;
+  margin: 0px auto 10px auto;
+  border-top: 1px solid gray;
+  height: 100%;
+}
+
+.locations-container {
+  display: block;
+  background-color: #ebebeb;
+}
+
+.card-specials {
+  max-height: calc(100vh - 360px);
+  // height: 130px;
+}
+
+::ng-deep {
+  .carousel-arrow {
+    height: 30px !important;
+    width: 30px !important;
+    background-color: #ffffff4f !important;
+  }
+
+  .carousel-arrow-disabled {
+    opacity: .1 !important;
+  }
+}
+
+// .mat-card-image {
+//   width : 95vw;
+//   display: none;
+// }
+.mat-card-content,
+.mat-card-subtitle {
+  width: 100vw;
+}
+
+.mat-card-subtitle {
+  font-size: 15px;
+}
+
+.mat-card-content {
+  border-top: 1px solid lightgray;
+}
+
+// make the specials font bigger on smaller screens
+.mat-card-content ul li {
+  font-size: 14px;
+}
+
+.mat-card-subtitle,
+.mat-card-title {
+  max-width: 235px;
+}
+
+.mat-drawer-content {
+  overflow: hidden;
+}
+
+// set icon size
+i {
+  font-size: 10px;
+}
+
+// .mat-card-title {
+//   max-width: calc(100vw - 25px);
+// }
+
+.specials-container {
+  height: 100%;
+  // max-height: 145px;
+  padding-bottom: 5px;
+  max-width: 100% !important;
+}
+
+.card-header-desktop {
+  cursor: pointer;
+  z-index: 10000000000;
+}
+
+.card-header-mobile {
+  // margin-left: 2px;
+  cursor: pointer;
+  z-index: 10000000000;
+  display: block !important;
+}
+
+.mat-card-title,
+.mat-card-subtitle {
+  text-align: center !important;
+  max-width: inherit !important;
+}
+
+.mat-card-header .mat-card-title {
+  font-size: 30px;
+}
+
+.mat-card-image {
+  background-size: cover;
+  height: 140px !important;
+  z-index: 100000;
+  width: 65vw !important;
+  margin: 0 auto 10px auto;
+  display: block;
+  background-position: center;
+}
+
+.mat-toolbar {
+  top: auto !important
+}

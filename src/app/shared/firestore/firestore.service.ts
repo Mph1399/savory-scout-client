@@ -14,7 +14,7 @@ const db = firebase.firestore(app);
 @Injectable()
 export class FirestoreService {
 
- geoSearchLocations = async (hash: string, lat: number, lng: number) => {
+ geoSearchLocations = async (lat: number, lng: number) => {
     // Find cities within 50km of London
 const center : geofire.Geopoint = [lat, lng];
 const radiusInM = 50 * 1000;
@@ -26,7 +26,7 @@ const bounds = geofire.geohashQueryBounds(center, radiusInM);
 const promises: any[] = [];
 
 for (const b of bounds) {
-  const colRef = db.collection('cities')
+  const colRef = db.collection('locations')
     .orderBy('geohash')
     .startAt(b[0])
     .endAt(b[1]);
@@ -59,7 +59,7 @@ Promise.all(promises).then((snapshots) => {
   matchingDocs.forEach(doc => {
       console.log('Document: ', doc)
   })
-});
+}).catch((err) => { console.log('error: ', err)})
 }
 
 }

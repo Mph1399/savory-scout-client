@@ -31,7 +31,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "firebase/compat",
+              "dialog-polyfill",
+              "geofire-common"
+            ]
           },
           "configurations": {
             "production": {

@@ -3,7 +3,7 @@ import { Location } from '../../models/location.model';
 
 export const GET_LOCATIONS = createAction(
     '[Locations] Get Locations',
-    props<{ lat: string, lng: string }>()
+    props<{ lat: number, lng: number }>()
   );
   export const SET_LOCATIONS = createAction(
     '[Locations] Set Locations',

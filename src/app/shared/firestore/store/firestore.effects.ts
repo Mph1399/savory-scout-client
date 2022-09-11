@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 // import { RouterEvent } from "@angular/router";
  import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap } from "rxjs";
+import { QuerySnapshot } from "firebase/firestore";
+import { map, switchMap, tap } from "rxjs";
 // import { Store } from "@ngrx/store";
-// import { FirestoreService } from "../firestore.service";
+ import { FirestoreService } from "../firestore.service";
  import * as FirestoreActions from './firestore.actions'
 
 
@@ -12,7 +13,7 @@ export class FirestoreEffects {
 
     constructor(
          private actions$: Actions,
-    //     private firestoreService: FirestoreService,
+         private firestoreService: FirestoreService,
     //     private store: Store,
     //     private router: RouterEvent
       ) {}
@@ -21,6 +22,17 @@ export class FirestoreEffects {
   getLocations$ = createEffect(() =>
     this.actions$.pipe(
         ofType(FirestoreActions.GET_LOCATIONS),
+        map((action) => {
+          this.firestoreService.geoSearchLocations(action.lat, action.lng)
+          .then((result: unknown) => {
+            console.log((result as QuerySnapshot))
+            return result
+          }).catch(err => {
+            console.log('Error : ', err)
+          })
+        }),
+     
+        
      //  switchMap((action) => {
     //     console.log('inside getLocation Effect: ', action);
     //     return this.firestoreDatabaseService.getLocation(action.id);
@@ -48,6 +60,6 @@ export class FirestoreEffects {
     //   })
     //   //   
     ),
-  //  { dispatch: false }
+   { dispatch: false }
   )
 }

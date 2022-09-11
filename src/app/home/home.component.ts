@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FirestoreService } from '../shared/firestore/firestore.service';
 import { GeolocationService } from '../shared/services/geolocation.service';
 import { HomeService } from './home.service';
 
@@ -11,7 +10,6 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private firestoreService: FirestoreService,
     private geoService: GeolocationService,
     private homeService: HomeService
     ) { }
