@@ -31,7 +31,7 @@ export interface LocationsState {
     }]
 };
     export const locationsReducer = createReducer(initialState,
-        on(FirestoreActions.GET_LOCATIONS, (state, action) => {
+        on(FirestoreActions.GET_LOCATIONS_BY_COORDS, (state, action) => {
            console.log('Action in GET_LOCATION Reducer: ', action.lat)
           // console.log()
           // localStorage.setItem('location', JSON.stringify(action.location));

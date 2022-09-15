@@ -1,3 +1,4 @@
+import { DisplayLocationsService } from './services/display-locations.service';
 import { MatCardModule } from '@angular/material/card';
 import { FirestoreService } from './firestore/firestore.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -20,7 +21,7 @@ import { CitySelectComponent } from './city-select/city-select.component';
     MatButtonModule,
     MatDialogModule
   ],
-  providers: [FirestoreService],
+  providers: [FirestoreService, DisplayLocationsService],
   exports: [SpinnerComponent, CitySelectComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

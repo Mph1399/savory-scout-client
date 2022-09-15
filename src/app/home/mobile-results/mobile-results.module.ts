@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MobileResultsComponent } from './mobile-results.component';
-import { SpecialsDisplayModule } from 'src/app/shared/specials-display/specials-display.module';
+
 
 
 
@@ -17,7 +17,6 @@ import { SpecialsDisplayModule } from 'src/app/shared/specials-display/specials-
     MatIconModule,
     MatListModule,
     IvyCarouselModule,
-    SpecialsDisplayModule
   ],
   exports: [MobileResultsComponent]
 })

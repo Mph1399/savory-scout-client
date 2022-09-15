@@ -2,6 +2,7 @@ import { DeviceDetailsService } from 'src/app/shared/services/device-details.ser
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 // import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
 import { first } from 'rxjs/operators';
 

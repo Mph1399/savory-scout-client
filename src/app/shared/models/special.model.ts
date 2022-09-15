@@ -11,5 +11,6 @@ export interface Special {
          formattedTime?: string,
          date?: string,
          categories?: string
+         color? : string
   
 }

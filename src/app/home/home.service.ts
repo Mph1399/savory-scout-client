@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { map } from 'rxjs';
 import { GeolocationService } from '../shared/services/geolocation.service';
-import * as geofire from 'geofire-common';
-import * as FirestoreActions from '../shared/firestore/store/firestore.actions'
+import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
 import { Store } from '@ngrx/store';
 
 @Injectable()
-export class HomeService {
-
+export class HomeService implements OnDestroy {
+    
     constructor(
         private geoService:GeolocationService,
         private store: Store
@@ -18,7 +17,11 @@ export class HomeService {
     }
 
     getLocationsFromFirestore = (lat: number, lng: number) => {
-        this.store.dispatch(FirestoreActions.GET_LOCATIONS({lat: lat, lng: lng}))
+        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}))
+    }
+
+    ngOnDestroy(){
+
     }
  
 }

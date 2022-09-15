@@ -1,12 +1,13 @@
-const dayjs = require('dayjs')
+
 import { createReducer, on } from "@ngrx/store";
 import * as FirestoreActions from './search-filter.actions';
-const cloneDeep = require('clone-deep');
+import * as cloneDeep from 'clone-deep';
+import * as moment from "moment";
 
 export interface FilterState {
     filters: {     
       active: boolean,
-      date:  Date,
+      date:  moment.Moment,
       food: boolean,
       drinks: boolean,
       events: boolean,
@@ -17,10 +18,10 @@ export interface FilterState {
       radius: number}
   }
   
-  const initialState: FilterState = {
+  export const initialState: FilterState = {
     filters: {
       active: true,
-      date:  dayjs(new Date()).format('ddd MM/DD/YYYY'),
+      date:  moment(new Date()),
       food: true,
       drinks: true,
       events: true,
@@ -31,9 +32,9 @@ export interface FilterState {
       radius: 85
     }
 };
-    export const locationsReducer = createReducer(initialState,
+    export const searchFilterReducer = createReducer(initialState,
         on(FirestoreActions.SET_FILTERS, (state, action) => {
-           console.log('Action in CREATE_LOCATION Reducer: ', action)
+           console.log('Action in SEARCH FILTER Reducer: ', action)
            let stateCopy = cloneDeep(state.filters);
            console.log('Filters state Copy b4 merge: ', stateCopy)
            stateCopy = {...stateCopy, ...action}

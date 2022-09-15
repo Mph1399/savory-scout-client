@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -19,6 +20,7 @@ export class DesktopResultsComponent {
 
   constructor(
     // private deviceDetailsService: DeviceDetailsService
+    private store: Store
     ) {
    }
 

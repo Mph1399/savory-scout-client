@@ -1,8 +1,8 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
  import { FilterState } from './search-filter.reducers' 
 
- export const selectLocations = createFeatureSelector<Readonly<FilterState>>('locations');
+ export const selectFilter = createFeatureSelector<Readonly<FilterState>>('filters');
 
-export const getLocationsState = createSelector (selectLocations, (state) => {
+export const getFilterState = createSelector (selectFilter, (state) => {
     return state;
 })
