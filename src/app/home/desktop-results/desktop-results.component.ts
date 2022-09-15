@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { LocationsState } from '../../shared/firestore/store/firestore.reducers'
 
 // import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
 import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
@@ -14,8 +15,10 @@ import { DeviceDetailsService } from 'src/app/shared/services/device-details.ser
 export class DesktopResultsComponent {
  
   // @Input() dayOfTheWeek;
-  // @Input() screenWidth;
- //  @Input() filteredLocations$: Observable<FilteredLocationsPackage>;
+   @Input() screenWidth;
+   @Input() filteredLocations$: Observable<LocationsState>;
+     
+
   categories = ['food', 'drinks', 'events'];
 
   constructor(

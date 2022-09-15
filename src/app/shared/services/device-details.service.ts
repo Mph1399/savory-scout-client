@@ -1,13 +1,12 @@
-import { DetailsComponent } from './../app/details/details.component';
+import { DetailsComponent } from '../../details/details.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
-import { Geolocation } from 'src/models/geolocation.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceDetailsService {
-latestLocation: Geolocation;
 isDesktopDevice: boolean;
 browser = '';
 screenWidth: any;
@@ -34,18 +33,18 @@ setIsDesktopDevice = (isDesktop) => {
 getIsDesktopDevice = () => {
     return this.isDesktopDevice;
 }
-setBrowser = (browser) => {
-    this.browser = browser;
-}
-getBrowser = () => {
-    return this.browser;
-}
-setLatestLocation = (coords) => {
-    this.latestLocation = coords;
-}
-getLatestLocation = () => {
-    return this.latestLocation;
-}
+// setBrowser = (browser) => {
+//     this.browser = browser;
+// }
+// getBrowser = () => {
+//     return this.browser;
+// }
+// setLatestLocation = (coords) => {
+//     this.latestLocation = coords;
+// }
+// getLatestLocation = () => {
+//     return this.latestLocation;
+// }
 
 openDetails = (location, screenWidth) => {
   // Send an update to this locations clickThroughs

@@ -1,20 +1,26 @@
+import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { GeolocationService } from '../shared/services/geolocation.service';
 import { HomeService } from './home.service';
 
+import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  filteredLocations$  = this.store.select(FirestoreSelectors.getLocationsState)
+  screenWidth = this.deviceDetailsService.screenWidth;
   constructor(
-    private geoService: GeolocationService,
-    private homeService: HomeService
+    private deviceDetailsService: DeviceDetailsService,
+    private homeService: HomeService,
+    private store: Store
     ) { }
 
   ngOnInit(): void {
+    console.log('screewidth: ', this.screenWidth)
     this.homeService.geoMyLocation();
     
    // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))

@@ -48,7 +48,6 @@ export class DisplayLocationsService implements OnDestroy {
                has specials in one of the selected main categories(food, drinks, events) */ 
                 filteredSelectedMainCategories[index] = location;
              }
-        
             }
           });
         }

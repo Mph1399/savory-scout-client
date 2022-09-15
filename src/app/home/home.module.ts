@@ -1,3 +1,4 @@
+import { DesktopResultsModule } from './desktop-results/desktop-results.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +16,8 @@ import { HomeService } from './home.service';
   imports: [
     CommonModule,
     SharedModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    DesktopResultsModule
   ],
   exports: [HomeComponent],
   providers: [HomeService]
