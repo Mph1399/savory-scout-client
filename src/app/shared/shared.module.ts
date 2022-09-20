@@ -12,6 +12,7 @@ import { CitySelectComponent } from './city-select/city-select.component';
 
 
 
+
 @NgModule({
   declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent],
   imports: [
@@ -19,7 +20,7 @@ import { CitySelectComponent } from './city-select/city-select.component';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [FirestoreService, DisplayLocationsService],
   exports: [SpinnerComponent, CitySelectComponent],

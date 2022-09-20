@@ -6,6 +6,8 @@ import { MobileBreakpointService } from '../services/mobile-breakpoints.service'
 import * as AuthActions from '../../login/store/auth.actions';
 import * as FirestoreSelectors from '../firestore/store/firestore.selectors';
 import { getAuthState } from '../../login/store/auth.selectors';
+import { MatDialog} from '@angular/material/dialog';
+import { SearchFilterComponent } from '../dialogs/search-filter/search-filter.component';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class MainNavComponent {
   constructor(
     private mobileBreakpointService: MobileBreakpointService, 
     private store: Store,
-    public router: Router) {
+    public router: Router,
+    private openFilterDialog: MatDialog) {
     
     // subscribe to the User store
   }
@@ -36,6 +39,10 @@ export class MainNavComponent {
 
   logout = () => {
    this.store.dispatch(AuthActions.LOGOUT())
+  }
+
+  openFilter = () => {
+    this.openFilterDialog.open(SearchFilterComponent);
   }
 
 }

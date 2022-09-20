@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { LocationsState } from '../../shared/firestore/store/firestore.reducers'
 
 // import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
@@ -24,8 +24,7 @@ export class DesktopResultsComponent {
   constructor(
     // private deviceDetailsService: DeviceDetailsService
     private store: Store
-    ) {
-   }
+    ) {}
 
   openDetails = (index: number) => {
   //  const selectedLocation$ =  this.filteredLocations$.pipe(first()).subscribe(val => {

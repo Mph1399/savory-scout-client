@@ -26,16 +26,16 @@ export class DisplayLocationsService implements OnDestroy {
   filterLocationResults = (locations: Location[]) => {
     console.log('Filters: ', this.searchFilter.filters);
     console.log('locations: ', locations)
+    locations = JSON.parse(JSON.stringify(locations))
     /* Group the specials that have matching times,categories, days/date so that they can be displayed as a group un the search results */
     locations.forEach((location, index) => {
      locations[index] = this.groupSpecialsWithMatchingCriteria(location);
-   //console.log(  this.groupSpecialsWithMatchingCriteria(locations[2]))
    })
-   // console.log('Grouped Locations: ', locations)
     /* Filter out locations according to the three main categories selected in the filter. i.e Food, drinks, events */
     /* Now we have locations array that just contains locations that offer a special on one of the selected main categories. Next we
     need to determine if the "Active filter is selected. If so, run the locations array through a method that returns the location only
     if one of the specials is currently happening." */
+    console.log('Locations b4 filter: ', locations)
     return this.displaySelectedMainCategories(locations);
   };
 

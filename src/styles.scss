@@ -18,3 +18,16 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 }
 // Import Material Icons
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 
+
+.blue {
+  background-color: $primary;
+}
+.green{
+  background-color: $accent;
+}
+.yellow{
+  background-color: $caution;
+}
+.red{
+  background-color: $warn;
+}

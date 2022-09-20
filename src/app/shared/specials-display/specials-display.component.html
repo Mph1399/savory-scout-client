@@ -2,7 +2,7 @@
   <p class="text-center active-title"
   *ngIf="!location.food!.active && !location.drinks!.active && !location.events!.active && (filterValues | async)!.filters.active">No
   Specials Happening Now</p>
-  <p class="text-center active-title" *ngIf="(filterValues | async)!.filters.active">-Happening Now-</p>
+  <p class="active-title" *ngIf="(filterValues | async)!.filters.active">-Happening Now-</p>
   <p *ngIf="!(filterValues | async)!.filters.active">Active Not Selected</p> 
  </ng-container>
 
@@ -10,26 +10,28 @@
      <ng-container *ngIf="(filterValues | async)!.filters.active">
       <div *ngFor="let category of categories; let i = index">
         <ng-container *ngFor="let dateType of dateTypes; let l = index">
-        <ul class="specials-list" *ngFor="let group of location[category][dateType]; let k = index">
-          <ng-container *ngIf="group.active">
-            <p [ngClass]="location[category][dateType][k].color" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" class="special-time">
-              {{ category | titlecase }} Ending @ {{group.end}} |
-              {{group.categories[0] | uppercase}} {{group.categories[1] | uppercase}}
-              <mat-icon [ngClass]="{'map-adjust-font' : pageUrl === '/map'}">arrow_downward</mat-icon></p>
-
+        <div class="specials-list" *ngFor="let special of location[category][dateType]; let k = index">
+          <ng-container *ngIf="special.active">
+            <span [ngClass]="location[category][dateType][k].color"  class="special-time">
+              <!-- [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" above -->
+           {{ category | titlecase }} Ending @ {{special.end}} |
+              {{special.categories[0] | uppercase}} {{special.categories[1] | uppercase}}
+              <!-- <mat-icon class="down-arrow-icon">arrow_downward</mat-icon> -->
+            </span>
+              <!-- [ngClass]="{'map-adjust-font' : pageUrl === '/map'}" above -->
             <!-- ACTIVE DESKTOP RECURRING START-->
-            <ng-container *ngFor="let special of group.specials; let i = index;">
-              <li class="specials-item">
-                <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">restaurant</mat-icon>
-                <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">local_bar</mat-icon>
-                <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">event</mat-icon>
-                {{ special | titlecase }}
-              </li>
-    
-            </ng-container>
+            <mat-list role="list">
+              <mat-list-item class="specials-item" *ngFor="let title of special.title; let i = index;">
+                <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px' }">restaurant</mat-icon>
+                <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px'  }">local_bar</mat-icon>
+                <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' , 'line-height': '25px' }">event</mat-icon>
+               <div>{{ title | titlecase }} - <span class="price">${{ special.price }}</span></div> 
+              </mat-list-item>
+            </mat-list>
+        
             <!-- ACTIVE DESKTOP RECURRING END-->
           </ng-container>
-        </ul>
+        </div>
       </ng-container>
         </div>
         </ng-container>

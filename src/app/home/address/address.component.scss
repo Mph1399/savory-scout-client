@@ -1,0 +1,8 @@
+
+.address1, .address2 {
+        margin: 0;
+}
+
+ ::ng-deep .mat-card-subtitle:not(:first-child){
+    margin-top: 0 !important;
+ }

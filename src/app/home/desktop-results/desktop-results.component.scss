@@ -33,7 +33,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 235px;
+  max-width: 212px;
 }
 
 .mat-card-subtitle,
@@ -46,14 +46,6 @@
   font-size: 11px;
 }
 
-// format the specials listed
-ul {
-  margin: 0;
-  list-style: none;
-  padding-left: 4px;
-  font-size: 12px;
-}
-
 .see-info-text {
   text-align: right;
 }
@@ -63,10 +55,6 @@ ul {
   line-height: 35px;
 }
 
-// set icon size
-i {
-  font-size: 10px;
-}
 
 // Allow scrolling through specials but hide the scrollbar when
 //* Hide scrollbar for Chrome, Safari and Opera */
@@ -97,29 +85,26 @@ i {
   max-height: 150px;
   overflow-y: scroll;
   overflow-x: hidden;
-  font-size: 12px;
 }
 
 .avatar {
   background-size: contain;
   height: auto;
-  width: 95px;
+  width: 130px;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 0;
 }
 
 .mat-card-title {
-  margin: -7px 0 0 0px;
-}
-
-.mat-card-subtitle:first-child {
-  margin-top: -13px;
+  margin: 0px;
+  padding-left: 0px;
 }
 
 .card-header-desktop {
   // margin-left: 2px;
   display: -webkit-box;
+  min-height: 90px;
 }
 
 .locations-container {

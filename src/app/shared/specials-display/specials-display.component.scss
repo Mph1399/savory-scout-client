@@ -1,10 +1,19 @@
+@import '../../../../variables';
 // remove the top margin on the title above the active speacials
 .active-title {
+  text-align: center;
     margin: 0px;
-    background-color: #00a4ef;
-    color: white;
+    background-color: $primary;
   }
-
+.special-time {
+  margin: 0px;
+  text-align: center;
+  display: grid;
+  height: 15px;
+  padding: 2px;
+  color: white;
+  
+}
 .inactive-date {
     margin: 0 0 -12px 0;
     background-color: #00a4ef;
@@ -12,9 +21,8 @@
 }
 
 .specials-list {
-    padding-left: 0;
-    margin: 0;
-    padding-bottom: 3px;
+  padding: 0px;
+  margin: 0px;
   }
 
 .specials-item {
@@ -22,13 +30,21 @@
     height: 16px;
   }
 
-mat-icon {
-    font-size: 12px
+.down-arrow-icon {
+  font-size: 15px;
+  line-height: 40px;
 }
 
-.map-adjust-font {
-    font-size: 10px !important;
+// add space after the last special in a category
+mat-list-item:last-child{
+  margin-bottom: 7px;
 }
-.map-adjust-height {
-    height: 15px !important;
+
+mat-list-item {
+  margin-bottom: 4px;
+}
+
+.price {
+  font-size: 14px; 
+  vertical-align: unset;
 }
