@@ -1,20 +1,19 @@
- <!-- Active Specials -->
- <div *ngIf="(filterValues | async)!.filters.active" class="specials-container" [ngClass]="{'map-adjust-font' : pageUrl === '/map'}">
-    <p class="text-center active-title"
-      *ngIf="!location.food!.active && !location.drinks!.active && !location.events!.active && (filterValues | async)!.filters.active">No
-      Specials Happening Now</p>
-    <p class="text-center active-title" *ngIf="(filterValues | async)!.filters.active">-Happening Now-</p>
-    <!-- <p *ngIf="!active" class="text-center">Active Not Selected</p> -->
+ <ng-container *ngIf="(filterValues | async)!.filters.active"> 
+  <p class="text-center active-title"
+  *ngIf="!location.food!.active && !location.drinks!.active && !location.events!.active && (filterValues | async)!.filters.active">No
+  Specials Happening Now</p>
+  <p class="text-center active-title" *ngIf="(filterValues | async)!.filters.active">-Happening Now-</p>
+  <p *ngIf="!(filterValues | async)!.filters.active">Active Not Selected</p> 
+ </ng-container>
 
-    <!--/////////////////// Start active Specials list ///////////////// -->
-    <!-- ACTIVE SPECIALS -->
-    <ng-container *ngIf="(filterValues | async)!.filters.active">
+     <!-- ACTIVE SPECIALS -->
+     <ng-container *ngIf="(filterValues | async)!.filters.active">
       <div *ngFor="let category of categories; let i = index">
-        <!-- RECURRING -->
-        <ul class="specials-list" *ngFor="let group of location[category].recurringSpecials; let k = index">
-          <ng-container *ngIf="group.active && [category]">
-            <p [ngClass]="location[category].recurringSpecials[k].color" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" class="special-time">
-              {{ category | titlecase }} Ending @ {{group.endFormatted}} |
+        <ng-container *ngFor="let dateType of dateTypes; let l = index">
+        <ul class="specials-list" *ngFor="let group of location[category][dateType]; let k = index">
+          <ng-container *ngIf="group.active">
+            <p [ngClass]="location[category][dateType][k].color" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" class="special-time">
+              {{ category | titlecase }} Ending @ {{group.end}} |
               {{group.categories[0] | uppercase}} {{group.categories[1] | uppercase}}
               <mat-icon [ngClass]="{'map-adjust-font' : pageUrl === '/map'}">arrow_downward</mat-icon></p>
 
@@ -31,88 +30,6 @@
             <!-- ACTIVE DESKTOP RECURRING END-->
           </ng-container>
         </ul>
-
-        <!-- SPECIFIC DATE -->
-        <!-- ACTIVE SPECIFIC DATE DESKTOP-->
-        <ul *ngFor="let group of location[category].specificDateSpecials; let k = index">
-          <span *ngIf="group.active && [category]">
-            <p appNoPadding appTextCenter appNoMargin
-              [ngClass]="location[category].specificDateSpecials[k].color" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" class="special-time">
-              <mat-icon class="material-icons">arrow_downward</mat-icon>
-              {{ category | titlecase }} Ending @ {{group.endFormatted}} |
-              {{group.categories[0] | uppercase}} {{group.categories[1] | uppercase}}<i
-                class="material-icons">arrow_downward</i></p>
-
-            <ng-container *ngFor="let special of group.specials; let i = index;">
-              <li class="specials-item">
-                <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">restaurant</mat-icon>
-                <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">local_bar</mat-icon>
-                <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">event</mat-icon>
-                {{ special | titlecase }}
-              </li>
-            </ng-container>
-          </span>
-        </ul>
-      </div>
-    </ng-container>
-  </div>
-  <!-- END ACTIVE SPECIALS -->
-
-
-  <!-- INACTIVE SPECIALS START -->
-  <ng-container *ngIf="!(filterValues | async)!.filters.active">
-    <div class="specials-container disable-scrollbars">
-      <p class="inactive-date">{{ (filterValues | async)!.filters.date }}</p>
-      <!-- INACTIVE RECURRING -->
-      <section *ngFor="let category of categories;">
-        <ng-container *ngFor="let group of location[category].recurringSpecials">
-          <!-- Go through each day of the week for each special -->
-          <span *ngFor="let day of group.days">
-            <ul *ngIf="day === dayOfTheWeek && [category]" style="padding: 0px">
-              <p class="special-time" style="background-color: lightgray;" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }">{{group.formattedTime}} |
-                {{group.categories[0] | uppercase}} {{group.categories[1] | uppercase}}</p>
-              <ng-container *ngFor="let special of group.specials; let i = index;">
-                <li class="specials-item">
-                    <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">restaurant</mat-icon>
-                    <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">local_bar</mat-icon>
-                    <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">event</mat-icon>
-                  {{ special | titlecase }}
-                </li>
-              </ng-container>
-              <!-- INACTIVE RECURRING END-->
-            </ul>
-          </span>
-        </ng-container>
-      </section>
-
-      <!-- INACTIVE SPECIFIC DATE START -->
-      <ng-container *ngFor="let category of categories;">
-        <ng-container *ngFor="let group of location[category].specificDateSpecials">
-          <!-- Go through each day of the week for each special -->
-          <span *ngFor="let day of group.days">
-            <ul *ngIf="day === dayOfTheWeek && [category]" style="padding: 0px">
-              <p class="special-time" style="background-color: lightgray;" [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }">{{group.formattedTime}} |
-                {{group.categories[0] | uppercase}} {{group.categories[1] | uppercase}}</p>
-              <!-- INACTIVE SPECIFIC DATE START-->
-              <!-- <ng-container *ngIf="isDesktop"> -->
-              <ng-container *ngFor="let special of group.specials; let i = index;">
-                <li class="specials-item">
-                    <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">restaurant</mat-icon>
-                    <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">local_bar</mat-icon>
-                    <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' }">event</mat-icon>
-                  {{ special | titlecase }}
-                </li>
-                <!-- </ng-container> -->
-              </ng-container>
-              <!-- INACTIVE SPECIFIC DATE END-->
-            </ul>
-          </span>
-        </ng-container>
       </ng-container>
-      <!-- Warnings -->
-      <!-- <p  class="text-center" *ngIf="!location.hasSpecialsToday">Click the Logo to
-        view other dates <br>& all specials at this location</p> -->
-    </div>
-  </ng-container>
-  <!-- END SHOW IF INACTIVE -->
-
+        </div>
+        </ng-container>

@@ -1,7 +1,7 @@
 import { DisplayLocationsService } from './../../services/display-locations.service';
 
 import { Injectable } from '@angular/core';
-// import { RouterEvent } from "@angular/router";
+ import { cloneDeep } from "clone-deep";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
 import { map, switchMap, tap } from 'rxjs';
@@ -37,8 +37,10 @@ export class FirestoreEffects {
         }),
         map((locations) => {
           console.log('Locations :', locations);
-         const filteredLocations = this.displayLocationsService.filterLocationResults(locations as [Location]);
-         console.log('filtered: ', filteredLocations)
+          // make a deep copy of locations
+          const locationsCopy = JSON.parse(JSON.stringify(locations))
+          const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          console.log('filtered: ', filteredLocations)
           return FirestoreActions.SET_LOCATIONS({locations: locations as [Location]})
         })
       ),

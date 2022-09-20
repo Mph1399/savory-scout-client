@@ -19,6 +19,7 @@ export class SpecialsDisplayComponent implements OnInit {
   dayOfTheWeek = moment().format('ddd');
   date;
   categories = ['food', 'drinks', 'events'];
+  dateTypes = ['recurringSpecials', 'specificDateSpecials'];
   constructor(
    // private displayRestaurantFilterService: DisplayRestaurantsFilterService
    private store: Store
@@ -26,6 +27,7 @@ export class SpecialsDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('Location: ', this.location)
 
     this.date = new Date();
     // this.serializedDate = new FormControl((new Date()).toISOString());
