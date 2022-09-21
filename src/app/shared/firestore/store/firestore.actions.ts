@@ -7,5 +7,5 @@ export const GET_LOCATIONS_BY_COORDS = createAction(
   );
   export const SET_LOCATIONS = createAction(
     '[Locations] Set Locations',
-    props<{ locations: [Location] }>()
+    props<{ locations: Location[] }>()
   );

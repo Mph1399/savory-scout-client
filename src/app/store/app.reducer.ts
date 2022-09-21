@@ -2,7 +2,7 @@ import { ActionReducerMap } from '@ngrx/store';
 import * as FromAuth from '../login/store//auth.reducer'
 import * as FromSpinner from '../shared/spinner/store/spinner.reducer';
 import * as FromLocations from '../shared/firestore/store/firestore.reducers';
-import * as FromSearchFilter from '../shared/search-filter/store/search-filter.reducers'
+import * as FromSearchFilter from '../shared/dialogs/search-filter/store/search-filter.reducers'
 
 export interface AppState {
      spinner: FromSpinner.SpinnerState;

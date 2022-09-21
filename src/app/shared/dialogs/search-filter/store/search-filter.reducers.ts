@@ -29,7 +29,7 @@ export interface FilterState {
       brunch: true,
       kids: true,
       outdoor: true,
-      radius: 85
+      radius: 50
     }
 };
     export const searchFilterReducer = createReducer(initialState,

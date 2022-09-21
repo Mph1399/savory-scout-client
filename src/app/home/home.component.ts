@@ -6,15 +6,21 @@ import { HomeService } from './home.service';
 
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 import { tap } from 'rxjs';
+import { Location } from '../shared/models/location.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  filteredLocations$  = this.store.select(FirestoreSelectors.getLocationsState).pipe(
+  filteredLocations: Location[];
+  filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
     tap(val => console.log('Filtered Locations Value: ', val))
-  )
+  ).subscribe(value => {
+    console.log('Firestore Values Changed: ', value);
+    this.filteredLocations = value.locations;
+
+  })
   screenWidth = this.deviceDetailsService.screenWidth;
   constructor(
     private deviceDetailsService: DeviceDetailsService,

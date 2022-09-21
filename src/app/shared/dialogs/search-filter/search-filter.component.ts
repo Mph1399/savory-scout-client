@@ -1,28 +1,30 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
-import { SearchFilterService } from 'src/services/search-filter.service';
-import { FilterValues } from 'src/models/filter-values.model';
+import * as SearchFilterActions from '../search-filter/store/search-filter.actions';
+import * as SearchFilterSelectors from '../search-filter/store/search-filter.selectors'
+import { FilterValues } from '../../../shared/models/filter-values.model';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
   styleUrls: ['./search-filter.component.scss']
 })
-export class SearchFilterComponent implements OnInit {
+export class SearchFilterComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
   filter: boolean;
   date;
   radius;
-  filterValues$ = this.searchFilterService.filterValues$.subscribe(values => this.filterValues = values);
+  filterValues$ = this.store.select(SearchFilterSelectors.getFilterState).subscribe(values => this.filterValues = values.filters);
   filterValues: FilterValues;
 
   constructor(
     private dialogRef: MatDialogRef<SearchFilterComponent>,
     formBuilder: FormBuilder,
-    public searchFilterService: SearchFilterService,
+    public store: Store
     ) {
       this.radius = this.filterValues.radius;
       this.date = moment(this.filterValues.date).format();
@@ -44,9 +46,10 @@ export class SearchFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setActive = (date) => {
+  isDateSetToToday = (date) => {
     // see if the date matches todays date.
-    moment().format('ddd MM/DD/YYYY').toUpperCase() !== moment(date).format('ddd MM/DD/YYYY').toUpperCase() ? false : true;
+  return moment().format('ddd MM/DD/YYYY').toUpperCase() === moment(date).format('ddd MM/DD/YYYY').toUpperCase() ? true : false;
+
   }
 
   closeFilter = (apply, form) => {
@@ -57,9 +60,9 @@ export class SearchFilterComponent implements OnInit {
       // Format the date to the database formatting
       form.date = moment(form.date).format('ddd MM/DD/YYYY');
       // Set active according to if the date is set to today
-      form.active = this.setActive(form.date);
+      form.active && !this.isDateSetToToday(form.date)? form.active = false : '';
       // Update the filteroptions observable with the new filter data
-      this.searchFilterService.triggerNextFilterValues(form);
+      this.store.dispatch(SearchFilterActions.SET_FILTERS({...form}));
     }
      //
     this.dialogRef.close();
@@ -71,5 +74,9 @@ reset = () => {
   this.formGroup.reset();
   this.radius = this.filterValues.radius;
   this.date = new Date();
+}
+
+ngOnDestroy(){
+  this.filterValues$.unsubscribe();
 }
 }

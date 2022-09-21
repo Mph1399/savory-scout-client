@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 // import { FilterValues } from 'src/models/filter-values.model';
 import { Location } from '../models/location.model';
 // import { DisplayRestaurantsFilterService } from 'src/services/display-restaurants-filter.service';
 import * as moment from 'moment'
-import * as SearchFilterSelectors from '../search-filter/store/search-filter.selectors'
+import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-filter.selectors'
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { LocationsState } from '../firestore/store/firestore.reducers';
 
 
 @Component({
@@ -12,10 +14,11 @@ import { Store } from '@ngrx/store';
   templateUrl: './specials-display.component.html',
   styleUrls: ['./specials-display.component.scss']
 })
-export class SpecialsDisplayComponent implements OnInit {
+export class SpecialsDisplayComponent implements OnInit, OnChanges {
   filterValues = this.store.select(SearchFilterSelectors.getFilterState);
   @Input() location: Location;
   @Input() pageUrl: string;
+  @Input() index: number;
   dayOfTheWeek = moment().format('ddd');
   date;
   categories = ['food', 'drinks', 'events'];
@@ -27,11 +30,14 @@ export class SpecialsDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Location: ', this.location)
+   // console.log('Location: ', this.locationState)
 
     this.date = new Date();
     // this.serializedDate = new FormControl((new Date()).toISOString());
    // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Changes: ', changes)
   }
 
 }

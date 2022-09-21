@@ -1,6 +1,7 @@
 export interface Special {
+         active: boolean,
          type: number,
-         title: string,
+         title: string | string[],
          description: string,
          start: number,
          end: number,
@@ -16,6 +17,7 @@ export interface Special {
 }
 
 export interface SortedSpecial {
+    active: boolean,
     type: number,
     title: string[],
     description: string,

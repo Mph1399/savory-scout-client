@@ -4,10 +4,10 @@ import { createReducer, on } from "@ngrx/store";
 import * as FirestoreActions from './firestore.actions';
 
 export interface LocationsState {
-    locations: [Location]
+    locations: Location[]
   }
   
-  const initialState: LocationsState = {
+ const initialState: LocationsState = {
     locations: [{
         active: false,
         name: '',

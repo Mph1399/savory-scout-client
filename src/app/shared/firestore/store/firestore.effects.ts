@@ -41,7 +41,7 @@ export class FirestoreEffects {
           const locationsCopy = JSON.parse(JSON.stringify(locations))
           const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
           console.log('filtered: ', filteredLocations)
-          return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as [Location]})
+          return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
         })
       ),
     //{ dispatch: false }

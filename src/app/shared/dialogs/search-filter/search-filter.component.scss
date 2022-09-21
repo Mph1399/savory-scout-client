@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import '../../../../../variables';
 .filter-wrapper {
     z-index: 9900;
     width: 100vw;
@@ -35,13 +35,12 @@
   }
   .filter-close-btn {
     float: right;
-    padding-top: 10px;
-    margin-right: 22px;
+    margin-top: -30px;
     color: $warn;
   }
 
   .filter-close-btn-icon {
-    font-size: 47px;
+    font-size: 30px;
   
   }
   ::ng-deep .mat-dialog-container {
@@ -61,9 +60,8 @@
     font-size: 20px;
 }
 .reset-btn {
-  font-size: 20px;
+  font-size: 17px;
   min-width: 25px;
-  margin-left: 16px;
 }
 .reset-btn :focus {
     background-color: transparent;

@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from './shared/shared.module';
 import { SpecialsDisplayComponent } from './shared/specials-display/specials-display.component';
+import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search-filter.effects';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { SpecialsDisplayComponent } from './shared/specials-display/specials-dis
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(FromApp.appReducer),
-    EffectsModule.forRoot([ AuthEffects, FirestoreEffects, ]),
+    EffectsModule.forRoot([ AuthEffects, FirestoreEffects, SearchFilterEffects ]),
     SharedModule,
     AppRoutingModule,
     ScullyLibModule,

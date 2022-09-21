@@ -1,22 +1,21 @@
 
      <!-- /////////////////////////// LOCATION RESULTS DESKTOP START /////////////////////////////-->
      <div class="locations-container">
-      <ng-container *ngFor="let location of ( filteredLocations$ | async)!.locations ; let i = index">
+      <ng-container *ngFor="let location of filteredLocations ; let i = index">
         <mat-card class="location-card" *ngIf="location.active">
           <mat-card-header class="card-header-desktop" (click)="openDetails(i)">
             <div mat-card-avatar class="avatar"
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>
             <span style="cursor: pointer;">
               <mat-card-title style="font-weight: bold;">{{ location.name }}</mat-card-title>
-              <app-address [address]="location.address"></app-address>
-              <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
+              <mat-card-subtitle>{{ location.address }}</mat-card-subtitle>
               <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance:
                 <strong>{{ location.distance | number : '1.2-2' }}mi</strong></mat-card-subtitle> -->
             </span>
           </mat-card-header>
           <mat-card-content class="card-specials">
 
-            <app-specials-display [location]="location"></app-specials-display>
+            <app-specials-display [location]="filteredLocations[i]"></app-specials-display>
 
           </mat-card-content>
         </mat-card>

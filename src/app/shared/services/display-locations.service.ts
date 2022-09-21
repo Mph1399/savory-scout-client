@@ -1,12 +1,14 @@
+import { Special } from './../models/special.model';
 declare var require: any;
-import { FilterState, searchFilterReducer } from './../search-filter/store/search-filter.reducers';
+import { FilterState, searchFilterReducer } from '../dialogs/search-filter/store/search-filter.reducers';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Location } from '../models/location.model';
 import * as moment from 'moment'
-import * as SearchFilterSelectors from '../../shared/search-filter/store/search-filter.selectors';
-import { initialState } from '../../shared/search-filter/store/search-filter.reducers'
-import { SortedSpecial, Special } from '../models/special.model';
+import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-filter.selectors';
+import * as FirestoreSelectors from '../firestore/store/firestore.selectors'
+import { initialState } from '../dialogs/search-filter/store/search-filter.reducers'
+
 
 @Injectable()
 export class DisplayLocationsService implements OnDestroy {
@@ -17,15 +19,13 @@ export class DisplayLocationsService implements OnDestroy {
   searchFilter: FilterState = initialState;
   searchFilter$ = this.store
     .select(SearchFilterSelectors.getFilterState)
-    .subscribe((filterState) => {
-      this.searchFilter = filterState;
-    });
+    .subscribe((filterState) => this.searchFilter = filterState);
 
   constructor(private store: Store) {}
 
   filterLocationResults = (locations: Location[]) => {
-    console.log('Filters: ', this.searchFilter.filters);
-    console.log('locations: ', locations)
+// console.log('Filters: ', this.searchFilter.filters);
+// console.log('locations: ', locations)
     locations = JSON.parse(JSON.stringify(locations))
     /* Group the specials that have matching times,categories, days/date so that they can be displayed as a group un the search results */
     locations.forEach((location, index) => {
@@ -35,92 +35,90 @@ export class DisplayLocationsService implements OnDestroy {
     /* Now we have locations array that just contains locations that offer a special on one of the selected main categories. Next we
     need to determine if the "Active filter is selected. If so, run the locations array through a method that returns the location only
     if one of the specials is currently happening." */
-    console.log('Locations b4 filter: ', locations)
+  // console.log('Locations b4 filter: ', locations)
     return this.displaySelectedMainCategories(locations);
   };
 
   displaySelectedMainCategories = (locations: Location[]): Location[] => {
-    const filteredSelectedMainCategories: Location[] = [];
-    // Check to see if the location has specials that meet the filter crieria first. I.e it has Drink specials if that's selected.
+    const filteredSelectedMainCategories: Location[] = JSON.parse(JSON.stringify(locations));
+/*  Check to see if the location has specials that meet the filter crieria first. I.e it has Drink specials if that's selected. */
     locations.forEach((location, index) => {
+/* Reset the active status of the currently saved location before filtering */
+      filteredSelectedMainCategories[index].active = false;
       this.categories.forEach((category) => {
-        // If the current category is selected
+/* Reeset the active status of the currently saved location category before filtering */
+      filteredSelectedMainCategories[index][category].active = false;
+/* If the current category is selected in filter */
+        console.log(`Category: ${category}`,this.searchFilter.filters[category])
         if (this.searchFilter.filters[category]) {
           this.dateTypes.forEach((dateType) => {
-            if (
-              location[category as keyof typeof location]![
-                dateType as keyof typeof location
-              ].length > 0
-            ) {
-              /* This location contains a main category that the filter has selected */
+            if (location[category as keyof typeof location]![dateType as keyof typeof location].length > 0) {
+              /* This location has specials a main category that the filter has selected */
               /* Check if that category has a special that is currently active if the Active filter is selected */
               if (this.searchFilter.filters.active) {
-                filteredSelectedMainCategories[index] =
-                  this.displayLocationWithActiveSpecials(
-                    location,
-                    category,
-                    dateType
-                  );
-              } else {
-                /* Active isn't selected but the filter found a match for on of the search filter main categories. Assign the location to the results as inactive but
-               has specials in one of the selected main categories(food, drinks, events) */
-                filteredSelectedMainCategories[index] = location;
-              }
+                const filteredSpecials = this.displayLocationWithActiveSpecials(JSON.parse(JSON.stringify(location[category][dateType])), category, dateType);
+/* If one of the specials turns out to be active, mark the location and the location category as active: true. displayLocationWithActiveSpecials
+will return a true boolean if any special turned out to be active */
+                filteredSpecials.active ? filteredSelectedMainCategories[index].active = true : '';
+                filteredSpecials.active ? filteredSelectedMainCategories[index][category].active = true : '';
+                filteredSelectedMainCategories[index][category][dateType] = filteredSpecials.specials;
+              } 
+              // else {
+              //   /* Active isn't selected but the filter found a match for on of the search filter main categories. Assign the location to the results as inactive but
+              //  has specials in one of the selected main categories(food, drinks, events) */
+              //   filteredSelectedMainCategories[index] = location;
+              // }
             }
           });
+        } else {
+/* The current category isn't selected in the filter. Just push the location to the filteredMainCategories without modification */
+           filteredSelectedMainCategories[index][category].active = false;
+/* Set each special contained in the deselected category to inactive  */
+           this.dateTypes.forEach(dateType => location[category][dateType].forEach((special, k) => filteredSelectedMainCategories[index][category][dateType][k].active = false ));
+          /// filteredSelectedMainCategories[index] = location;
         }
       });
     });
     return filteredSelectedMainCategories;
   };
 
-  displayLocationWithActiveSpecials = (
-    location: Location,
-    category,
-    dateType
-  ) => {
-    /* For recurring specials, We will first check that the day of the week matches. Then, we will compare the start and end times with the current times  */
-    let tempLocation: Location = location;
-    /* Check the day of the week for a recurring special match */
-    this.dateTypes.forEach((dateType) => {
-      location[category][dateType].forEach((special: Special, index) => {
-        if (
-          (dateType == 'recurringSpecials' &&
-            special.days!.indexOf(this.dayOfTheWeek) != -1) ||
-          (dateType === 'specificDateSpecials' &&
-            special.date === this.todaysDate)
-        ) {
-          tempLocation[category][dateType][index] =
-            this.determineIfSpecialTimeIsActive(special);
-          // If the special is active, mark the whole location and the special category as active for later display
-          if (tempLocation[category][dateType][index].active) {
-            tempLocation.active = true;
-            tempLocation[category].active = true;
-          }
+  displayLocationWithActiveSpecials = (specials: Special[], category, dateType) => {
+/* For recurring specials, We will first check that the day of the week matches. Then, we will compare the start and end times with the current times  */
+   // let tempLocation: Location = location;
+     let tempSpecials: Special[] = specials;
+     let active = false;
+
+   specials.forEach((special, i) => {
+    //  location[category][dateType].forEach((special: Special, index) => {
+        /* reset the active from previous filter setting/search */
+        special.active = false;
+        special.color = 'gray';
+/* For each special, Check if the day of the week for the special matches today in the case of arecurring special.
+  If the special is on a specific date, check to see if that date is Todays date. */
+        if (dateType == 'recurringSpecials' && special.days!.indexOf(this.dayOfTheWeek) != -1 ||
+          dateType === 'specificDateSpecials' && special.date === this.todaysDate) {
+/*  A match was found for either the current day or date. Send the special to determine if the time of the specialis currently active. */
+        tempSpecials[i] = this.determineIfSpecialTimeIsActive(special);
+        /* If one of the specials is active, we need to set the whole location as active. Set a var to true and send it to parent method */
+        tempSpecials[i].active ? active = true : '';
         }
-      });
+   //   });
     });
-    return tempLocation;
+    return {specials: tempSpecials, active };
     /* dayMatch and date match arrays now contain the specials that are matching todays day or date. 
      Now we need to check if those specials match up with the current time so we can mark them as active
-     using a helper function.
-     */
+     using a helper function. */
     // console.log('day Match: ', dayMatch, ' Date Match: ', dateMatch )
   };
 
   determineIfSpecialTimeIsActive = (special) => {
-    /*  In order for a special to be active, the start difference should be a negative number and the end should be positive for most cases. Sometimes a restaurant 
-      will have a special that technically ends the following day, for example, a special can start at 9PM and end at 2AM in the morning that night. In this case
-      we'll get a result of two negative numbers. For this, the end difference should be a larger negative number than the start difference. i.e start = -255(minutes)
-      & end = -782(minutes). When this is the case, we'll consider this and active special. */
-
+/*  In order for a special to be active, the start difference should be a negative number and the end should be positive for most cases. */
     const now = moment(moment().format('hh:mmA'), 'hh:mmA');
     const start = moment(special.start, 'hh:mmA');
     const end = moment(special.end, 'hh:mmA');
-    // If the end is after midnight
-    if (end.isBefore(start)) {
-      end.add(1, 'day');
-    }
+/* If the end is after midnight, add a day to adjust for ending on the next day */
+    if (end.isBefore(start)){ end.add(1, 'day');}
+
     const minutesDiffToStart = start.diff(now, 'minutes', true);
     const minutesDiffToEnd = end.diff(now, 'minutes', true);
     if (minutesDiffToStart < 0 && minutesDiffToEnd > 0) {
@@ -161,7 +159,7 @@ export class DisplayLocationsService implements OnDestroy {
           // set the tempLocation specials arrays to empty array to start with so grouped specials can be added
          
           sortedLocation[category][dateType] = [];
-          location[category][dateType].forEach((special, index) => {
+          location[category][dateType].forEach((special: Special, index) => {
           let match = false;
           // Make a deep copy of the sortedLocation Special
           sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
@@ -170,7 +168,8 @@ export class DisplayLocationsService implements OnDestroy {
           // The special has a title that is currently a string but we want it to be an array.
           special.title = [];
           special.title.push(title);
-          sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
+          console.log('Special Title: ', special.title)
+          // sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
 
           // Push the first special to the array
          if (index === 0) {
