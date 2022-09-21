@@ -19,6 +19,10 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 // Import Material Icons
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 
 
+body {
+  margin: 0
+}
+
 .blue {
   background-color: $primary;
 }

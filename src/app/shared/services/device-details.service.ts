@@ -46,7 +46,7 @@ getIsDesktopDevice = () => {
 //     return this.latestLocation;
 // }
 
-openDetails = (location, screenWidth) => {
+openDetails = (location) => {
   // Send an update to this locations clickThroughs
   // if (environment.state === 'prod') {
   //   try {
@@ -72,7 +72,7 @@ openDetails = (location, screenWidth) => {
         'custom-dialog-container' is a class in the styles.scss
         */
 
-  if (screenWidth < 800) {
+  if (this.screenWidth < 800) {
     // Open the dialog with these settings if the device is mobile
     const detailsModal = this.dialog.open(DetailsComponent, {
       panelClass: 'myapp-no-padding-dialog',

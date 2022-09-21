@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 // import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
 import { first } from 'rxjs/operators';
+import { Location } from 'src/app/shared/models/location.model';
 
 @Component({
   selector: 'app-mobile-results',
@@ -12,18 +13,14 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./mobile-results.component.scss']
 })
 export class MobileResultsComponent {
-  // @Input() filterValues: FilterValues;
-  @Input() dayOfTheWeek: any;
-  @Input() screenWidth: any;
+  @Input() filteredLocations: Location[];
+   categories = ['food', 'drinks', 'events'];
  // @Input() filteredLocations$: Observable<FilteredLocationsPackage>;
-  categories = ['food', 'drinks', 'events'];
+
   constructor(private deviceDetailsService: DeviceDetailsService) {
   }
 
   openDetails = (index: number) => {
-    // const selectedLocation$ =  this.filteredLocations$.pipe(first()).subscribe(val => {
-    //    this.deviceDetailsService.openDetails(val.restaurants[index], this.screenWidth );
-    //  });
-  //  selectedLocation$.unsubscribe();
+        this.deviceDetailsService.openDetails(this.filteredLocations[index]);
     }
 }

@@ -8,7 +8,8 @@
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>
             <span style="cursor: pointer;">
               <mat-card-title style="font-weight: bold;">{{ location.name }}</mat-card-title>
-              <mat-card-subtitle>{{ location.address }}</mat-card-subtitle>
+              <app-address [address]="location.address"></app-address>
+              <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
               <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance:
                 <strong>{{ location.distance | number : '1.2-2' }}mi</strong></mat-card-subtitle> -->
             </span>

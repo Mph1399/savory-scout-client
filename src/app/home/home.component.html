@@ -17,8 +17,8 @@
   <!-- Show the city select -->
   <!-- <app-city-select *ngIf="(filteredLocations$ | async).noResultsInThisArea === true"></app-city-select> -->
          
-  <!-- <app-mobile-results *ngIf="screenWidth <= 800" [filterValues]="filterValues" [screenWidth]="screenWidth" [filteredLocations$]="filteredLocations$" [dayOfTheWeek]="dayOfTheWeek"></app-mobile-results>  -->   
-  <app-desktop-results *ngIf="screenWidth > 800"  [screenWidth]="screenWidth" [filteredLocations]="filteredLocations" ></app-desktop-results>   
+  <app-mobile-results *ngIf="screenWidth <= 800"   [filteredLocations]="filteredLocations" ></app-mobile-results>    
+  <app-desktop-results *ngIf="screenWidth > 800"   [filteredLocations]="filteredLocations" ></app-desktop-results>   
 
   <!-- Mobile Footer Searchbar -->
   <!-- <app-footer-navbar *ngIf="screenWidth <= 800"></app-footer-navbar> -->

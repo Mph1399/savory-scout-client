@@ -16,22 +16,17 @@ import { Location } from 'src/app/shared/models/location.model';
 export class DesktopResultsComponent {
  
   // @Input() dayOfTheWeek;
-   @Input() screenWidth;
+  // @Input() screenWidth;
    @Input() filteredLocations: Location[];
-  
-
-  categories = ['food', 'drinks', 'events'];
+   categories = ['food', 'drinks', 'events'];
 
   constructor(
-    // private deviceDetailsService: DeviceDetailsService
+    private deviceDetailsService: DeviceDetailsService,
     private store: Store
     ) {}
 
   openDetails = (index: number) => {
-  //  const selectedLocation$ =  this.filteredLocations$.pipe(first()).subscribe(val => {
-  //     this.deviceDetailsService.openDetails(val.restaurants[index], this.screenWidth );
-  //   });
-  //  selectedLocation$.unsubscribe();
+      this.deviceDetailsService.openDetails(this.filteredLocations[index]);
    }
 
    ngOnChanges(changes: SimpleChanges) {

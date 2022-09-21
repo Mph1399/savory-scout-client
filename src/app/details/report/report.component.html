@@ -1,0 +1,51 @@
+<mat-card style="text-align: center; " class="card" *ngIf="reportLocation">
+    <h2>Contact Savory Scout</h2>
+    <mat-card-subtitle>Use the form below to report <strong>{{ data.name }}</strong>
+    </mat-card-subtitle>
+    <mat-card-subtitle><strong>Outdated Info? Concerns? Errors?</strong></mat-card-subtitle>
+
+    <img mat-card-image class="sent-image" *ngIf="!sent"
+      src="./../assets/icons/mail.png">
+    <img mat-card-image class="sent-image" *ngIf="sent"
+      src="./../assets/icons/checkmark.png">
+      <mat-card-subtitle *ngIf="sent" class="message-sent">Message Sent!</mat-card-subtitle>
+      <!-- Error Message -->
+    <mat-card-subtitle appTextCenter *ngIf="errorMessage" style="background-color: rgb(255, 123, 123);">Error, please try
+      again</mat-card-subtitle>
+    <form [formGroup]="emailForm" (ngSubmit)="submitForm(emailForm)" *ngIf="!sent">
+      <mat-card-content>
+        <mat-form-field color="primary">
+          <input matInput type="text" placeholder="Enter Name:" #name formControlName="name">
+          <mat-hint align="end">Not more then 30 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+          <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field color="primary" required>
+          <input matInput placeholder="Enter Email:" #email formControlName="email" required>
+          <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">Email must be valid</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field color="primary" class="phone-input">
+          <input matInput placeholder="Enter Phone:" #phone formControlName="phone" >
+        </mat-form-field>
+        <br>
+        <mat-form-field color="primary">
+          <textarea matInput placeholder="What would you like to report?:" #text formControlName="text"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="25"></textarea>
+            <mat-hint align="end">Not more then 800 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('text', 'required')">Text content is required</mat-error>
+          <mat-error *ngIf="hasError('text', 'maxlength')">You have more than 800 characters</mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-card-actions align="start" style="margin:0; padding: 0;">
+          <button *ngIf="!sent" mat-raised-button  type="button" (click)="onCancel()" color="warn">Cancel</button>
+          <button *ngIf="!sent" mat-raised-button [disabled]="!emailForm.valid" type="submit" color="accent">Submit</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </form>  
+    <button *ngIf="sent" mat-raised-button  type="button" (click)="onCancel()" color="accent">Close Reporting Form</button>
+  </mat-card>

@@ -18,8 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 
 
-
-
 @NgModule({
   declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent],
   imports: [
@@ -37,7 +35,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     
   ],
   providers: [FirestoreService, DisplayLocationsService],
-  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent],
+  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }
