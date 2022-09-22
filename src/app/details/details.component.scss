@@ -1,12 +1,5 @@
 @import '../../../variables';
- // fomat the location name/close button grid
- .title {
-  width: 100%;
- }
- // adjust the font size of the location name in details
- .mat-card-title {
-  font-size: 30px;
-}
+
 
 // remove padding from the modal container
 ::ng-deep .mat-dialog-container {
@@ -21,26 +14,14 @@
     border-bottom: 1px solid gray;
     display: flex;
 }
-.details-header {
-  background-color: $primary;
-  color: white;
-}
-.close-btn {
-  color: $warn;
-  cursor: pointer;
-  font-size: 30px
-}
-.special-title {
-   list-style-type: none;
-   font-weight: bold;
-}
+
 #secondGroup .mat-ink-bar {
   background-color: $accent !important;
   // height: 8px !important;
 }
 // remove padding from the card top and bottom
 .mat-card{
-  padding: 0 21px;
+  padding: 0 0;
 }
 // Prevent the location title from wrapping
 .mat-card-content,
@@ -179,10 +160,6 @@ width: 100%;
   height: 100px;
   margin: auto;
 }
-.spinner {
-  top: 20vh;
-  left: calc(28vw - 60px);
-}
 
 // Make the tabs scrollable instead of using the arrow buttons.::ng-deep .mat-tab-header {
 ::ng-deep .mat-tab-header {
@@ -208,8 +185,4 @@ width: 100%;
       max-width: 100vw;
   }
 
-  .spinner {
-    top: 20vh;
-    left: calc(33vw - 60px);
-  }
 }

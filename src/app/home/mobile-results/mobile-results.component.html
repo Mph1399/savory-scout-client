@@ -2,7 +2,8 @@
         <div class="locations-container" >
             <carousel [cellWidth]="'100%'" [objectFit]="'cover'" [dots]="true" [counter]="true" [arrows]="true"
               [loop]="true" style="height: calc(100vh - 90px)">
-              <mat-card class="location-card" class="carousel-cell" *ngFor="let location of filteredLocations; let i = index" (click)="openDetails(i)">
+              <ng-container *ngFor="let location of filteredLocations; let i = index" >
+              <mat-card *ngIf="location.active" class="location-card carousel-cell"  (click)="openDetails(i)">
                 <mat-card-header class="card-header-mobile">
                   <img mat-card-image style="background-image: url({{location.thumb_url}});" >
                   <mat-card-title style="font-weight: bold;" >{{ location.name }}</mat-card-title>
@@ -18,6 +19,7 @@
                 </mat-card-content>
               </div>
               </mat-card>
+            </ng-container>
             </carousel>
           </div>
         <!-- ///////////////////////// LOCATION RESULTS MOBILE END //////////////////////////////////-->

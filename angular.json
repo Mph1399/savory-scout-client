@@ -35,7 +35,8 @@
             "allowedCommonJsDependencies": [
               "firebase/compat",
               "dialog-polyfill",
-              "geofire-common"
+              "geofire-common",
+              "moment"
             ]
           },
           "configurations": {

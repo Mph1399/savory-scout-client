@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
-@import "~firebaseui/dist/firebaseui.css";
-@import '~@angular/material/theming';
+@import "../node_modules/firebaseui/dist/firebaseui.css";
+@import '../node_modules/@angular/material/theming';
 @import './variables';
 @include mat-core();
 
@@ -23,6 +23,10 @@ body {
   margin: 0
 }
 
+::ng-deep {
+  
+}
+
 .blue {
   background-color: $primary;
 }
@@ -34,4 +38,34 @@ body {
 }
 .red{
   background-color: $warn;
+}
+
+// Apply this class to a div and all nested divs will be set up in a in a column grid according to the number
+.grid-container-7{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+}
+.grid-container-6 {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+.grid-container-5 {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+}
+.grid-container-4 {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+.grid-container-3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.grid-container-2 {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.grid-container-1 {
+  display: grid;
+  grid-template-columns: auto ;
 }

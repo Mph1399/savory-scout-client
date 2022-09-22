@@ -1,0 +1,51 @@
+<div appTextCenter class="grid-container-1"
+  *ngIf="!specials.recurringSpecials && !specials.specificDateSpecials">
+  <p>No {{ type | titlecase }} Specials Available</p>
+</div>
+<p>ACTIVE IN CATEGORY TAB</p>
+<!-- Create a new tab group where each tab will represent a day of the week that the business has a special on. -->
+<mat-tab-group id="secondGroup">
+    <!-- Loop through the days of the week -->
+  <mat-tab *ngFor=" let day of details.days; let i = index" label="{{ day.day | uppercase }}" >
+        <span *ngFor="let recurringSpecial of day.recurringSpecials; let j = index" no-lines>
+           <!-- Show the start and end time of the current special(s) specials -->
+           <p class="special-time">
+            {{recurringSpecial.start}} - {{recurringSpecial.end}}
+          </p>
+          <!-- Loop through and display all of the specials listed under this date and time periods -->
+          <ng-container *ngFor="let special of recurringSpecial.specials; let m = index;">
+            <li class="special-title">
+              <mat-icon *ngIf="details.category === 'food'">restaurant</mat-icon>
+              <mat-icon *ngIf="details.category === 'drinks'">local_bar</mat-icon>
+              <mat-icon *ngIf="details.category === 'events'">event</mat-icon> 
+              {{ special | titlecase }}
+              <br>
+              <ng-container *ngFor="let description of recurringSpecial.specialDescriptions; let x = index">
+                <p *ngIf=" m === x && description !== 'null'" class="special-description"> {{ description }}</p>
+              </ng-container>
+              
+            </li>
+          </ng-container>
+          
+        </span>
+        <span *ngFor="let specificDateSpecial of day.specificDateSpecials; let k = index" no-lines>
+          <p padding class="special-time">
+             {{specificDateSpecial.start}} - {{specificDateSpecial.end}}<span style="font-weight: bold">
+              on: {{specificDateSpecial.date}}</span>
+          </p>
+          <ng-container *ngFor="let special of specificDateSpecial.specials; let n = index;">
+            <li class="special-title">
+              <mat-icon *ngIf="details.category === 'food'">restaurant</mat-icon>
+              <mat-icon *ngIf="details.category === 'drinks'">local_bar</mat-icon>
+              <mat-icon *ngIf="details.category === 'events'">event</mat-icon>
+              {{ special | titlecase }}
+              <br>
+              <ng-container *ngFor="let description of specificDateSpecial.specialDescriptions; let x = index">
+                <p *ngIf="n === x && description !== 'null'" style="font-size: 10px; font-style: italic;"> {{ description }}</p>
+              </ng-container>
+            </li>
+          </ng-container>
+        </span>
+    
+    </mat-tab>
+    </mat-tab-group>

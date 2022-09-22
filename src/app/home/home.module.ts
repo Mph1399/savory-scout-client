@@ -6,7 +6,6 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeService } from './home.service';
-import { AddressComponent } from './address/address.component';
 import { MatCardModule } from '@angular/material/card';
 import { DesktopResultsComponent } from './desktop-results/desktop-results.component';
  import { IvyCarouselModule } from 'angular-responsive-carousel';
@@ -17,7 +16,6 @@ import { SpecialsDisplayModule } from '../shared/specials-display/specials-displ
 @NgModule({
   declarations: [
     HomeComponent,
-    AddressComponent,
     DesktopResultsComponent,
     MobileResultsComponent],
 
@@ -30,7 +28,7 @@ import { SpecialsDisplayModule } from '../shared/specials-display/specials-displ
     SpecialsDisplayModule
 
   ],
-  exports: [HomeComponent, AddressComponent],
+  exports: [HomeComponent],
   providers: [HomeService]
 })
 export class HomeModule { }

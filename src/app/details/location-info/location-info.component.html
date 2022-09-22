@@ -1,0 +1,20 @@
+<mat-card-subtitle>{{data.address}}</mat-card-subtitle>
+<mat-card-subtitle>{{data.phone}}</mat-card-subtitle>
+<div appNoPadding class="grid-container-2 title">
+    <div appNoPadding>
+      <mat-card-subtitle><a href="{{ data.website }}" target="_blank" rel="noopener noreferrer"> {{data.name }}'s Website</a></mat-card-subtitle>
+      <mat-card-subtitle *ngIf="data.happyHourMenu && data.happyHourMenu.length > 0">Happy Hour Menu: <a href="{{ data.happyHourMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
+      <mat-card-subtitle *ngIf="data.brunchMenu && data.brunchMenu.length > 0">Brunch Menu: <a href="{{ data.brunchMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
+    </div>
+      <div style="text-align: right; padding: 0 10px;">
+        <button mat-raised-button id="report-button" color="warn" (click)="openReport()">Report</button></div>
+  </div>
+  <div appNoPadding appTextCenter class="grid-container-2" class="status-bar">
+    <div  style="text-align: right; padding-right: 10px; width: 50%">
+      <mat-card-subtitle>Last Update: <strong>{{ date }}</strong> </mat-card-subtitle>
+    </div>
+    <div style="text-align: left; padding-left: 10px; width: 50%;">
+      <mat-card-subtitle>Owner Managed: <strong
+          [style.color]="data.managed ? 'green' : (!data.managed ? 'red': null)">{{ !data.managed ? 'No' : 'Yes'  }}</strong></mat-card-subtitle>
+    </div>
+  </div>

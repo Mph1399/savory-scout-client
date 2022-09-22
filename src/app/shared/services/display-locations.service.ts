@@ -49,7 +49,7 @@ export class DisplayLocationsService implements OnDestroy {
 /* Reeset the active status of the currently saved location category before filtering */
       filteredSelectedMainCategories[index][category].active = false;
 /* If the current category is selected in filter */
-        console.log(`Category: ${category}`,this.searchFilter.filters[category])
+       // console.log(`Category: ${category}`,this.searchFilter.filters[category])
         if (this.searchFilter.filters[category]) {
           this.dateTypes.forEach((dateType) => {
             if (location[category as keyof typeof location]![dateType as keyof typeof location].length > 0) {
@@ -123,7 +123,7 @@ will return a true boolean if any special turned out to be active */
     const minutesDiffToEnd = end.diff(now, 'minutes', true);
     if (minutesDiffToStart < 0 && minutesDiffToEnd > 0) {
       special.active = true;
-      console.log('Minutes till end: ', minutesDiffToEnd);
+      //console.log('Minutes till end: ', minutesDiffToEnd);
       special.color = this.assignColorToSpecial(minutesDiffToEnd);
     }
     return special;
@@ -168,7 +168,7 @@ will return a true boolean if any special turned out to be active */
           // The special has a title that is currently a string but we want it to be an array.
           special.title = [];
           special.title.push(title);
-          console.log('Special Title: ', special.title)
+          //console.log('Special Title: ', special.title)
           // sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
 
           // Push the first special to the array

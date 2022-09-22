@@ -1,0 +1,22 @@
+@import '../../../../variables';
+ // fomat the location name/close button grid
+ .title {
+    width: 100%;
+   }
+ // adjust the font size of the location name in details
+ .mat-card-title {
+    font-size: 30px;
+  }
+  .details-header {
+    background-color: $primary;
+    color: white;
+  }
+  .close-btn {
+    color: $warn;
+    cursor: pointer;
+    font-size: 30px
+  }
+//   .special-title {
+//      list-style-type: none;
+//      font-weight: bold;
+//   }

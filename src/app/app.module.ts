@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from './shared/shared.module';
 import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search-filter.effects';
+import { MatTabsModule } from '@angular/material/tabs';
+import { DetailsModule } from './details/details.module';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search
     StoreModule.forRoot(FromApp.appReducer),
     EffectsModule.forRoot([ AuthEffects, FirestoreEffects, SearchFilterEffects ]),
     SharedModule,
+    DetailsModule,
     AppRoutingModule,
     ScullyLibModule,
     MatToolbarModule,
@@ -40,7 +43,8 @@ import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

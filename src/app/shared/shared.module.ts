@@ -16,10 +16,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CitySelectComponent } from './city-select/city-select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AddressComponent } from './location/address/address.component';
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -35,7 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     
   ],
   providers: [FirestoreService, DisplayLocationsService],
-  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent,],
+  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

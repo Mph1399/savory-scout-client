@@ -1,3 +1,21 @@
-<div mat-dialog-content>
-  This is a dialog
-</div>
+<mat-dialog-content>
+  <mat-card>
+    <app-header [data]="data"></app-header>
+    <app-location-info [data]="data"></app-location-info>
+    <mat-tab-group>
+      <mat-tab *ngIf="data.food!.active || data.drinks!.active || data.events!.active" label="ACTIVE">
+        <!-- <app-active-tab [location]="data"></app-active-tab> -->
+        <app-specials-display [location]="data"></app-specials-display>
+      </mat-tab>
+      <ng-container *ngFor="let categoryDetail of categoryDetails; let i = index">
+        <mat-tab *ngIf="data[categoryDetail.category].recurringSpecials || data[categoryDetail.category].specificDateSpecials" label="{{ categoryDetail.category | uppercase }}" style="width: 100%">
+          <app-category-tab [specials]="data[categoryDetail.category]" [details]="categoryDetail" [type]="categoryDetail.category"></app-category-tab>
+        </mat-tab>
+      </ng-container>
+     
+
+     
+      <mat-tab label=""></mat-tab>
+  </mat-tab-group>
+  </mat-card>
+</mat-dialog-content>

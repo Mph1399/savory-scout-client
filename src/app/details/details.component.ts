@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import * as moment from 'moment';
-import { NgZone } from '@angular/core';
+import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Day } from '../shared/models/day.model';
+
 // import { LocationDetailsService } from 'src/services/location-details.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+// import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Location } from '../shared/models/location.model';
+import { CategoryDetails, DetailsService } from './details.service';
 //import { MailService } from 'src/services/mail.service';
 
 
@@ -12,13 +14,26 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit{
+   data: Location;
+   categoryDetails: CategoryDetails[] = [];
 
    constructor(
 //     private locationDetailsService: LocationDetailsService,
 //     private mail: MailService,
-     @Inject(MAT_DIALOG_DATA) data,
+     private detailsService: DetailsService,
+     @Inject(MAT_DIALOG_DATA) data: Location,
 //     private zone: NgZone
-   ) {}
+   ) {
+      this.data = data;
+      console.log("Data: ", data)
+   }
+
+   ngOnInit(){
+      this.categoryDetails.push( {category: 'food', days: this.detailsService.displayDays('food', this.data['food'])});
+      this.categoryDetails.push( {category: 'drinks', days: this.detailsService.displayDays('drinks', this.data['drinks'])});
+      this.categoryDetails.push( {category: 'events', days: this.detailsService.displayDays('events', this.data['events'])});
 
 }
+}
+
