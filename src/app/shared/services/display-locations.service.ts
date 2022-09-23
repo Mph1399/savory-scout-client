@@ -167,7 +167,7 @@ will return a true boolean if any special turned out to be active */
           const title = JSON.parse(JSON.stringify(special.title));
           // The special has a title that is currently a string but we want it to be an array.
           special.title = [];
-          special.title.push(title);
+          special.title.push(`${title} - $${special.price.toString()}`);
           //console.log('Special Title: ', special.title)
           // sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
 
@@ -182,17 +182,18 @@ will return a true boolean if any special turned out to be active */
               
             if (index > 0 && special.start == sortedSpecial.start && special.end == sortedSpecial.end && JSON.stringify(special.categories) == JSON.stringify(sortedSpecial.categories) && special.days !== null && JSON.stringify(special.days) == JSON.stringify(sortedSpecial.days)) {
                match = true;
-               return sortedLocation[category][dateType][k].title.push(special.title[0]);
+               return sortedLocation[category][dateType][k].title.push(`${special.title[0]} - $${special.price}`);
             }
             if (index > 0 && special.start == sortedSpecial.start && special.end == sortedSpecial.end && JSON.stringify(special.categories) == JSON.stringify(sortedSpecial.categories) && special.days == null && JSON.stringify(special.date) == JSON.stringify(sortedSpecial.date)) {
               match = true;
-              return sortedLocation[category][dateType][k].title.push(special.title[0]);
+              return sortedLocation[category][dateType][k].title.push(`${special.title[0]} - $${special.price}`);
            }
           });
           /*  A match was not found so push the special to the sortedSpecials array as a new special. 
           The first special of each category/dateType was already pushed to the new array so only push if 
           the index isn't 0.
           */
+            !match && index != 0 ? special.title[0] = `${special.title[0]} - $${special.price}`: '';
             !match && index != 0 ? sortedLocation[category][dateType].push(special) : '';
         });
       });

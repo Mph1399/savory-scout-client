@@ -2,12 +2,11 @@
   *ngIf="!specials.recurringSpecials && !specials.specificDateSpecials">
   <p>No {{ type | titlecase }} Specials Available</p>
 </div>
-<p>ACTIVE IN CATEGORY TAB</p>
 <!-- Create a new tab group where each tab will represent a day of the week that the business has a special on. -->
 <mat-tab-group id="secondGroup">
     <!-- Loop through the days of the week -->
   <mat-tab *ngFor=" let day of details.days; let i = index" label="{{ day.day | uppercase }}" >
-        <span *ngFor="let recurringSpecial of day.recurringSpecials; let j = index" no-lines>
+        <ul class="specials-list" *ngFor="let recurringSpecial of day.recurringSpecials; let j = index" no-lines>
            <!-- Show the start and end time of the current special(s) specials -->
            <p class="special-time">
             {{recurringSpecial.start}} - {{recurringSpecial.end}}
@@ -26,8 +25,7 @@
               
             </li>
           </ng-container>
-          
-        </span>
+        </ul>
         <span *ngFor="let specificDateSpecial of day.specificDateSpecials; let k = index" no-lines>
           <p padding class="special-time">
              {{specificDateSpecial.start}} - {{specificDateSpecial.end}}<span style="font-weight: bold">

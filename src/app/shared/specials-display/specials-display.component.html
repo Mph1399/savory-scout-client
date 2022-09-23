@@ -26,7 +26,7 @@
                 <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px' }">restaurant</mat-icon>
                 <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px'  }">local_bar</mat-icon>
                 <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' , 'line-height': '25px' }">event</mat-icon>
-               <div>{{ (title || '') | titlecase }} - <span class="price">${{ special.price }}</span></div> 
+               <div>{{ (title || '') | titlecase }}</div>  <!--  - <span class="price">${{ special.price }}</span> -->
               </mat-list-item>
             </mat-list>
         

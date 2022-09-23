@@ -41,6 +41,7 @@ export interface RecurringSpecial {
   days: Array<string>;
   start: number;
   end: number;
+  price: string;
   formattedTime: string;
 }
 
@@ -58,5 +59,6 @@ export interface SpecificDateSpecial {
   date: string;
   start: number;
   end: number;
+  price: string;
   formattedTime: string;
 }

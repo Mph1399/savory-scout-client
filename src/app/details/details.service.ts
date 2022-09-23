@@ -25,10 +25,10 @@ export class DetailsService {
         const dayObject = {
           day: element,
           open: false,
-          displayRecurring: this.displayRecurringDay(index, category, importedSpecials).display,
-          recurringSpecials: this.displayRecurringDay(index, category, importedSpecials).specials,
-          displaySpecificDay: this.displaySpecificDay(index, category, importedSpecials).display,
-          specificDateSpecials: this.displaySpecificDay(index, category, importedSpecials).specials
+          displayRecurring: this.displayRecurringDay(index, importedSpecials).display,
+          recurringSpecials: this.displayRecurringDay(index, importedSpecials).specials,
+          displaySpecificDay: this.displaySpecificDay(index, importedSpecials).display,
+          specificDateSpecials: this.displaySpecificDay(index, importedSpecials).specials
         };
         // push that obect to the global days array if display = true
         if (dayObject.displayRecurring || dayObject.displaySpecificDay){
@@ -40,7 +40,7 @@ export class DetailsService {
       return days;
     }
   
-    displayRecurringDay = (i, category, importedSpecials) => {
+    displayRecurringDay = (i, importedSpecials) => {
       /* This function is a helper funtion for the displayDays Function Above
       That Function returns an array of object. Each Objects represents a day of the week
       This function is called for each day of the week and the location provided.
@@ -51,12 +51,11 @@ export class DetailsService {
       let display = false;
       const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   
-      importedSpecials.recurringSpecials.forEach((special, index) => {
+      importedSpecials.recurringSpecials.forEach((special) => {
       //  console.log('Special: ', special)
             // Check recurring Specials for a day of the week match by looping through each day of the week
         //      console.log('Day: ', days[i])
-              try {
-                 const result1 = special.days.indexOf(days[i]);
+              try { const result1 = special.days.indexOf(days[i]);
                  // If a match is found for the day of the week, set display to true
                  if (result1 !== -1) {
              //      console.log('Saving: @ day '+ index, result1);
@@ -64,6 +63,7 @@ export class DetailsService {
                    specials.push({
                      specials: special.title,
                      specialDescriptions: special.specialDescriptions,
+                     price: special.price,
                      start: special.start,
                      end: special.end
                    });
@@ -77,7 +77,7 @@ export class DetailsService {
       return { display, specials };
     }
   
-    displaySpecificDay(day, category, importedSpecials): { display; specials } {
+    displaySpecificDay(day, importedSpecials): { display; specials } {
     //  console.log("Specific Day Filter Location: ", location);
   
       // Create a variable to push specials into
@@ -96,10 +96,11 @@ export class DetailsService {
             // );
             specials.push({
               date: finalSpecial.date,
-              end,
+              price: finalSpecial.price,
               specials: special.title,
               specialDescriptions: special.specialDescriptions,
-              start
+              start,
+              end,
             });
           };
           //  Splice the date out of the date string. Ex. 'Mon 2018-12-10' to '2018-12-10'
@@ -128,6 +129,7 @@ export class DetailsService {
 export interface CategorySpecials {
     start: string,
     end: string,
+    price: string,
     specials: string[],
     specialDescriptions: string[]
     date?: string,
