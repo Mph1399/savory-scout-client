@@ -4,10 +4,12 @@
   <div class='grid-container-2 filter' [formGroup]="formGroup">
     <div class='grid-container-2 filter-action-bar'>
       <div><button mat-icon-button id="reset-btn" type="button" onclick="this.blur()" [autofocus]="false" 
-       (click)="reset()" [disableRipple]="true" class="reset-btn">Reset</button></div>
-      <div><mat-icon class="filter-close-btn" (click)="closeFilter(false, null)">
-          <mat-icon class="filter-close-btn-icon">close</mat-icon>
-      </mat-icon></div>
+       (click)="reset()" [disableRipple]="true" class="reset-btn">Reset</button>
+      </div>
+      <div><mat-icon class="filter-close-btn" (click)="closeFilter(false, null)">close
+          <!-- <mat-icon class="filter-close-btn-icon">close</mat-icon> -->
+      </mat-icon>
+      </div>
     </div>
 
     <div class='grid-container-2' style="max-width: 355px;"></div>

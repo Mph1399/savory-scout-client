@@ -19,12 +19,21 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 // Import Material Icons
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 
 
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overscroll-behavior: none;
+}
 body {
-  margin: 0
+    margin: 0;
+    overscroll-behavior-y: contain;
 }
 
-::ng-deep {
-  
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
 }
 
 .blue {

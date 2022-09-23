@@ -35,7 +35,6 @@
   }
   .filter-close-btn {
     float: right;
-    margin-top: -30px;
     color: $warn;
   }
 
@@ -61,7 +60,7 @@
 }
 .reset-btn {
   font-size: 17px;
-  min-width: 25px;
+  min-width: 60px;
 }
 .reset-btn :focus {
     background-color: transparent;
@@ -84,7 +83,7 @@
         }
         .filter {
           font-size: 22px !important;
-          width: 50vw;
+          width: 80vw;
         }
     }
     // Media Queries over 801px

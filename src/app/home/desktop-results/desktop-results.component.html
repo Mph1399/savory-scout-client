@@ -7,15 +7,18 @@
             <div mat-card-avatar class="avatar"
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>
             <span style="cursor: pointer;">
-              <mat-card-title style="font-weight: bold;">{{ location.name }}</mat-card-title>
+              <mat-card-title style="font-weight: bold;">{{ location.name }}
+              <br>
               <app-address [address]="location.address"></app-address>
+              </mat-card-title>
+              
               <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
               <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance:
                 <strong>{{ location.distance | number : '1.2-2' }}mi</strong></mat-card-subtitle> -->
             </span>
           </mat-card-header>
           <mat-card-content class="card-specials">
-            <app-specials-display [location]="filteredLocations[i]"></app-specials-display>
+            <app-specials-display class="specials-container" [location]="filteredLocations[i]"></app-specials-display>
           </mat-card-content>
         </mat-card>
       </ng-container>

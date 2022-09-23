@@ -19,3 +19,7 @@ mat-icon {
     vertical-align: text-top;
     line-height: 18px;
 }
+
+::ng-deep .mat-tab-header::-webkit-scrollbar { // TO Remove horizontal scrollbar in tabs
+    display: none;
+  }
