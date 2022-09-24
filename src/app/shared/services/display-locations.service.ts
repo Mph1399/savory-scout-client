@@ -52,6 +52,7 @@ export class DisplayLocationsService implements OnDestroy {
        // console.log(`Category: ${category}`,this.searchFilter.filters[category])
         if (this.searchFilter.filters[category]) {
           this.dateTypes.forEach((dateType) => {
+/* If the location category has specials in the array */
             if (location[category as keyof typeof location]![dateType as keyof typeof location].length > 0) {
               /* This location has specials a main category that the filter has selected */
               /* Check if that category has a special that is currently active if the Active filter is selected */
@@ -63,11 +64,12 @@ will return a true boolean if any special turned out to be active */
                 filteredSpecials.active ? filteredSelectedMainCategories[index][category].active = true : '';
                 filteredSelectedMainCategories[index][category][dateType] = filteredSpecials.specials;
               } 
-              // else {
-              //   /* Active isn't selected but the filter found a match for on of the search filter main categories. Assign the location to the results as inactive but
-              //  has specials in one of the selected main categories(food, drinks, events) */
-              //   filteredSelectedMainCategories[index] = location;
-              // }
+              else {
+                /* Active isn't selected but the filter found a match for on of the search filter main categories. 
+                This means we're going to display all locations that have specials by setting the location.action to true and
+                setting the specific categories*/
+                filteredSelectedMainCategories[index] = location;
+              }
             }
           });
         } else {
@@ -182,18 +184,22 @@ will return a true boolean if any special turned out to be active */
               
             if (index > 0 && special.start == sortedSpecial.start && special.end == sortedSpecial.end && JSON.stringify(special.categories) == JSON.stringify(sortedSpecial.categories) && special.days !== null && JSON.stringify(special.days) == JSON.stringify(sortedSpecial.days)) {
                match = true;
-               return sortedLocation[category][dateType][k].title.push(`${special.title[0]} - $${special.price}`);
+               console.log('Pushing: ', special.title[0], ' onto : ', sortedLocation[category][dateType][k].title)
+               return sortedLocation[category][dateType][k].title.push(special.title[0]);
             }
-            if (index > 0 && special.start == sortedSpecial.start && special.end == sortedSpecial.end && JSON.stringify(special.categories) == JSON.stringify(sortedSpecial.categories) && special.days == null && JSON.stringify(special.date) == JSON.stringify(sortedSpecial.date)) {
+            else if (index > 0 && special.start == sortedSpecial.start && special.end == sortedSpecial.end && JSON.stringify(special.categories) == JSON.stringify(sortedSpecial.categories) && special.days == null && JSON.stringify(special.date) == JSON.stringify(sortedSpecial.date)) {
               match = true;
-              return sortedLocation[category][dateType][k].title.push(`${special.title[0]} - $${special.price}`);
+              console.log('Pushing: ', special.title[0], ' onto : ', sortedLocation[category][dateType][k].title)
+              return sortedLocation[category][dateType][k].title.push(special.title[0]);
            }
           });
           /*  A match was not found so push the special to the sortedSpecials array as a new special. 
           The first special of each category/dateType was already pushed to the new array so only push if 
           the index isn't 0.
           */
-            !match && index != 0 ? special.title[0] = `${special.title[0]} - $${special.price}`: '';
+            console.log('Match: ', match);
+            !match && index != 0 ? console.log('title: ', special.title) : '';
+            !match && index != 0 ? special.title[0] = special.title[0]: '';
             !match && index != 0 ? sortedLocation[category][dateType].push(special) : '';
         });
       });

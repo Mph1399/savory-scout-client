@@ -10,7 +10,7 @@
      <!-- <ng-container *ngIf="(filterValues | async)!.filters.active"> -->
       <div *ngFor="let category of categories; let i = index">
         <ng-container *ngFor="let dateType of dateTypes; let l = index">
-          <ng-container *ngIf="location[category].active">
+          <!-- <ng-container *ngIf="location[category].active"> -->
         <div class="specials-list" *ngFor="let special of location[category][dateType]; let k = index">
           <ng-container *ngIf="special.active">
             <span [ngClass]="location[category][dateType][k].color"  class="special-time">
@@ -33,7 +33,7 @@
             <!-- ACTIVE DESKTOP RECURRING END-->
           </ng-container>
         </div>
-      </ng-container>
+      <!-- </ng-container> -->
       </ng-container>
         </div>
         <!-- </ng-container> -->
