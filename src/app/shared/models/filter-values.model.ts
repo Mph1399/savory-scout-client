@@ -7,6 +7,9 @@ export interface FilterValues {
          events: boolean,
          brunch: boolean,
          happyHour: boolean,
+         breakfast: boolean,
+         lunch: boolean,
+         dinner: boolean,
          outdoor: boolean,
          kids: boolean
 }

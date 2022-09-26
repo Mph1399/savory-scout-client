@@ -2,7 +2,7 @@
      <!-- /////////////////////////// LOCATION RESULTS DESKTOP START /////////////////////////////-->
      <div class="locations-container">
       <ng-container *ngFor="let location of filteredLocations ; let i = index">
-        <mat-card class="location-card" *ngIf="location.active">
+        <mat-card class="location-card" *ngIf="location.active && location.food!.active || location.active && location.drinks!.active || location.active && location.events!.active">
           <mat-card-header class="card-header-desktop" (click)="openDetails(i)">
             <div mat-card-avatar class="avatar"
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>

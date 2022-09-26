@@ -12,6 +12,9 @@ export interface FilterState {
       events: boolean,
       happyHour: boolean,
       brunch: boolean,
+      breakfast: boolean,
+      lunch: boolean,
+      dinner: boolean,
       kids: boolean,
       outdoor: boolean,
       radius: number}
@@ -26,8 +29,11 @@ export interface FilterState {
       events: true,
       happyHour: true,
       brunch: true,
+      breakfast: true,
+      lunch: true,
+      dinner: true,
       kids: true,
-      outdoor: true,
+      outdoor: false,
       radius: 50
     }
 };

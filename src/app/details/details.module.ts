@@ -16,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LocationInfoComponent } from './location-info/location-info.component';
 import { SpecialsDisplayModule } from '../shared/specials-display/specials-display.module';
 import { DetailsService } from './details.service';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -31,6 +32,7 @@ import { DetailsService } from './details.service';
     CommonModule,
     SharedModule,
     MatDialogModule,
+    MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     FormsModule,

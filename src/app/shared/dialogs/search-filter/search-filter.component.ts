@@ -37,6 +37,9 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
       outdoor: new FormControl(this.filterValues.outdoor, []),
       happyHour: new FormControl(this.filterValues.happyHour, []),
       brunch: new FormControl(this.filterValues.brunch, []),
+      breakfast: new FormControl(this.filterValues.breakfast, []),
+      lunch: new FormControl(this.filterValues.lunch, []),
+      dinner: new FormControl(this.filterValues.dinner, []),
       kids: new FormControl(this.filterValues.kids, []),
       date: new FormControl(moment(this.filterValues.date).format()),
       radius: new FormControl(this.filterValues.radius)
