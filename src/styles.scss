@@ -36,6 +36,10 @@ body {
   display: none;
 }
 
+mat-sidenav-content {
+  background-color: white
+}
+
 .blue {
   background-color: $primary;
 }

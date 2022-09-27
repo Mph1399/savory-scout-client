@@ -1,0 +1,68 @@
+
+          <div>
+            <mat-card style="text-align: center;" class="card">
+              <mat-card-title id="title">Suggest a Business & Location</mat-card-title>
+              <hr width="90%">
+              <mat-card-subtitle>Suggest a business that has good restaurant specials and we'll add them to Savory Scout.
+              </mat-card-subtitle>
+              <mat-card-subtitle>If we're not in that area yet, we will definitely consider expanding there next, Thanks!!
+                </mat-card-subtitle>
+              <mat-icon  class="sent-image material-icons" *ngIf="!sent">email</mat-icon>
+              <mat-icon  class="sent-image material-icons" *ngIf="sent" style="color: #40d869 !important">check_circle</mat-icon>
+                <mat-card-subtitle *ngIf="sent" class="message-sent">Message Sent!</mat-card-subtitle>
+                <!-- error Message-->
+              <mat-card-subtitle appTextCenter *ngIf="errorMessage" style="background-color: rgb(255, 123, 123);">Error, please try
+                again</mat-card-subtitle>
+                <!-- form -->
+              
+                <mat-card-content>
+                  <form [formGroup]="emailForm" (ngSubmit)="submitForm(emailForm)" *ngIf="!sent">
+                  <mat-form-field color="primary">
+                    <mat-label>Input Label </mat-label>
+                    <input matInput type="text" placeholder="Suggested Business Name:" #name formControlName="name">
+                    <mat-hint align="end">Not more then 30 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field color="primary">
+                      <input matInput type="text" placeholder="Suggested Business Location:" #location formControlName="location">
+                      <mat-hint align="end">Not more then 30 characters long.</mat-hint>
+                      <mat-error *ngIf="hasError('name', 'required')">Location is required</mat-error>
+                      <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field color="primary">
+                      <input matInput type="text" placeholder="Suggested Business Type:(e.g Irish Pub,Italian,Steakhouse,Nightclub etc.)" #type formControlName="type">
+                      <mat-hint align="end">Not more then 30 characters long.</mat-hint>
+                      <mat-error *ngIf="hasError('name', 'required')">Business Type is required</mat-error>
+                      <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field color="primary">
+                    <textarea matInput placeholder="Tell us a little about their specials:" #text formControlName="text"
+                      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+                      cdkAutosizeMaxRows="25"></textarea>
+                    <mat-error *ngIf="hasError('text', 'required')">A quick summary is required</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field color="primary" class="phone-input">
+                    <input matInput placeholder="Enter Phone:" #phone formControlName="phone" >
+                  </mat-form-field>
+
+                  <mat-form-field color="primary" required>
+                        <input matInput placeholder="Your Email:" #email formControlName="email" required>
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                        <mat-error *ngIf="hasError('email', 'email')">Email must be valid</mat-error>
+                      </mat-form-field>
+      
+                  <mat-card-actions>
+                    <button mat-raised-button [disabled]="!emailForm.valid" type="submit" color="accent">Submit</button>
+                  </mat-card-actions>
+                </form>
+                </mat-card-content>
+              
+            </mat-card>
+          </div>
+   

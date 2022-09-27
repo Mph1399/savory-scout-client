@@ -1,0 +1,30 @@
+
+.card{
+    margin: 100px auto auto auto;
+    max-width: 700px;
+}
+.mat-form-field {
+width: 100%;
+}
+.sent-image{
+  font-size: 100px;
+  color: #4091d8;
+  margin: auto;
+  width: 100%;
+  height: 100%
+}
+  // center the loading spinner text
+  .spinner-text {
+    position: absolute;
+    top: 55vh;
+    width: 250px;
+    left: calc(50vw - 125px);
+    z-index: 1000;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .card{
+        margin: auto auto auto auto;
+        max-width: 400px;
+    }
+  }

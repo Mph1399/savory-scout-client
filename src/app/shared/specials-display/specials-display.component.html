@@ -15,8 +15,8 @@
           <ng-container *ngIf="special.active">
             <span [ngClass]="location[category][dateType][k].color"  class="special-time">
               <!-- [ngStyle]="{'height' : pageUrl === '/map' ? '15px' : '19px' }" above -->
-           {{ category | titlecase }} Ending @ {{special.end}} |
-              {{special.categories[0] | uppercase}} {{special.categories[1] | uppercase}}
+           {{ category | titlecase }} Ending @ {{special.end}} 
+           <!-- |{{special.categories[0] | uppercase}} {{special.categories[1] | uppercase}} -->
               <!-- <mat-icon class="down-arrow-icon">arrow_downward</mat-icon> -->
             </span>
               <!-- [ngClass]="{'map-adjust-font' : pageUrl === '/map'}" above -->

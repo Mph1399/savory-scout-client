@@ -40,6 +40,8 @@
   .filter-close-btn {
     float: right;
     color: $warn;
+    margin: 7px -5px 0 0;
+    cursor: pointer;
   }
 
   .filter-close-btn-icon {
@@ -88,6 +90,13 @@
         .filter {
           font-size: 22px !important;
           width: 80vw;
+        }
+        .filter-close-btn {
+          margin: 21px 1px 0 0;
+          font-size: 30px;
+        }
+        .reset-btn {
+          margin-top: 17px;
         }
     }
     // Media Queries over 801px

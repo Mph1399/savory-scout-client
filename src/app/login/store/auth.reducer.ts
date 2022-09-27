@@ -21,7 +21,7 @@ export const authReducer = createReducer(
   }),
   
   on(AuthAction.AUTHENTICATE_SUCCESS, (state, action) => {
-    console.log('Login Reducer Running');
+    // console.log('Login Reducer Running');
 
     const user = new User ( 
       action.email,

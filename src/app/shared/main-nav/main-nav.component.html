@@ -14,40 +14,30 @@
 
     
       <mat-divider></mat-divider>
-      <a mat-list-item href="dashboard">
-        <mat-icon>dashboard</mat-icon> Dashboard</a>
-     
+      <a mat-list-item href="https://www.app.savoryscout.com">
+        <mat-icon>dashboard</mat-icon>Owner Dashboard</a>
 
-      <mat-divider></mat-divider>
-      <a mat-list-item href="specials">
-        <mat-icon>restaurant</mat-icon>Specials</a>
+    <mat-divider></mat-divider>
+      <a mat-list-item href="home">
+    <mat-icon>home</mat-icon>Home</a>
 
-
-    
-      <mat-divider></mat-divider>
-    <a mat-list-item href="identity">
-      <mat-icon>business</mat-icon>Identity</a>
-  
-
-   
     <mat-divider></mat-divider>
     <a mat-list-item href="map">
       <mat-icon>map</mat-icon>Map</a>
+
+      <mat-divider></mat-divider>
+      <a mat-list-item href="about">
+        <mat-icon>info</mat-icon>About</a>
+
+        <mat-divider></mat-divider>
+        <a mat-list-item href="contact">
+          <mat-icon>contact_page</mat-icon>Contact</a>
+
+          <mat-divider></mat-divider>
+          <a mat-list-item href="suggest">
+            <mat-icon>thumb_up</mat-icon>Suggest</a>
   
 
-   
-    <mat-divider></mat-divider>
-    <a mat-list-item href="image">
-      <mat-icon>image</mat-icon>Image</a>
-     
-
-
-      <ng-container *ngIf="(auth$ | async)?.user">
-    <mat-divider></mat-divider>
-    <a mat-list-item href="register">
-      <mat-icon>app_registration</mat-icon>Register New</a>
-      </ng-container>
-      
     <mat-divider></mat-divider>
    <ng-container *ngIf="!( auth$ | async )?.user">
     <a mat-list-item href="login">
@@ -100,6 +90,7 @@
 <mat-menu #menu="matMenu" [overlapTrigger]="false">
   <div (click)="cancelClick($event)" class="dropdown">
     <div>
+      <p *ngIf="(auth$ | async)!.user != null" style="margin: 0 7px; font-size: 12px;">{{(auth$ | async)!.user!.email }}</p>
       <button
         mat-flat-button
         class="profile-btn"

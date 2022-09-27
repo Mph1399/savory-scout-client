@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import * as FromApp from './store/app.reducer';
@@ -14,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +24,8 @@ import { SharedModule } from './shared/shared.module';
 import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search-filter.effects';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DetailsModule } from './details/details.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AboutModule } from './about/about.module';
 
 
 @NgModule({
@@ -34,8 +38,10 @@ import { DetailsModule } from './details/details.module';
     BrowserAnimationsModule,
     StoreModule.forRoot(FromApp.appReducer),
     EffectsModule.forRoot([ AuthEffects, FirestoreEffects, SearchFilterEffects ]),
+    AngularFireModule.initializeApp(environment.firebase),
     SharedModule,
     DetailsModule,
+    AboutModule,
     AppRoutingModule,
     ScullyLibModule,
     MatToolbarModule,
@@ -44,7 +50,8 @@ import { DetailsModule } from './details/details.module';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

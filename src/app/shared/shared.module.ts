@@ -17,10 +17,11 @@ import { CitySelectComponent } from './city-select/city-select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddressComponent } from './location/address/address.component';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent],
   imports: [
     CommonModule,
     MatIconModule,

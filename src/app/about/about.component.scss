@@ -1,0 +1,25 @@
+@import '../../../variables';
+
+hr {
+    border-top: 3px solid #5d9cde;
+}
+.tutorial-image {
+    border: 3px solid black;
+    margin: 10px;
+}
+figure {
+    max-width: 320px;
+    display: inline-block;
+}
+p {
+    font-size: 18px;
+}
+figcaption {
+    margin-top: -14px;
+}
+
+.header {
+    background-color: $accent;
+    padding: 75px 0;
+    margin-top: 0;
+}
