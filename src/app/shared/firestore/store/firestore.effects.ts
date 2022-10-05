@@ -2,12 +2,13 @@ import { DisplayLocationsService } from './../../services/display-locations.serv
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
+import * as SpinnerActions from '../../spinner/store/spinner.actions';
 import { map, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FirestoreService } from '../firestore.service';
 import * as FirestoreActions from './firestore.actions';
 import { Location } from '../../models/location.model';
+import { GoogleService } from '../../services/google.service';
 
 @Injectable()
 export class FirestoreEffects {
@@ -15,7 +16,8 @@ export class FirestoreEffects {
     private actions$: Actions,
     private firestoreService: FirestoreService,
     private store: Store,
-    private displayLocationsService: DisplayLocationsService
+    private displayLocationsService: DisplayLocationsService,
+    private googleService: GoogleService
   ) //     private router: RouterEvent
   {}
 
@@ -23,6 +25,7 @@ export class FirestoreEffects {
       this.actions$.pipe(
         ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS),
         switchMap((action) => {
+          this.store.dispatch(SpinnerActions.SPINNER_START())
           return this.firestoreService
             .geoSearchLocations(action.lat, action.lng)
             .then((matchingDocs) => {
@@ -45,4 +48,34 @@ export class FirestoreEffects {
       ),
     //{ dispatch: false }
   );
+
+  getLocationsFromSearchbar$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR),
+    switchMap((action) => {
+      this.store.dispatch(SpinnerActions.SPINNER_START())
+      return this.googleService
+        .getCoordinates(action.input)
+    }),
+    map((coordinates) => {
+      console.log('Coordinates :', coordinates[0]);
+      coordinates[0].geometry.location_type === 'ROOFTOP' ? this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id})) : this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));
+    })
+  ),
+{ dispatch: false }
+);
+
+
+ getLocationByPlaceId$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID),
+    switchMap((action) => {
+      return this.firestoreService.getLocationByPlaceId(action.place_id);
+    }),
+    map((result) => {
+      console.log('place Id result: ', result)
+    })
+  ),
+{ dispatch: false }
+);
 }

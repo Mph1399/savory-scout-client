@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { Store } from '@ngrx/store';
+import { catchError, map, Observable, of } from 'rxjs';
+import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 
 export interface Marker {
   position: {lat: number, lng: number},
@@ -14,6 +18,7 @@ export interface Marker {
 export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  apiLoaded: Observable<boolean>;
   zoom = 13;
   lastSelectedInfoWindow: any;
   center: google.maps.LatLngLiteral;
@@ -27,10 +32,18 @@ export class MapComponent implements OnInit {
     minZoom: 8,
   }
   markers: Array<Marker> = [];
-  bounds = new google.maps.LatLngBounds();
+  // bounds = new google.maps.LatLngBounds();
+  filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
 
-
-  constructor() { }
+  constructor(
+    httpClient: HttpClient,
+    private store: Store) {
+      this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAUMnV34ARb-r1YAPVpUMeG3aMG-u0dgjo', 'callback')
+      .pipe(
+        map(() => true),
+        catchError(() => of(false)),
+      );
+     }
 
   ngOnInit(): void {
   }

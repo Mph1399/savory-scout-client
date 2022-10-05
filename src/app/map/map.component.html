@@ -1,19 +1,22 @@
 
-<div>
+
+  <!-- Show the city select -->
+  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length === 0"></app-city-select>
+
+
+<div *ngIf="apiLoaded | async">
 <google-map 
-height="86vh"
+height="calc(100vh - 56px)"
 width="100vw"
 [center]="center"
-[zoom]="13"
-[options]="options"
->
+[zoom]="zoom"
+[options]="options">
 <map-marker 
 #somemarker="mapMarker" 
 *ngFor="let marker of markers; let i = index" 
 [position]="marker.position"
-[title]="marker.title"
-
-></map-marker>
+[title]="marker.title">
+</map-marker>
 <!-- (mapClick)="openInfo(somemarker, marker.info)" -->
 <!-- <map-info-window>{{ infoContent }}</map-info-window> -->
 </google-map>

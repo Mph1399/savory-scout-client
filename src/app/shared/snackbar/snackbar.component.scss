@@ -1,17 +1,21 @@
 @import '../../../../variables';
 
-.red {
+.red-text {
     color: $warn;
 }
 
-.green {
+.green-text {
     color: $accent;
 }
 
-.yellow {
+.yellow-text {
     color: $caution;
 }
 
-.blue {
+.blue-text {
     color: $primary;
+}
+
+.blue-text, .yellow-text, .green-text, .red-text {
+    font-size: 12px;
 }

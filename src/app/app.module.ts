@@ -41,7 +41,6 @@ import { AboutModule } from './about/about.module';
     AngularFireModule.initializeApp(environment.firebase),
     SharedModule,
     DetailsModule,
-    AboutModule,
     AppRoutingModule,
     ScullyLibModule,
     MatToolbarModule,

@@ -2,4 +2,26 @@
 ::ng-deep .mat-list-item-content {
     padding-left: 0px !important;
 }
-
+.loading-img-container{
+    height: calc(96vh - 64px);
+}
+    // Loading Screen background
+    .loading-background {
+        // background: url("https://firebasestorage.googleapis.com/v0/b/savoryscout.appspot.com/o/loading_img_lg.png?alt=media&token=d9804666-c06c-415e-a4ec-7e5a3275f7d3");
+        background-image: url("../../assets/imgs/loading_img_lg.png"); 
+         background-repeat: no-repeat !important;
+         background-position: center;
+         background-size: cover !important;
+         filter: blur(5px);
+         -webkit-filter: blur(5px);
+         height: 100vh;
+         position: absolute;
+         width: 100%;
+         opacity: .4;
+       }
+    // If the browser window is 800px or Smaller,
+    @media only screen and (max-width: 800px) {
+       .loading-background {
+        background: url("./../../assets/imgs/loading_img_small.png");
+      }
+    }

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { City, CitySelectService } from './city-select.service';
+import * as FirestoreActions from '../../shared/firestore/store/firestore.actions'
 // import { RestaurantService } from 'src/services/restaurant.service';
 
 @Component({
@@ -12,14 +14,16 @@ cities = this.cityService.getCities();
 
   constructor(
     public cityService: CitySelectService,
+    private store: Store,
+
    // public restaurantService: RestaurantService
     ) { }
 
   ngOnInit(): void {
   }
-onSearch = (city: Event) => {
-  console.log("City Selected: ", (city.target as HTMLInputElement).value)
- // this.restaurantService.seachbarSubmitted(city.value);
+onSearch = (city) => {
+  console.log("City Selected: ", city)
+  this.store.dispatch(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR({input: city}))
 }
 directCityChosen = (event: any) => {
 

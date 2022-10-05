@@ -50,7 +50,7 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" style="z-index: 100000">
-      <span>Savory Scout</span>
+      <img src="../../../assets/imgs/Logo-Transparent.png" class="logo">
  
       <!-- Spacer to put hamburger on the far right side per @material docs-->
       <span style="flex: 1 1 auto"></span>
@@ -74,7 +74,7 @@
       </button>
       <!--     *ngIf="(storeSub$ | async).user" -->
       <button
-        *ngIf="(auth$ | async)?.user"
+        *ngIf="(auth$ | async)?.user && (auth$ | async)?.user!.email !== null"
         type="button"
         aria-label="Profile"
         mat-icon-button

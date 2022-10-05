@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { SearchFilterComponent } from './dialogs/search-filter/search-filter.component';
 import { DisplayLocationsService } from './services/display-locations.service';
 import { MatCardModule } from '@angular/material/card';
@@ -18,10 +19,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddressComponent } from './location/address/address.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { CitySelectService } from './city-select/city-select.service';
+import { GoogleService } from './services/google.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, FooterNavbarComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -33,11 +39,14 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule
     
   ],
-  providers: [FirestoreService, DisplayLocationsService],
-  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
+  providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService],
+  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, FooterNavbarComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

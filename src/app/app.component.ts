@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { Store } from '@ngrx/store';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './login/firebase-auth.service';
+import { auth, FirebaseAuthService } from './login/firebase-auth.service';
 import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as SpinnerActions from './shared/spinner/store/spinner.actions';
@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService: FirebaseAuthService
     ){
       this.router.events.subscribe((e : RouterEvent) => {
         this.navigationInterceptor(e);
@@ -46,43 +47,7 @@ export class AppComponent implements OnInit {
     }
 
   ngOnInit(){
-    onAuthStateChanged(auth, (user) => {
-      console.log('Auth State User: ', user);
-      if (user) {
-        // Create a copy of the user state
-        const newUser = { ...user };
-
-        const renewToken = () => {
-          user.getIdToken(true).then((token) => {
-            this.store.dispatch(
-              AuthActions.AUTHENTICATE_SUCCESS({
-                email: newUser.email,
-                uid: newUser.uid,
-                token: token,
-              })
-            );
-            this._snackBar.openFromComponent(SnackbarComponent, {
-              data: {
-                message: `Logged in as: ${newUser.email}`,
-                color: 'blue',
-              },
-              duration: 3000,
-            });
-            // Use timeout to force refresh the token after an hour
-            setTimeout(() => renewToken(), 600000);
-          })
-         // this.store.dispatch(LocationActions.GET_USER_LOCATIONS({uid: newUser.uid}))
-        };
-
-        // user.getIdTokenResult(true).then(tokenResult => {
-        //   console.log('Claims: ', tokenResult.claims)
-        // })
-
-        // Initiate the token renewal method
-        renewToken();
-      } else {
-        this.router.navigateByUrl('/login');
-      }
-    });
-  }
+    // Log the user in
+    this.authService.userAuth();
+   }
 }

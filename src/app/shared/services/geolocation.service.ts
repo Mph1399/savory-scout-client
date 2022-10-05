@@ -37,6 +37,13 @@ lng: number;
       this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
       this.lat = parseFloat(res.location.latitude);
       this.lng = parseFloat(res.location.longitude);
+
+      /* DEV TESTING */
+      return {
+        lat: 50.507351,
+        lng: -0.127758,
+        hash: geofire.geohashForLocation([50.507351, -0.127758])
+       }
       return {
               lat: res.location.latitude,
               lng: res.location.longitude,

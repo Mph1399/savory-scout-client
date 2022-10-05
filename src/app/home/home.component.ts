@@ -1,7 +1,7 @@
 import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GeolocationService } from '../shared/services/geolocation.service';
+import * as SpinnerActions from '../shared/spinner/store/spinner.actions'
 import { HomeService } from './home.service';
 
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
@@ -14,13 +14,16 @@ import { Location } from '../shared/models/location.model';
 })
 export class HomeComponent implements OnInit {
   filteredLocations: Location[];
-  filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
-    tap(val => console.log('Filtered Locations Value: ', val))
-  ).subscribe(value => {
-    console.log('Firestore Values Changed: ', value);
-    this.filteredLocations = value.locations;
+  filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
+  .pipe(
+    tap(val => {
+    // console.log('Filtered Locations Value: ', val);
+    // console.log('Filtered Locations Length: ', val.locations.length);
+      this.store.dispatch(SpinnerActions.SPINNER_END())
+    //  val.locations.length  == 0 ? this.homeService.openCitySelect() : '';
+    })
+  )
 
-  })
   screenWidth = this.deviceDetailsService.screenWidth;
   constructor(
     private deviceDetailsService: DeviceDetailsService,

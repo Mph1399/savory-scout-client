@@ -83,4 +83,15 @@ mat-sidenav-content {
   grid-template-columns: auto ;
 }
 
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0 10px;
+  min-height: auto;
+  height: 100%
+  }
 ////////////// ///
+
+@media only screen and (max-width: 800px) {
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0px !important;
+}
+}

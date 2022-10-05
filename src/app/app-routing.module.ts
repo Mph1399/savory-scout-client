@@ -10,8 +10,8 @@ const routes: Routes = [
    { path: 'suggest', loadChildren: () => import('./suggest/suggest.module').then(m => m.SuggestModule)},
    { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule)},
    { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)},
-   { path: '', redirectTo: '/home', pathMatch: 'full'},
-   { path: '**', redirectTo: '/home', pathMatch: 'full'},
+   { path: '', redirectTo: 'home', pathMatch: 'full'},
+   { path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({

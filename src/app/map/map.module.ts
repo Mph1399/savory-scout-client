@@ -4,6 +4,7 @@ import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapRoutingModule } from './map-routing.module';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 
 
@@ -13,7 +14,10 @@ import { MapRoutingModule } from './map-routing.module';
     CommonModule,
     MapRoutingModule,
     SharedModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     GoogleMapsModule,
-  ]
+  ],
+  exports: [MapComponent]
 })
 export class MapModule { }
