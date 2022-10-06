@@ -1,24 +1,31 @@
 
 
-  <!-- Show the city select -->
-  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length === 0"></app-city-select>
+<!-- Show the city select -->
+<app-city-select *ngIf="(filteredLocations$ | async)!.locations.length === 0"></app-city-select>
 
 
-<div *ngIf="apiLoaded | async">
-<google-map 
-height="calc(100vh - 56px)"
-width="100vw"
-[center]="center"
-[zoom]="zoom"
-[options]="options">
-<map-marker 
-#somemarker="mapMarker" 
-*ngFor="let marker of markers; let i = index" 
-[position]="marker.position"
-[title]="marker.title">
-</map-marker>
-<!-- (mapClick)="openInfo(somemarker, marker.info)" -->
-<!-- <map-info-window>{{ infoContent }}</map-info-window> -->
+<div >
+<google-map (tilesloaded)="setInitialBounds()" [options]="options" [zoom]="zoom" [center]="center" height="95vh" width="100vw">
+    
+<ng-container *ngFor="let marker of markers; let i = index" >
+    <map-marker 
+    #somemarker="mapMarker" 
+    *ngIf="(filters$ | async)!.filters.active && marker.info.active && marker.info.food!.active || 
+    (filters$ | async)!.filters.active && marker.info.active && marker.info.drinks!.active || 
+    (filters$ | async)!.filters.active && marker.info.active && marker.info.events!.active ||
+    !(filters$ | async)!.filters.active && marker.info.food!.active ||
+    !(filters$ | async)!.filters.active && marker.info.drinks!.active ||
+    !(filters$ | async)!.filters.active && marker.info.events!.active "
+    [position]="marker.position"
+    [title]="marker.title" 
+    (mapClick)="openInfo(somemarker, marker.info)" >
+    </map-marker>
+</ng-container>    
+
+
+<map-info-window>
+    <app-info-window [infoContent]="infoContent"></app-info-window>
+</map-info-window>
 </google-map>
 </div>
 

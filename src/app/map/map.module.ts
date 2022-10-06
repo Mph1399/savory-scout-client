@@ -5,11 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapRoutingModule } from './map-routing.module';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { MapService } from './map.service';
+import { InfoWindowComponent } from './info-window/info-window.component';
+import { MatCardModule } from '@angular/material/card';
+import { SpecialsDisplayModule } from '../shared/specials-display/specials-display.module';
 
 
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent, InfoWindowComponent],
   imports: [
     CommonModule,
     MapRoutingModule,
@@ -17,7 +21,10 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     HttpClientJsonpModule,
     GoogleMapsModule,
+    MatCardModule,
+    SpecialsDisplayModule
   ],
-  exports: [MapComponent]
+  exports: [MapComponent],
+  providers: [MapService]
 })
 export class MapModule { }

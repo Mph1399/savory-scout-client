@@ -94,6 +94,7 @@ will return a true boolean if any special turned out to be active */
                 /* Active isn't selected but the filter found a match for on of the search filter main categories. 
                 This means we're going to display all locations that have specials by setting the location.action to true and
                 setting the specific categories*/
+                location[category].active = true;
                 locationsWithSelectedCategories[index] = location;
               }
             }
@@ -307,6 +308,7 @@ will return a true boolean if any special turned out to be active */
 
 
   filterSecondaryCategories = (location: Location, category: string) => {
+    location = JSON.parse(JSON.stringify(location));
     this.dateTypes.forEach((dateType) => {
       location[category][dateType].forEach((special, k) => {
         // Only filter if the special is already set to be displayed

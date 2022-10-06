@@ -24,6 +24,7 @@ import { GoogleService } from './services/google.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
+import { LocationDetailsService } from './services/location-details.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
     MatInputModule
     
   ],
-  providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService],
+  providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],
   exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, FooterNavbarComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

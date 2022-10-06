@@ -18,8 +18,8 @@ interface IpCoords {
   providedIn: 'root'
 })
 export class GeolocationService {
-public coordsSubject = new Subject<Geolocation>();
-coordsSubject$ = this.coordsSubject.asObservable();
+//public coordsSubject = new Subject<Geolocation>();
+// coordsSubject$ = this.coordsSubject.asObservable(); 
 lat: number;
 lng: number;
 
@@ -34,16 +34,17 @@ lng: number;
      'https://api.ipregistry.co/?key=4dn46f0jy85r4r'
     ).pipe(
       map( (res: any) => {
-      this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
+     // this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
       this.lat = parseFloat(res.location.latitude);
       this.lng = parseFloat(res.location.longitude);
 
       /* DEV TESTING */
-      return {
-        lat: 50.507351,
-        lng: -0.127758,
-        hash: geofire.geohashForLocation([50.507351, -0.127758])
-       }
+      // return {
+      //   lat: 50.507351,
+      //   lng: -0.127758,
+      //   hash: geofire.geohashForLocation([50.507351, -0.127758])
+      //  }
+
       return {
               lat: res.location.latitude,
               lng: res.location.longitude,

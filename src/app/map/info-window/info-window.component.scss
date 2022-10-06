@@ -1,0 +1,16 @@
+
+
+::ng-deep .mat-card-header-text {
+    margin: 0 0 !important;
+}
+::ng-deep .gm-style .gm-style-iw-c {
+    padding: 0 !important;
+}
+
+mat-card {
+    cursor: pointer;
+}
+
+mat-card-header {
+    font-size: 17px;
+}

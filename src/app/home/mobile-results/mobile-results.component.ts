@@ -1,11 +1,7 @@
-import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-
-// import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
-import { first } from 'rxjs/operators';
+import { Component, Input } from '@angular/core';
 import { Location } from 'src/app/shared/models/location.model';
+import { LocationDetailsService } from 'src/app/shared/services/location-details.service';
 
 @Component({
   selector: 'app-mobile-results',
@@ -17,10 +13,10 @@ export class MobileResultsComponent {
    categories = ['food', 'drinks', 'events'];
  // @Input() filteredLocations$: Observable<FilteredLocationsPackage>;
 
-  constructor(private deviceDetailsService: DeviceDetailsService) {
+  constructor(private locationDetailsService: LocationDetailsService) {
   }
 
   openDetails = (index: number) => {
-        this.deviceDetailsService.openDetails(this.filteredLocations[index]);
+        this.locationDetailsService.openDetails(this.filteredLocations[index]);
     }
 }

@@ -33,32 +33,24 @@ export interface LocationsState {
     export const locationsReducer = createReducer(initialState,
         on(FirestoreActions.GET_LOCATIONS_BY_COORDS, (state, action) => {
            console.log('Action in GET_LOCATION Reducer: ', action.lat)
-          // console.log()
-          // localStorage.setItem('location', JSON.stringify(action.location));
            return {
              ...state,
            }
          }),
          on(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR, (state, action) => {
           console.log('Action in GET_LOCATION_FROM_SEARCHBAR Reducer: ', action.input)
-         // console.log()
-         // localStorage.setItem('location', JSON.stringify(action.location));
           return {
             ...state,
           }
         }),
         on(FirestoreActions.GET_LOCATION_BY_PLACE_ID, (state, action) => {
-
-         // console.log()
-         // localStorage.setItem('location', JSON.stringify(action.location));
           return {
             ...state,
           }
         }),
          on(FirestoreActions.SET_LOCATIONS, (state, action) => {
           console.log('Action in SET_LOCATION Reducer: ', action)
-         // console.log()
-         // localStorage.setItem('location', JSON.stringify(action.location));
+          localStorage.setItem('locations', JSON.stringify(action.locations));
           return {
             ...state,
             locations: action.locations

@@ -1,12 +1,7 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { first, tap } from 'rxjs/operators';
-import { LocationsState } from '../../shared/firestore/store/firestore.reducers'
-
-// import { FilteredLocationsPackage } from 'src/models/filtered-locations-package.model';
-import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
 import { Location } from 'src/app/shared/models/location.model';
+import { LocationDetailsService } from 'src/app/shared/services/location-details.service';
 
 @Component({
   selector: 'app-desktop-results',
@@ -21,12 +16,12 @@ export class DesktopResultsComponent {
    categories = ['food', 'drinks', 'events'];
 
   constructor(
-    private deviceDetailsService: DeviceDetailsService,
+    private locationDetailsService: LocationDetailsService,
     private store: Store
     ) {}
 
   openDetails = (index: number) => {
-      this.deviceDetailsService.openDetails(this.filteredLocations[index]);
+      this.locationDetailsService.openDetails(this.filteredLocations[index]);
    }
 
    ngOnChanges(changes: SimpleChanges) {

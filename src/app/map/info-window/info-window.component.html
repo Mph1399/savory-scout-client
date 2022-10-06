@@ -1,0 +1,9 @@
+
+    <mat-card *ngIf="infoContent" (click)="openDetails()">
+        <mat-card-header>
+            {{ infoContent.name }}
+        </mat-card-header>
+        <mat-card-subtitle>{{ infoContent.phone }}</mat-card-subtitle>
+        <app-specials-display [location]="infoContent"></app-specials-display>
+    </mat-card>
+
