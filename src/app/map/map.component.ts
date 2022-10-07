@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
-import { catchError, map, Observable, of, Subscription, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 import { Location } from '../shared/models/location.model';
 import { GeolocationService } from '../shared/services/geolocation.service';
@@ -15,12 +15,11 @@ import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-f
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   filters$ = this.store.select(FilterSelectors.getFilterState);
   // apiLoaded: Observable<boolean>;
-  geolocation: Subscription;
   lastSelectedInfoWindow: any;
   center: google.maps.LatLngLiteral;
   bounds: google.maps.LatLngBounds;
@@ -66,9 +65,6 @@ export class MapComponent implements OnInit, OnDestroy {
   openInfo(marker: MapMarker, content: Location) {
     this.infoContent = content;
     this.infoWindow.open(marker)
-  }
-  ngOnDestroy(){
-    this.geolocation.unsubscribe();
   }
 
   setInitialBounds = () => {

@@ -18,29 +18,29 @@
         <mat-icon>dashboard</mat-icon>Owner Dashboard</a>
 
     <mat-divider></mat-divider>
-      <a mat-list-item routerLink="home">
+      <a mat-list-item routerLink="home" (click)="closeSidenav()">
     <mat-icon>home</mat-icon>Home</a>
 
     <mat-divider></mat-divider>
-    <a mat-list-item routerLink="map">
+    <a mat-list-item routerLink="map" (click)="closeSidenav()">
       <mat-icon>map</mat-icon>Map</a>
 
       <mat-divider></mat-divider>
-      <a mat-list-item routerLink="about">
+      <a mat-list-item routerLink="about" (click)="closeSidenav()">
         <mat-icon>info</mat-icon>About</a>
 
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="contact">
+        <a mat-list-item routerLink="contact" (click)="closeSidenav()">
           <mat-icon>contact_page</mat-icon>Contact</a>
 
           <mat-divider></mat-divider>
-          <a mat-list-item routerLink="suggest">
+          <a mat-list-item routerLink="suggest" (click)="closeSidenav()">
             <mat-icon>thumb_up</mat-icon>Suggest</a>
   
 
     <mat-divider></mat-divider>
    <ng-container *ngIf="!( auth$ | async )?.user">
-    <a mat-list-item href="login">
+    <a mat-list-item routerLink="login" (click)="closeSidenav()">
       <mat-icon>login</mat-icon>Login</a>
     <mat-divider></mat-divider>
    </ng-container>
@@ -50,7 +50,7 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" style="z-index: 100000">
-      <img src="../../../assets/imgs/Logo-Transparent.png" class="logo">
+      <img src="../../../assets/imgs/Logo-Transparent.png" class="logo" routerLink="home">
  
       <!-- Spacer to put hamburger on the far right side per @material docs-->
       <span style="flex: 1 1 auto"></span>
