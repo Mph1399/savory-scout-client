@@ -7,6 +7,8 @@ import { Day } from '../shared/models/day.model';
 import { Location } from '../shared/models/location.model';
 import { CategoryDetails, DetailsService } from './details.service';
 //import { MailService } from 'src/services/mail.service';
+import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors'
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -17,8 +19,10 @@ import { CategoryDetails, DetailsService } from './details.service';
 export class DetailsComponent implements OnInit{
    data: Location;
    categoryDetails: CategoryDetails[] = [];
+   filters$ = this.store.select(FilterSelectors.getFilterState)
 
    constructor(
+      private store: Store,
 //     private locationDetailsService: LocationDetailsService,
 //     private mail: MailService,
      private detailsService: DetailsService,
