@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Location } from 'src/app/shared/models/location.model';
 import { LocationDetailsService } from 'src/app/shared/services/location-details.service';
+import * as FilterSelectors from '../../shared/dialogs/search-filter/store/search-filter.selectors'
 
 @Component({
   selector: 'app-desktop-results',
@@ -9,7 +10,7 @@ import { LocationDetailsService } from 'src/app/shared/services/location-details
   styleUrls: ['./desktop-results.component.scss']
 })
 export class DesktopResultsComponent {
- 
+  filters$ = this.store.select(FilterSelectors.getFilterState);
   // @Input() dayOfTheWeek;
   // @Input() screenWidth;
    @Input() filteredLocations: Location[];

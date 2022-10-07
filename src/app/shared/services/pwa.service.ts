@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { MatDialog } from '@angular/material/dialog';
-import { AddToHomeSafariComponent } from 'src/app/dialogs/add-to-home-safari/add-to-home-safari.component';
+import { AddToHomeSafariComponent } from '../dialogs/add-to-home-safari/add-to-home-safari.component';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 

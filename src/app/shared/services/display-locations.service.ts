@@ -51,6 +51,7 @@ export class DisplayLocationsService implements OnDestroy {
 
 
   displaySelectedCategories = (locations: Location[]): Location[] => {
+    locations = JSON.parse(JSON.stringify(locations));
     const locationsWithSelectedCategories: Location[] = JSON.parse(
       JSON.stringify(locations)
     );
@@ -75,7 +76,7 @@ export class DisplayLocationsService implements OnDestroy {
               /* Check if that category has a special that is currently active if the Active filter is selected */
               if (this.searchFilter.filters.active) {
                 const filteredSpecials = this.displayLocationWithActiveSpecials(
-                  JSON.parse(JSON.stringify(location[category][dateType])),
+                  location[category][dateType],
                   category,
                   dateType
                 );
