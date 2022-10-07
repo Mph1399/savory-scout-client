@@ -1,5 +1,5 @@
 import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions'
 import { HomeService } from './home.service';
@@ -12,7 +12,7 @@ import { Location } from '../shared/models/location.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
   filteredLocations: Location[];
   filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
   .pipe(
@@ -34,12 +34,14 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log('screewidth: ', this.screenWidth)
     this.homeService.geoMyLocation();
-    
+
    // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))
    // this.firestoreService.geoSearchLocations(this.geoService.fetchHash(), this.geoService.lat, this.geoService.lng)
     
     // this.serializedDate = new FormControl((new Date()).toISOString());
     // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log('Changes: ', changes)
+   }
 }

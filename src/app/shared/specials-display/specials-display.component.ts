@@ -37,7 +37,7 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
    // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
   }
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Changes: ', changes)
+   // console.log('Changes: ', changes)
   }
 
 }

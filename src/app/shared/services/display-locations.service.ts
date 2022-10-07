@@ -52,9 +52,7 @@ export class DisplayLocationsService implements OnDestroy {
 
   displaySelectedCategories = (locations: Location[]): Location[] => {
     locations = JSON.parse(JSON.stringify(locations));
-    const locationsWithSelectedCategories: Location[] = JSON.parse(
-      JSON.stringify(locations)
-    );
+    const locationsWithSelectedCategories: Location[] = JSON.parse(JSON.stringify(locations));
     /*  Check to see if the location has specials that meet the filter crieria first. I.e it has Drink specials if that's selected. */
     locations.forEach((location, index) => {
       /* Reset the active status of the currently saved location before filtering */
