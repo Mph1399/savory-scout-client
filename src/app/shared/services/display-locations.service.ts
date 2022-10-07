@@ -99,6 +99,7 @@ will return a true boolean if any special turned out to be active */
             }
           });
         } else {
+          console.log(category + ' Is inactive')
           /* The current category isn't selected in the filter. Just push the location to the filteredMainCategories without modification */
           locationsWithSelectedCategories[index][category].active = false;
           /* Set each special contained in the deselected category to inactive  */
@@ -113,13 +114,7 @@ will return a true boolean if any special turned out to be active */
           /// filteredSelectedMainCategories[index] = location;
         }
 
-        locationsWithSelectedCategories[index].active
-          ? (locationsWithSelectedCategories[index] =
-              this.filterSecondaryCategories(
-                locationsWithSelectedCategories[index],
-                category
-              ))
-          : '';
+        locationsWithSelectedCategories[index][category].active  ? (locationsWithSelectedCategories[index] = this.filterSecondaryCategories(locationsWithSelectedCategories[index],category)) : '';
       });
     });
     return locationsWithSelectedCategories;
