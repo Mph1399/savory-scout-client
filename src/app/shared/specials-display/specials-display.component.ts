@@ -15,7 +15,7 @@ import { LocationsState } from '../firestore/store/firestore.reducers';
   styleUrls: ['./specials-display.component.scss']
 })
 export class SpecialsDisplayComponent implements OnInit, OnChanges {
-  filterValues = this.store.select(SearchFilterSelectors.getFilterState);
+  filters$ = this.store.select(SearchFilterSelectors.getFilterState);
   @Input() location: Location;
   @Input() pageUrl: string;
   @Input() index: number;
