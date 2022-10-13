@@ -6,7 +6,7 @@
       <mat-tab *ngIf="data.food!.active || data.drinks!.active || data.events!.active" label="ACTIVE">
         <!-- <app-active-tab [location]="data"></app-active-tab> -->
         <app-specials-display *ngIf="(filters$ | async)!.filters.active" [location]="data"></app-specials-display>
-        <p *ngIf="!(filters$ | async)!.filters.active">Active is not selected in the filter</p>
+        <p *ngIf="!(filters$ | async)!.filters.active" style="text-align: center">Active is not selected in the filter</p>
       </mat-tab>
       <ng-container *ngFor="let categoryDetail of categoryDetails; let i = index">
         <mat-tab *ngIf="data[categoryDetail.category].recurringSpecials || data[categoryDetail.category].specificDateSpecials" label="{{ categoryDetail.category | uppercase }}" style="width: 100%">
