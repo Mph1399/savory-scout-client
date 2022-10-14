@@ -35,7 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       signInSuccessUrl: '/home',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID
       ],
       callbacks: {
         signInSuccessWithAuthResult: function(authResult: any, redirectUrl: any) {

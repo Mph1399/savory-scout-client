@@ -25,7 +25,6 @@ import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search
 import { MatTabsModule } from '@angular/material/tabs';
 import { DetailsModule } from './details/details.module';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AboutModule } from './about/about.module';
 
 
 @NgModule({

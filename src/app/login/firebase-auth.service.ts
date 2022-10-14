@@ -6,13 +6,11 @@ import {
   signOut,
   onAuthStateChanged,
   signInAnonymously,
+  FacebookAuthProvider
 } from 'firebase/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as AuthActions from '../login/store/auth.actions';
 import * as moment from 'moment';
-
-
-
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
 import { Injectable } from '@angular/core';
@@ -27,7 +25,8 @@ firebase.initializeApp(environment.firebase);
 // Initialize the FirebaseUI Widget using Firebase.
 export var ui = new firebaseui.auth.AuthUI(firebase.auth());
 export const auth = getAuth();
-
+const provider  = new FacebookAuthProvider();
+ 
 @Injectable({
   providedIn: 'root',
 })
@@ -128,7 +127,6 @@ export class FirebaseAuthService {
   }
 
   anonUserExpiration(){
-
 
   if (this.screenWidth < 800) {
     // Open the dialog with these settings if the device is mobile
