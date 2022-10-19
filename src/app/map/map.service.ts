@@ -8,6 +8,8 @@ import { DeviceDetailsService } from "../shared/services/device-details.service"
 import { GeolocationService } from "../shared/services/geolocation.service";
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
+import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface Marker {
     position: {lat: number, lng: number},
@@ -30,6 +32,7 @@ export class MapService implements OnDestroy{
         private store: Store,
         private deviceDetailsService: DeviceDetailsService,
         private geolocationService: GeolocationService,
+        private _snackBar: MatSnackBar
         ){}
    
     createMarkersArray = (locations: Location[]) => {
@@ -51,7 +54,14 @@ export class MapService implements OnDestroy{
         .pipe(
            catchError(error => {
                this.openCitySelect();  
-               this.store.dispatch(SpinnerActions.SPINNER_END()); 
+               this.store.dispatch(SpinnerActions.SPINNER_END());
+               this._snackBar.openFromComponent(SnackbarComponent, {
+                data: {
+                  message: 'We could not access your location, please choose a city.',
+                  color: 'red-text',
+                },
+                duration: 3000,
+              });
              return of(error)
            })
         )

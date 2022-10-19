@@ -75,22 +75,20 @@ export class MapComponent implements OnInit {
         // reset map bounds
           this.bounds = new google.maps.LatLngBounds();
           this.markers.forEach(marker => {
+            // only include markers that will be displayed on the map
             if(state.filters.active && marker.info.active && marker.info.food!.active || 
             state.filters.active && marker.info.active && marker.info.drinks!.active || 
             state.filters.active && marker.info.active && marker.info.events!.active ||
             !state.filters.active && marker.info.food!.active ||
             !state.filters.active && marker.info.drinks!.active ||
             !state.filters.active && marker.info.events!.active ){
-            //
-          const latLng = new google.maps.LatLng(marker.position.lat, marker.position.lng)
-          this.bounds.extend(latLng);
-        }
+              const latLng = new google.maps.LatLng(marker.position.lat, marker.position.lng)
+              this.bounds.extend(latLng);
+            }
           })
           this.map.fitBounds(this.bounds);
           this.initialBoundsSet = true;
         }
-
-
     })
 
 

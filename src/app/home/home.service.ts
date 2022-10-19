@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
 import { CitySelectComponent } from '../shared/city-select/city-select.component';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 
 @Injectable()
 export class HomeService implements OnDestroy {
@@ -17,7 +19,8 @@ export class HomeService implements OnDestroy {
         private geoService:GeolocationService,
         private store: Store,
         private dialog: MatDialog,
-        private deviceDetailsService: DeviceDetailsService
+        private deviceDetailsService: DeviceDetailsService,
+        private _snackBar: MatSnackBar
         ){}
 
     geoMyLocation = () => {
@@ -25,7 +28,14 @@ export class HomeService implements OnDestroy {
      .pipe(
         catchError(error => {
             this.openCitySelect();  
-            this.store.dispatch(SpinnerActions.SPINNER_END()); 
+            this.store.dispatch(SpinnerActions.SPINNER_END());
+            this._snackBar.openFromComponent(SnackbarComponent, {
+                data: {
+                  message: 'We could not access your location, please choose a city.',
+                  color: 'red-text',
+                },
+                duration: 3000,
+              });
           return of(error)
         })
      )
