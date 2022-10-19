@@ -5,7 +5,7 @@ import { LocationsState } from './firestore.reducers';
 export const selectLocations = createFeatureSelector<Readonly<LocationsState>>('locations');
 
 export const getLocationsState = createSelector (selectLocations, (state) => {
-    if(state.locations[0].name === ''){
+    if(state.locations.length > 0 && state.locations[0].name === ''){
         // Try to retrieve an existing state from local storage
         const storedLocations = JSON.parse(localStorage.getItem('locations')!);
         if(storedLocations){

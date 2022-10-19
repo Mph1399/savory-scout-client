@@ -1,5 +1,4 @@
 import { DisplayLocationsService } from './../../services/display-locations.service';
-
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SpinnerActions from '../../spinner/store/spinner.actions';
@@ -28,7 +27,7 @@ export class FirestoreEffects {
           this.store.dispatch(SpinnerActions.SPINNER_START())
           return this.firestoreService
             .geoSearchLocations(action.lat, action.lng)
-            .then((matchingDocs) => {
+            .then((matchingDocs): Location[] => {
               return (matchingDocs as any[]).map((doc) => {
                 return doc.data();
               });
@@ -41,6 +40,8 @@ export class FirestoreEffects {
           console.log('Locations :', locations);
           // make a deep copy of locations
           const locationsCopy = JSON.parse(JSON.stringify(locations))
+          // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
+          locationsCopy.reverse();
           const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
           console.log('filtered: ', filteredLocations)
           return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})

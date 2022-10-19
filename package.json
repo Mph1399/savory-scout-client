@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "scully": "npx scully -- --project savory-scout-client",
-    "scully:serve": "npx scully serve -- --project savory-scout-client"
+    "scully": "npx scully --",
+    "scully:serve": "npx scully serve --"
   },
   "private": true,
   "dependencies": {
@@ -23,11 +23,13 @@
     "@angular/material": "^14.2.1",
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
+    "@angular/platform-server": "^12",
     "@angular/router": "^14.0.0",
     "@ngrx/effects": "^14.3.0",
     "@ngrx/store": "^14.3.0",
     "@scullyio/init": "^2.1.36",
     "@scullyio/ng-lib": "^2.1.0",
+    "@scullyio/platform-server": "^2.1.0",
     "@scullyio/scully": "^2.1.0",
     "@scullyio/scully-plugin-puppeteer": "^2.1.0",
     "angular-responsive-carousel": "^2.1.2",

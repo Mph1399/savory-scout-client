@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from 'src/app/shared/models/location.model';
 import * as moment from 'moment';
 import { Timestamp, serverTimestamp } from "firebase/firestore"
+import { MatDialogRef } from '@angular/material/dialog';
+import { DetailsComponent } from '../details.component';
 
 @Component({
   selector: 'app-location-info',
@@ -10,15 +12,20 @@ import { Timestamp, serverTimestamp } from "firebase/firestore"
 })
 export class LocationInfoComponent implements OnInit {
   @Input() data: Location;
+  @Output() reportEvent = new EventEmitter<boolean>();
   reportLocation = false;
   date;
 
-  constructor() {
+  constructor(
+    private dialogRef: MatDialogRef<DetailsComponent>
+  ) {
 
    }
 
    openReport = () =>  {
     this.reportLocation = true;
+    this.reportEvent.emit(true);
+   // this.dialogRef.close();
   }
 
   ngOnInit(): void {

@@ -47,9 +47,6 @@ export class DisplayLocationsService implements OnDestroy {
   };
 
 
-
-
-
   displaySelectedCategories = (locations: Location[]): Location[] => {
     locations = JSON.parse(JSON.stringify(locations));
     const locationsWithSelectedCategories: Location[] = JSON.parse(JSON.stringify(locations));

@@ -1,0 +1,10 @@
+
+.sent-image {
+    max-width: 100px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+::ng-deep .mat-form-field {
+    width: 100% !important;
+}

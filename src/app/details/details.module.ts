@@ -17,6 +17,7 @@ import { LocationInfoComponent } from './location-info/location-info.component';
 import { SpecialsDisplayModule } from '../shared/specials-display/specials-display.module';
 import { DetailsService } from './details.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -34,6 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
+    MatInputModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,

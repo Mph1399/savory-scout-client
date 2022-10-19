@@ -1,16 +1,17 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, map, of, Subscription } from 'rxjs';
 import { GeolocationService } from '../shared/services/geolocation.service';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
 import { CitySelectComponent } from '../shared/city-select/city-select.component';
+import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 
 @Injectable()
 export class HomeService implements OnDestroy {
-    geoService$;
-    screenWidth = this.deviceDetailsService.screenWidth;;
+    geoService$: Subscription;
+    screenWidth = this.deviceDetailsService.screenWidth;
     
     constructor(
         private geoService:GeolocationService,
@@ -20,7 +21,15 @@ export class HomeService implements OnDestroy {
         ){}
 
     geoMyLocation = () => {
-     this.geoService$ =  this.geoService.findIpGeo().subscribe(locationResults => this.getLocationsFromFirestore(locationResults.lat, locationResults.lng));
+     this.geoService$ =  this.geoService.findIpGeo()
+     .pipe(
+        catchError(error => {
+            this.openCitySelect();  
+            this.store.dispatch(SpinnerActions.SPINNER_END()); 
+          return of(error)
+        })
+     )
+     .subscribe(locationResults => this.getLocationsFromFirestore(locationResults.lat, locationResults.lng));
     }
 
     getLocationsFromFirestore = (lat: number, lng: number) => {

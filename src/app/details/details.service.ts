@@ -77,9 +77,9 @@ export class DetailsService {
       return { display, specials };
     }
   
-    displaySpecificDay(day, importedSpecials): { display; specials } {
+    displaySpecificDay(day, importedSpecials): { display, specials } {
     //  console.log("Specific Day Filter Location: ", location);
-  
+    importedSpecials = JSON.parse(JSON.stringify(importedSpecials))
       // Create a variable to push specials into
       const specials: CategorySpecials[] = [];
       // Create bool to set if a special is found for that date

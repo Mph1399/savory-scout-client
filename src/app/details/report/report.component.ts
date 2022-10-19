@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { MailService } from 'src/app/shared/mail.service';
@@ -12,7 +13,7 @@ import * as SpinnerActions from '../../shared/spinner/store/spinner.actions'
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-  @Input() data: Location;
+  data: Location;
   public emailForm: FormGroup;
   sent = false;
   errorMessage = false;
@@ -21,7 +22,22 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private mail: MailService) { }
+    private mail: MailService,
+    private dialogRef: MatDialogRef<ReportComponent>,
+    @Inject(MAT_DIALOG_DATA) data: Location) { 
+      this.data = data;
+      
+    ////////////////// Initalize Form Data  ///////////
+      this.emailForm = new FormGroup({
+        name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+        email: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ])),
+        text: new FormControl('', [Validators.required, Validators.maxLength(800)]),
+        phone: new FormControl()
+      });
+    }
 
   public hasError = (controlName: string, errorName: string) => {
     return this.emailForm.controls[controlName].hasError(errorName);
@@ -57,6 +73,7 @@ export class ReportComponent implements OnInit {
 
   onCancel = () => {
     this.reportLocation = false;
+    this.dialogRef.close();
   }
 
 

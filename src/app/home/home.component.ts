@@ -1,9 +1,8 @@
 import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as SpinnerActions from '../shared/spinner/store/spinner.actions'
+import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import { HomeService } from './home.service';
-
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 import { tap } from 'rxjs';
 import { Location } from '../shared/models/location.model';
