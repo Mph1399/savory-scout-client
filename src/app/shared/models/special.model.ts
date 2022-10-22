@@ -2,7 +2,7 @@ export interface Special {
          active: boolean,
          type: number,
          title: string | string[],
-         description: string,
+         description: string | string[],
          start: number,
          end: number,
          price: number,

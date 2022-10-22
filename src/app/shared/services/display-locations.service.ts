@@ -232,9 +232,12 @@ will return a true boolean if any special turned out to be active */
           );
           // Make a deep copy of title
           const title = JSON.parse(JSON.stringify(special.title));
-          // The special has a title that is currently a string but we want it to be an array.
+          const description = JSON.parse(JSON.stringify(special.description));
+          // The special has a title and description that are currently a string but we want it to be an array.
           special.title = [];
+          special.description = [];
           special.title.push(`${title} - $${special.price.toString()}`);
+          special.description.push(description);
           //console.log('Special Title: ', special.title)
           // sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))
 
@@ -257,9 +260,9 @@ will return a true boolean if any special turned out to be active */
             ) {
               match = true;
               // console.log('Pushing: ', special.title[0], ' onto : ', sortedLocation[category][dateType][k].title)
-              return sortedLocation[category][dateType][k].title.push(
-                special.title[0]
-              );
+             sortedLocation[category][dateType][k].title.push(special.title[0]);
+             sortedLocation[category][dateType][k].description.push(special.description[0]);
+             return
             } else if (
               index > 0 &&
               special.start == sortedSpecial.start &&
@@ -271,9 +274,8 @@ will return a true boolean if any special turned out to be active */
             ) {
               match = true;
               // console.log('Pushing: ', special.title[0], ' onto : ', sortedLocation[category][dateType][k].title)
-              return sortedLocation[category][dateType][k].title.push(
-                special.title[0]
-              );
+             sortedLocation[category][dateType][k].title.push( special.title[0]);
+             sortedLocation[category][dateType][k].description.push( special.description[0]);
             }
           });
           /*  A match was not found so push the special to the sortedSpecials array as a new special. 
@@ -282,10 +284,11 @@ will return a true boolean if any special turned out to be active */
           */
           //   console.log('Match: ', match);
           //   !match && index != 0 ? console.log('title: ', special.title) : '';
-          !match && index != 0 ? (special.title[0] = special.title[0]) : '';
-          !match && index != 0
-            ? sortedLocation[category][dateType].push(special)
-            : '';
+          if(!match && index != 0 ){ 
+            special.title[0] = special.title[0];
+            special.description[0] = special.description[0];
+           }
+          !match && index != 0 ? sortedLocation[category][dateType].push(special) : '';
         });
       });
     });

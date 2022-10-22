@@ -62,7 +62,7 @@ export class FirestoreEffects {
       this.actions$.pipe(
         ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS),
         switchMap((action) => {
-          this.store.dispatch(SpinnerActions.SPINNER_START())
+          this.store.dispatch(SpinnerActions.SPINNER_START('Finding Specials'))
           return this.firestoreService
             .geoCloudSearchLocations(action.lat, action.lng)
         }),
@@ -93,7 +93,7 @@ export class FirestoreEffects {
   this.actions$.pipe(
     ofType(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR),
     switchMap((action) => {
-      this.store.dispatch(SpinnerActions.SPINNER_START())
+      this.store.dispatch(SpinnerActions.SPINNER_START('Finding Specials'))
       return this.googleService
         .getCoordinates(action.input)
     }),

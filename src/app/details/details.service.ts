@@ -62,7 +62,7 @@ export class DetailsService {
   
                    specials.push({
                      specials: special.title,
-                     specialDescriptions: special.specialDescriptions,
+                     specialDescriptions: special.description,
                      price: special.price,
                      start: special.start,
                      end: special.end
@@ -98,7 +98,7 @@ export class DetailsService {
               date: finalSpecial.date,
               price: finalSpecial.price,
               specials: special.title,
-              specialDescriptions: special.specialDescriptions,
+              specialDescriptions: special.description,
               start,
               end,
             });

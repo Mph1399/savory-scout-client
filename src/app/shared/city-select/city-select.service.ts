@@ -7,7 +7,7 @@ export interface City {
 
 @Injectable()
 export class CitySelectService {
-    cities: Array<City> = [{city: 'Colorado Springs, CO', total: 0}, ];
+    cities: Array<City> = [{city: 'Colorado Springs, CO', total: 0}, {city: 'Denver, CO', total: 0} ];
 
     getCities = () => {
         return this.cities;
