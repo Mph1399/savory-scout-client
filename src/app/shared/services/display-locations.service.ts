@@ -31,6 +31,7 @@ export class DisplayLocationsService implements OnDestroy {
     // console.log('Filters: ', this.searchFilter.filters);
     // console.log('locations: ', locations)
     locations = JSON.parse(JSON.stringify(locations));
+
     /* Group the specials that have matching times,categories, days/date so that they can be displayed as a group un the search results */
     locations.forEach((location, index) => {
       locations[index] = this.groupSpecialsWithMatchingCriteria(location);

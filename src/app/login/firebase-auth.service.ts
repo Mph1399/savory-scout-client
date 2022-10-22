@@ -19,6 +19,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login.component';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
+import { Router } from '@angular/router';
 firebase.initializeApp(environment.firebase);
 
 
@@ -37,6 +38,7 @@ export class FirebaseAuthService {
   constructor(
     private _snackBar: MatSnackBar,
     private store: Store,
+    private router: Router,
     private dialog: MatDialog,
     private deviceDetailsService: DeviceDetailsService
   ){}
@@ -99,34 +101,22 @@ export class FirebaseAuthService {
         renewToken();
       } else {
         // this.router.navigateByUrl('/login');
-        // Initiate an anonymous user with a limitied timespan b4 registering or doing an official login;
-        signInAnonymously(auth).then((user) =>{
-          console.log('User: ', user);
-          user.user.getIdToken(true).then(token => {
-            this.store.dispatch(
-              AuthActions.AUTHENTICATE_SUCCESS({
-                email: null,
-                uid: user.user.uid,
-                token: token,
-              })
-            );
-          })
+        /* The user isn't logged in but we want them to have a little bit of a free trial.
+        1) check to see if a date is set in local storage. If not, set the current date in local storage. 
+        2) check the date and allow 1 week of free usage,
+        3) If the time is over 1 week, redirect to the login page */
+        const userDate = localStorage.getItem('userDate')
+       if(userDate === null){
+        localStorage.setItem('userDate', JSON.stringify(new Date())) 
+      } else { 
+        console.log('TIME: ', (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60);
+      }
 
-        }).catch((error) => {
-          console.log('Error: ', error);
-          this._snackBar.openFromComponent(SnackbarComponent, {
-            data: {
-              message: `Error: ${error}`,
-              color: 'red-text',
-            },
-            duration: 30000,
-          });
-        })
       }
     });
   }
 
-  anonUserExpiration(){
+  userExpiration(){
 
   if (this.screenWidth < 800) {
     // Open the dialog with these settings if the device is mobile
@@ -146,3 +136,26 @@ export class FirebaseAuthService {
   }
   }
 
+        // Initiate an anonymous user with a limitied timespan b4 registering or doing an official login;
+        // signInAnonymously(auth).then((user) =>{
+        //   console.log('User: ', user);
+        //   user.user.getIdToken(true).then(token => {
+        //     this.store.dispatch(
+        //       AuthActions.AUTHENTICATE_SUCCESS({
+        //         email: null,
+        //         uid: user.user.uid,
+        //         token: token,
+        //       })
+        //     );
+        //   })
+
+        // }).catch((error) => {
+        //   console.log('Error: ', error);
+        //   this._snackBar.openFromComponent(SnackbarComponent, {
+        //     data: {
+        //       message: `Error: ${error}`,
+        //       color: 'red-text',
+        //     },
+        //     duration: 30000,
+        //   });
+        // })

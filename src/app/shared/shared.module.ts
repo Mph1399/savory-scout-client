@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { LocationDetailsService } from './services/location-details.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { LocationDetailsService } from './services/location-details.service';
     MatSliderModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
     
   ],
   providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],

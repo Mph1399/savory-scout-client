@@ -4,7 +4,6 @@ import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapRoutingModule } from './map-routing.module';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { MapService } from './map.service';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { MatCardModule } from '@angular/material/card';
@@ -18,8 +17,6 @@ import { SpecialsDisplayModule } from '../shared/specials-display/specials-displ
     CommonModule,
     MapRoutingModule,
     SharedModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
     GoogleMapsModule,
     MatCardModule,
     SpecialsDisplayModule

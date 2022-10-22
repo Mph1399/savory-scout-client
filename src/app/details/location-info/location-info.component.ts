@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from 'src/app/shared/models/location.model';
 import * as moment from 'moment';
-import { Timestamp, serverTimestamp } from "firebase/firestore"
+import { Timestamp } from "firebase/firestore"
 import { MatDialogRef } from '@angular/material/dialog';
 import { DetailsComponent } from '../details.component';
 

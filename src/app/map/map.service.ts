@@ -65,12 +65,12 @@ export class MapService implements OnDestroy{
              return of(error)
            })
         )
-        .subscribe(locationResults => this.getLocationsFromFirestore(locationResults.lat, locationResults.lng));
+        .subscribe(locationResults => {
+          localStorage.getItem('userDate') !== null ?
+          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :
+          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.lat, lng: locationResults.lng}))
+       });
        }
-
-       getLocationsFromFirestore = (lat: number, lng: number) => {
-        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}))
-    }
 
     openCitySelect = () => {
         console.log('OPening City Select')

@@ -2,12 +2,13 @@ import { DisplayLocationsService } from './../../services/display-locations.serv
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SpinnerActions from '../../spinner/store/spinner.actions';
-import { map, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FirestoreService } from '../firestore.service';
 import * as FirestoreActions from './firestore.actions';
 import { Location } from '../../models/location.model';
 import { GoogleService } from '../../services/google.service';
+import { QuerySnapshot } from 'firebase/firestore';
 
 @Injectable()
 export class FirestoreEffects {
@@ -34,21 +35,59 @@ export class FirestoreEffects {
             })
             .catch((err) => {
               console.log('Error : ', err);
+              throw new Error('Valid token not returned');
             });
         }),
         map((locations) => {
           console.log('Locations :', locations);
+          if(!locations){return FirestoreActions.NO_LOCATIONS}
           // make a deep copy of locations
           const locationsCopy = JSON.parse(JSON.stringify(locations))
           // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
           locationsCopy.reverse();
           const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
           console.log('filtered: ', filteredLocations)
-          return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
+          return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
         })
       ),
-    //{ dispatch: false }
+
   );
+
+
+
+
+
+
+  getLocationsByCoordsAnonymous$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS),
+        switchMap((action) => {
+          this.store.dispatch(SpinnerActions.SPINNER_START())
+          return this.firestoreService
+            .geoCloudSearchLocations(action.lat, action.lng)
+        }),
+        map((locations) => {
+           console.log('Locations :', locations);
+           if(!locations){return FirestoreActions.NO_LOCATIONS}
+          // make a deep copy of locations
+          const locationsCopy = JSON.parse(JSON.stringify(locations))
+          // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
+          locationsCopy.reverse();
+          const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          console.log('filtered: ', filteredLocations)
+           return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
+        })
+
+      ),
+  );
+
+
+
+
+
+
+
+
 
   getLocationsFromSearchbar$ = createEffect(() =>
   this.actions$.pipe(

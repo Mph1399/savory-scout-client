@@ -39,11 +39,13 @@ export class HomeService implements OnDestroy {
           return of(error)
         })
      )
-     .subscribe(locationResults => this.getLocationsFromFirestore(locationResults.lat, locationResults.lng));
-    }
-
-    getLocationsFromFirestore = (lat: number, lng: number) => {
-        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}))
+     .subscribe(locationResults => {
+        console.log('Running SUBSCRIBE GEO');
+        /* If the user has logged in, the userDate value from local storage will be missing/removed */
+       localStorage.getItem('userDate') !== null ?
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.lat, lng: locationResults.lng}))
+    });
     }
 
     ngOnDestroy(){

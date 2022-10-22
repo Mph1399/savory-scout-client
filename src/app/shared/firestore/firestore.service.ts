@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import * as geofire from 'geofire-common';
 import { environment } from 'src/environments/environment';
 import firebase from 'firebase/compat/app';
@@ -6,17 +6,27 @@ import 'firebase/compat/firestore';
 import { getDocs, QuerySnapshot } from 'firebase/firestore';
 // Create a reference to the cities collection
 import { collection, query, where } from "firebase/firestore";
-
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import * as FilterSelectors from '../dialogs/search-filter/store/search-filter.selectors'
+import { Subscription } from 'rxjs';
 // Initialize Firebase
 const app = firebase.initializeApp(environment.firebase);
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = firebase.firestore(app);
-const locationsRef = collection(db, "cities");
+const locationsRef = collection(db, "locations");
 
 @Injectable()
-export class FirestoreService {
+export class FirestoreService implements OnDestroy{
+  filters;
+  filters$: Subscription;
+
+  constructor(
+    private http: HttpClient,
+    private store: Store){
+    this.filters$ = this.store.select(FilterSelectors.getFilterState).subscribe(state => this.filters = state.filters);
+  }
   geoSearchLocations = async (lat: number, lng: number) => {
     // Find cities within 50km of London
     const center: geofire.Geopoint = [lat, lng];
@@ -68,6 +78,7 @@ export class FirestoreService {
       })
       .catch((err) => {
         console.log('error: ', err);
+        throw new Error(`Error: ${err}`);
       });
   };
 
@@ -80,4 +91,19 @@ export class FirestoreService {
      doc.exists() ? doc.data() : null;
     });
   }
+
+
+  geoCloudSearchLocations(lat: number, lng: number) {
+    console.log('FETCHING CLOUD LOCATIONS!')
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      'https://us-central1-savoryscout.cloudfunctions.net/geoSearch',
+      { lat , lng, radius: this.filters.radius * 1000},
+      { headers: headers }
+    );
+  }
+
+ngOnDestroy(){
+  this.filters$.unsubscribe();
+}
 }

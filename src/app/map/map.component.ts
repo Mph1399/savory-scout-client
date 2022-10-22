@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
-import { catchError, of, Subscription, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 import { Location } from '../shared/models/location.model';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors'; 
@@ -46,14 +46,8 @@ export class MapComponent implements OnInit {
   )
 
   constructor(
-    httpClient: HttpClient,
     private mapService: MapService,
     private store: Store) {
-      // this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAUMnV34ARb-r1YAPVpUMeG3aMG-u0dgjo', 'callback')
-      // .pipe(
-      //   map(() =>  true),
-      //   catchError(() => of(false)),
-      // );
      }
 
   ngOnInit(): void {

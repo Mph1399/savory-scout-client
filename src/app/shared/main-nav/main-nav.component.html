@@ -1,87 +1,109 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async) && router.url === '/dashboard' ? true : false">
+  <mat-sidenav #drawer
+               class="sidenav"
+               fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async) && router.url === '/dashboard' ? true : false">
     <!-- [opened]="(isHandset$ | async) === false" -->
     <mat-toolbar>
-      <img src="../../../assets/imgs/logo_120x120.png" class="logo">
+      <img src="../../../assets/imgs/logo_120x120.png"
+           class="logo">
     </mat-toolbar>
     <mat-nav-list>
 
-    
       <mat-divider></mat-divider>
-      <a mat-list-item href="https://www.app.savoryscout.com">
-        <mat-icon>dashboard</mat-icon>Owner Dashboard</a>
-
-    <mat-divider></mat-divider>
-      <a mat-list-item routerLink="home" (click)="closeSidenav()">
-    <mat-icon>home</mat-icon>Home</a>
-
-    <mat-divider></mat-divider>
-    <a mat-list-item routerLink="map" (click)="closeSidenav()">
-      <mat-icon>map</mat-icon>Map</a>
+      <ng-container *ngIf="!( auth$ | async )?.user">
+        <a mat-list-item
+           routerLink="login"
+           (click)="closeSidenav()">
+          <mat-icon class="nav-icon">login</mat-icon>Login
+        </a>
+      </ng-container>
 
       <mat-divider></mat-divider>
-      <a mat-list-item routerLink="about" (click)="closeSidenav()">
-        <mat-icon>info</mat-icon>About</a>
+      <a mat-list-item
+         routerLink="home"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">home</mat-icon>Home
+      </a>
 
-        <mat-divider></mat-divider>
-        <a mat-list-item routerLink="contact" (click)="closeSidenav()">
-          <mat-icon>contact_page</mat-icon>Contact</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         routerLink="map"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">map</mat-icon>Map
+      </a>
 
-          <mat-divider></mat-divider>
-          <a mat-list-item routerLink="suggest" (click)="closeSidenav()">
-            <mat-icon>thumb_up</mat-icon>Suggest</a>
-  
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         routerLink="about"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">info</mat-icon>About
+      </a>
 
-    <mat-divider></mat-divider>
-   <ng-container *ngIf="!( auth$ | async )?.user">
-    <a mat-list-item routerLink="login" (click)="closeSidenav()">
-      <mat-icon>login</mat-icon>Login</a>
-    <mat-divider></mat-divider>
-   </ng-container>
-   <a mat-list-item routerLink="privacy" (click)="closeSidenav()">
-    <mat-icon>policy</mat-icon>Privacy</a>
-    <mat-divider></mat-divider>
-  </mat-nav-list>
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         routerLink="contact"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">contact_page</mat-icon>Contact
+      </a>
+
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         routerLink="suggest"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">thumb_up</mat-icon>Suggest
+      </a>
+
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         href="https://www.app.savoryscout.com">
+        <mat-icon class="nav-icon">dashboard</mat-icon>Owner Dashboard
+      </a>
+      
+      <mat-divider></mat-divider>
+      <a mat-list-item
+         routerLink="privacy"
+         (click)="closeSidenav()">
+        <mat-icon class="nav-icon">policy</mat-icon>Privacy
+      </a>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
   </mat-sidenav>
 
 
   <mat-sidenav-content>
-    <mat-toolbar color="primary" style="z-index: 100000">
-      <img src="../../../assets/imgs/Logo-Transparent.png" class="logo" routerLink="home">
- 
+    <mat-toolbar color="primary"
+                 style="z-index: 100000">
+      <img src="../../../assets/imgs/Logo-Transparent.png"
+           class="logo"
+           routerLink="home">
+
       <!-- Spacer to put hamburger on the far right side per @material docs-->
       <span style="flex: 1 1 auto"></span>
-      <button
-      type="button"
-      aria-label="filter"
-      mat-icon-button
-      (click)="openFilter()"
-      style="float: right">
-      <!-- *ngIf="isHandset$ | async" -->
-      <mat-icon aria-label="filter">tune</mat-icon>
-    </button>
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        style="float: right">
+      <button type="button"
+              aria-label="filter"
+              mat-icon-button
+              (click)="openFilter()"
+              style="float: right">
+        <!-- *ngIf="isHandset$ | async" -->
+        <mat-icon aria-label="filter">tune</mat-icon>
+      </button>
+      <button type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              style="float: right">
         <!-- *ngIf="isHandset$ | async" -->
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <!--     *ngIf="(storeSub$ | async).user" -->
-      <button
-        *ngIf="(auth$ | async)?.user && (auth$ | async)?.user!.email !== null"
-        type="button"
-        aria-label="Profile"
-        mat-icon-button
-        [matMenuTriggerFor]="menu">
+      <button *ngIf="(auth$ | async)?.user && (auth$ | async)?.user!.email !== null"
+              type="button"
+              aria-label="Profile"
+              mat-icon-button
+              [matMenuTriggerFor]="menu">
         <mat-icon aria-label="Profile Icon">account_circle</mat-icon>
       </button>
     </mat-toolbar>
@@ -90,15 +112,17 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<mat-menu #menu="matMenu" [overlapTrigger]="false">
-  <div (click)="cancelClick($event)" class="dropdown">
+<mat-menu #menu="matMenu"
+          [overlapTrigger]="false">
+  <div (click)="cancelClick($event)"
+       class="dropdown">
     <div>
-      <p *ngIf="(auth$ | async)!.user != null" style="margin: 0 7px; font-size: 12px;">{{(auth$ | async)!.user!.email }}</p>
-      <button
-        mat-flat-button
-        class="profile-btn"
-        color="primary"
-        (click)="logout()">
+      <p *ngIf="(auth$ | async)!.user != null"
+         style="margin: 0 7px; font-size: 12px;">{{(auth$ | async)!.user!.email }}</p>
+      <button mat-flat-button
+              class="profile-btn"
+              color="primary"
+              (click)="logout()">
         Logout
       </button>
     </div>

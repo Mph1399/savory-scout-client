@@ -6,6 +6,11 @@ export const GET_LOCATIONS_BY_COORDS = createAction(
     props<{ lat: number, lng: number }>()
   );
 
+export const GET_LOCATIONS_BY_COORDS_ANONYMOUS = createAction(
+    '[Locations] Get Locations Anonymous',
+    props<{ lat: number, lng: number }>()
+  );
+
   export const GET_LOCATIONS_FROM_SEARCHBAR = createAction(
     '[Locations] Get Locations From Searchbar',
     props<{ input: string }>()
@@ -18,5 +23,10 @@ export const GET_LOCATIONS_BY_COORDS = createAction(
 
   export const SET_LOCATIONS = createAction(
     '[Locations] Set Locations',
+    props<{ locations: Location[] }>()
+  );
+
+  export const NO_LOCATIONS = createAction(
+    '[Locations] No Locations',
     props<{ locations: Location[] }>()
   );

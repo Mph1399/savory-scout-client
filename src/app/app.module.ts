@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ScullyLibModule } from '@scullyio/ng-lib';
+
 import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -41,7 +41,6 @@ import { AngularFireModule } from '@angular/fire/compat';
     SharedModule,
     DetailsModule,
     AppRoutingModule,
-    ScullyLibModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
