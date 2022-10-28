@@ -2,12 +2,11 @@
      <!-- /////////////////////////// LOCATION RESULTS DESKTOP START /////////////////////////////-->
      <div class="locations-container">
       <ng-container *ngFor="let location of filteredLocations ; let i = index">
-        <mat-card class="location-card" *ngIf="(filters$ | async)!.filters.active && location.active && location.food!.active || 
-        (filters$ | async)!.filters.active && location.active && location.drinks!.active || 
-        (filters$ | async)!.filters.active && location.active && location.events!.active ||
-        !(filters$ | async)!.filters.active && location.food!.active ||
-        !(filters$ | async)!.filters.active && location.drinks!.active ||
-        !(filters$ | async)!.filters.active && location.events!.active">
+        <mat-card class="location-card mat-elevation-z8" *ngIf="
+        (filters$ | async)!.filters.active && location.active && location.food!.active && location.display || 
+        (filters$ | async)!.filters.active && location.active && location.drinks!.active && location.display || 
+        (filters$ | async)!.filters.active && location.active && location.events!.active && location.display ||
+        !(filters$ | async)!.filters.active  && location.display">
           <mat-card-header class="card-header-desktop" (click)="openDetails(i)">
             <div mat-card-avatar class="avatar"
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>
@@ -18,8 +17,8 @@
               </mat-card-title>
               
               <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
-              <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance:
-                <strong>{{ location.distance | number : '1.2-2' }}mi</strong></mat-card-subtitle> -->
+              <mat-card-subtitle style="text-align: right; margin-right: 10px">
+                <strong>{{ location.distance }}mi</strong></mat-card-subtitle>
             </span>
           </mat-card-header>
           <mat-card-content class="card-specials">

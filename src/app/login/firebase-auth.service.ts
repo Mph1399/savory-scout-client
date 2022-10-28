@@ -91,7 +91,7 @@ export class FirebaseAuthService {
             });
           }
             // Use timeout to force refresh the token after an hour
-            setTimeout(() => renewToken(), 600000);
+            setTimeout(() => renewToken(), 6000000);
           }).catch((error) => {
             console.log('Error: ', error);
           })

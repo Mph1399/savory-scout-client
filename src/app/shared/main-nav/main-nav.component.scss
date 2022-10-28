@@ -33,3 +33,6 @@
   .nav-icon {
     margin-right: 10px;
   }
+::ng-deep .mat-menu-panel {
+  max-height: 100px
+}

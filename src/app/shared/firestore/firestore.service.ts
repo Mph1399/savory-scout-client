@@ -30,7 +30,7 @@ export class FirestoreService implements OnDestroy{
   geoSearchLocations = async (lat: number, lng: number) => {
     // Find cities within 50km of London
     const center: geofire.Geopoint = [lat, lng];
-    const radiusInM = 50 * 10000;
+    const radiusInM = 50 * 1000;
 
     // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
     // a separate query for each pair. There can be up to 9 pairs of bounds

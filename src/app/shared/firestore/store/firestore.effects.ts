@@ -9,6 +9,7 @@ import * as FirestoreActions from './firestore.actions';
 import { Location } from '../../models/location.model';
 import { GoogleService } from '../../services/google.service';
 import { QuerySnapshot } from 'firebase/firestore';
+import * as FilterActions from '../../dialogs/search-filter/store/search-filter.actions'
 
 @Injectable()
 export class FirestoreEffects {
@@ -99,7 +100,10 @@ export class FirestoreEffects {
     }),
     map((coordinates) => {
       console.log('Coordinates :', coordinates[0]);
-      coordinates[0].geometry.location_type === 'ROOFTOP' ? this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id})) : this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));
+      if(coordinates[0].geometry.location_type === 'ROOFTOP'){ 
+        this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
+        this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id})) } 
+        else{ this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));}
     })
   ),
 { dispatch: false }
@@ -119,3 +123,4 @@ export class FirestoreEffects {
 { dispatch: false }
 );
 }
+

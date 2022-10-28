@@ -12,6 +12,7 @@ export interface Location {
   google_id?: string;
   verification_stage?: number;
   active?: boolean;
+  display? : boolean;
   managed?: boolean;
   image_url?: string;
   updated_at?: firestore.FieldValue,

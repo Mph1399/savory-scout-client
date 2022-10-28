@@ -1,17 +1,20 @@
+import { Subscription } from 'rxjs';
 import { Special } from './../models/special.model';
-declare var require: any;
-import { FilterState, searchFilterReducer } from '../dialogs/search-filter/store/search-filter.reducers';
+import { FilterState, } from '../dialogs/search-filter/store/search-filter.reducers';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Location } from '../models/location.model';
 import * as moment from 'moment'
 import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-filter.selectors';
-import * as FirestoreSelectors from '../firestore/store/firestore.selectors'
 import { initialState } from '../dialogs/search-filter/store/search-filter.reducers'
-
+import * as geodist from 'geodist';
+import { GeolocationService } from './geolocation.service';
 
 @Injectable()
 export class DisplayLocationsService implements OnDestroy {
+  lat = 0;
+  lng = 0;
+  geoService$: Subscription;
   categories = ['food', 'drinks', 'events'];
   dateTypes = ['recurringSpecials', 'specificDateSpecials'];
   todaysDate = moment().format('MMMM Do YYYY');
@@ -23,7 +26,15 @@ export class DisplayLocationsService implements OnDestroy {
     .select(SearchFilterSelectors.getFilterState)
     .subscribe((filterState) => (this.searchFilter = filterState));
 
-  constructor(private store: Store) {}
+  constructor(
+    private geoService: GeolocationService,
+    private store: Store
+    ) {
+      this.geoService$ = this.geoService.findIpGeo().subscribe(coords => {
+        this.lat = coords.lat;
+        this.lng = coords.lng;
+      })
+    }
 
 
 
@@ -31,14 +42,27 @@ export class DisplayLocationsService implements OnDestroy {
     // console.log('Filters: ', this.searchFilter.filters);
     // console.log('locations: ', locations)
     locations = JSON.parse(JSON.stringify(locations));
+    /* The locations are meant to be retrieved from the DB once and filter changes will just change the display. 
+    Use a display boolean as the ultimate decider on whether or not to display the location.
+    Use Active on on the location to show that the location has at least one active special.
+    Use Active on the category and individual Special to trace the special for display
+    */
 
     /* Group the specials that have matching times,categories, days/date so that they can be displayed as a group un the search results */
     locations.forEach((location, index) => {
-      locations[index] = this.groupSpecialsWithMatchingCriteria(location);
-     if(  this.searchFilter.filters.outdoor && !location.outdoorSeating) {
-       locations[index].active = false;} 
+    // console.log('lat:', this.lat, 'lng:', this.lng, 'lat:', location.lat as number, 'lng:', location.lng as number)
+    /* we only want to add a distance, display bool and group the specials according to matching criteria once after the initial database pull */
+    if(!locations[index].distance) {
+   /*  Assign a distance to each location. This distance will later be used for displaying the special depending on the filter radius.  */
+      locations[index].distance = geodist({lat: this.lat, lng: this.lng},{lat: location.lat as number, lng: location.lng as number}, ['miles']);
+      locations[index] = this.groupSpecialsWithMatchingCriteria(location); 
+      /* Add a bool to the location with the name of display. Set it to false */
+      locations[index].display = false;
+    }
+
      });
     /* Filter out locations according to the three main categories selected in the filter. i.e Food, drinks, events */
+
     /* Now we have locations array that just contains locations that offer a special on one of the selected main categories. Next we
     need to determine if the "Active filter is selected. If so, run the locations array through a method that returns the location only
     if one of the specials is currently happening." */
@@ -49,71 +73,61 @@ export class DisplayLocationsService implements OnDestroy {
 
 
   displaySelectedCategories = (locations: Location[]): Location[] => {
-    locations = JSON.parse(JSON.stringify(locations));
-    const locationsWithSelectedCategories: Location[] = JSON.parse(JSON.stringify(locations));
+    const locationsWithSelectedCategories: Location[] = locations;
     /*  Check to see if the location has specials that meet the filter crieria first. I.e it has Drink specials if that's selected. */
     locations.forEach((location, index) => {
-      /* Reset the active status of the currently saved location before filtering */
+      /* Reset the active and display status of the currently saved location before filtering */
       locationsWithSelectedCategories[index].active = false;
+      locationsWithSelectedCategories[index].display = false;
+
+      /* Loop through the main categories i.e Food, Drinks, Events */
       this.categories.forEach((category) => {
         /* Reeset the active status of the currently saved location category before filtering */
         locationsWithSelectedCategories[index][category].active = false;
-        /* If the current category is selected in filter */
+        /* If the current category is selected in filter, proceed with discovering of that category has any specials */
         // console.log(`Category: ${category}`,this.searchFilter.filters[category])
         if (this.searchFilter.filters[category]) {
           this.dateTypes.forEach((dateType) => {
-            /* If the location category has specials in the array */
-            if (
-              location[category as keyof typeof location]![
-                dateType as keyof typeof location
-              ].length > 0
-            ) {
-              /* This location has specials a main category that the filter has selected */
-              /* Check if that category has a special that is currently active if the Active filter is selected */
+            /* If the location category has specials in the array of it's dateType. i.e recurringSpecials or specificDateSpecials */
+            if (location[category as keyof typeof location]! [dateType as keyof typeof location].length > 0) {
+              /* This location has specials in a main category that the filter has selected */
+              /* Check if that category has a special that is currently active if the Active filter is selected by sending it to a helper function. */
               if (this.searchFilter.filters.active) {
-                const filteredSpecials = this.displayLocationWithActiveSpecials(
-                  location[category][dateType],
-                  category,
-                  dateType
-                );
+                const filteredSpecials = this.displayLocationWithActiveSpecials(location[category][dateType],category, dateType );
                 /* If one of the specials turns out to be active, mark the location and the location category as active: true. displayLocationWithActiveSpecials
 will return a true boolean if any special turned out to be active */
-                filteredSpecials.active
-                  ? (locationsWithSelectedCategories[index].active = true)
-                  : '';
-                filteredSpecials.active
-                  ? (locationsWithSelectedCategories[index][category].active =
-                      true)
-                  : '';
-                locationsWithSelectedCategories[index][category][dateType] =
-                  filteredSpecials.specials;
+                filteredSpecials.active ? (locationsWithSelectedCategories[index].active = true) : '';
+                filteredSpecials.active ? (locationsWithSelectedCategories[index][category].active = true) : '';
+                filteredSpecials.active ? (locationsWithSelectedCategories[index].display = true) : '';
+                locationsWithSelectedCategories[index][category][dateType] = filteredSpecials.specials;
               } else {
-                /* Active isn't selected but the filter found a match for on of the search filter main categories. 
-                This means we're going to display all locations that have specials by setting the location.action to true and
-                setting the specific categories*/
-                location[category].active = true;
-                locationsWithSelectedCategories[index] = location;
+                /* Active isn't selected but the filter found that specials exist in the current main category. 
+                This means we're going to display all locations that have specials by setting the location.display to true */
+                locationsWithSelectedCategories[index].active = true;
+                locationsWithSelectedCategories[index][category].active = true;
+                locationsWithSelectedCategories[index].display = true;
+                // location[category].active = true;
+                // locationsWithSelectedCategories[index][category][dateType] = location[category][dateType];
               }
             }
           });
         } else {
           console.log(category + ' Is inactive')
-          /* The current category isn't selected in the filter. Just push the location to the filteredMainCategories without modification */
+          /* The current category isn't selected in the filter. Just set the location category of the locationsWithSelectedCategories to Active = false  */
           locationsWithSelectedCategories[index][category].active = false;
           /* Set each special contained in the deselected category to inactive  */
           this.dateTypes.forEach((dateType) =>
-            location[category][dateType].forEach(
-              (special, k) =>
-                (locationsWithSelectedCategories[index][category][dateType][
-                  k
-                ].active = false)
+            location[category][dateType].forEach((special, k) => (locationsWithSelectedCategories[index][category][dateType][k].active = false)
             )
           );
           /// filteredSelectedMainCategories[index] = location;
         }
-
+       /* If the category was set to active through the filter process, use the filter secondary categories  */
         locationsWithSelectedCategories[index][category].active  ? (locationsWithSelectedCategories[index] = this.filterSecondaryCategories(locationsWithSelectedCategories[index],category)) : '';
+         /* end of locations forEeach category */
       });
+      /* If the locations distance is outside of the search radius, set its display to false */
+      locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
     });
     return locationsWithSelectedCategories;
   };
@@ -296,23 +310,19 @@ will return a true boolean if any special turned out to be active */
   };
 
 
-  
-
-
-
-
-
   filterSecondaryCategories = (location: Location, category: string) => {
-    location = JSON.parse(JSON.stringify(location));
+    /* WHAT ARE WE DOING HERE? THE LOCATION HAS ALREADY BEEN SET TO ACTIVE WHEN THIS FUNCTION IS CALLED */
     this.dateTypes.forEach((dateType) => {
       location[category][dateType].forEach((special, k) => {
         // Only filter if the special is already set to be displayed
-        if (special.active) {
+        if (special.active && this.searchFilter.filters.active) {
           let active = false;
           special.categories.forEach((cat) => {
-            this.searchFilter.filters[cat] == true ? (active = true) : '';
+            this.searchFilter.filters[cat] == true ? active = true : '';
           });
           location[category][dateType][k].active = active;
+        } else if (!this.searchFilter.filters.active){
+          location[category][dateType][k].active = true;
         }
       });
     });
@@ -321,5 +331,6 @@ will return a true boolean if any special turned out to be active */
 
   ngOnDestroy() {
     this.searchFilter$.unsubscribe();
+    this.geoService$.unsubscribe();
   }
 }
