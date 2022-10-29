@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import * as geofire from 'geofire-common';
 import {map, tap } from 'rxjs/operators';
-import {  Subject } from 'rxjs';
+import {  BehaviorSubject, Subject } from 'rxjs';
 
 
 interface IpCoords {
@@ -22,6 +22,7 @@ export class GeolocationService {
 // coordsSubject$ = this.coordsSubject.asObservable(); 
 lat: number;
 lng: number;
+coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
 
   constructor(
     private http: HttpClient,
@@ -37,6 +38,7 @@ lng: number;
      // this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
       this.lat = parseFloat(res.location.latitude);
       this.lng = parseFloat(res.location.longitude);
+      this.coords.next({location: {lat: this.lat, lng: this.lng}})
 
       /* DEV TESTING */
       // return {

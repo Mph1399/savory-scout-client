@@ -28,7 +28,7 @@
             </mat-icon>
             <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' , 'line-height': '25px' }">event
             </mat-icon>
-            <div>{{ (title || '') | titlecase }}</div> <!--  - <span class="price">${{ special.price }}</span> -->
+            <div>{{ title | titlecase }}</div> <!--  - <span class="price">${{ special.price }}</span> -->
           </mat-list-item>
         </mat-list>
 

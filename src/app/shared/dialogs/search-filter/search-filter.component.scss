@@ -15,7 +15,7 @@
   .filter {
     z-index: 10005;
     background-color: #ffffff;
-    padding-top: 10px;
+    padding: 10px;
     border: 1px solid #787878;
     display: block;
     width: 30vw;
@@ -89,7 +89,7 @@
         }
         .filter {
           font-size: 22px !important;
-          width: 80vw;
+          width: 95vw;
         }
         .filter-close-btn {
           margin: 21px 1px 0 0;
@@ -99,6 +99,9 @@
           margin-top: 17px;
         }
     }
+.grid-container-2{
+  grid-template-columns: 50% 50%
+}
     // Media Queries over 801px
     @media only scren and (min-width: 801px) {
      ::ng-deep .cdk-overlay-container {

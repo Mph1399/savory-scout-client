@@ -14,7 +14,7 @@ cities = this.cityService.getCities();
 
   constructor(
     public cityService: CitySelectService,
-    private store: Store,
+    private store: Store
 
    // public restaurantService: RestaurantService
     ) { }

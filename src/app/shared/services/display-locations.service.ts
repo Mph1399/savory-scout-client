@@ -30,9 +30,9 @@ export class DisplayLocationsService implements OnDestroy {
     private geoService: GeolocationService,
     private store: Store
     ) {
-      this.geoService$ = this.geoService.findIpGeo().subscribe(coords => {
-        this.lat = coords.lat;
-        this.lng = coords.lng;
+      this.geoService$ = this.geoService.coords.subscribe(coords => {
+        this.lat = coords.location.lat;
+        this.lng = coords.location.lng;
       })
     }
 
@@ -127,7 +127,7 @@ will return a true boolean if any special turned out to be active */
          /* end of locations forEeach category */
       });
       /* If the locations distance is outside of the search radius, set its display to false */
-      locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
+   //   locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
     });
     return locationsWithSelectedCategories;
   };

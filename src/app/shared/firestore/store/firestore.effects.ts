@@ -10,6 +10,7 @@ import { Location } from '../../models/location.model';
 import { GoogleService } from '../../services/google.service';
 import { QuerySnapshot } from 'firebase/firestore';
 import * as FilterActions from '../../dialogs/search-filter/store/search-filter.actions'
+import { GeolocationService } from '../../services/geolocation.service';
 
 @Injectable()
 export class FirestoreEffects {
@@ -18,7 +19,8 @@ export class FirestoreEffects {
     private firestoreService: FirestoreService,
     private store: Store,
     private displayLocationsService: DisplayLocationsService,
-    private googleService: GoogleService
+    private googleService: GoogleService,
+    private geoService: GeolocationService
   ) //     private router: RouterEvent
   {}
 
@@ -85,11 +87,6 @@ export class FirestoreEffects {
 
 
 
-
-
-
-
-
   getLocationsFromSearchbar$ = createEffect(() =>
   this.actions$.pipe(
     ofType(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR),
@@ -100,14 +97,20 @@ export class FirestoreEffects {
     }),
     map((coordinates) => {
       console.log('Coordinates :', coordinates[0]);
-      if(coordinates[0].geometry.location_type === 'ROOFTOP'){ 
+      if(coordinates[0].geometry.location_type === 'ROOFTOP'){
+        // The results is an actual location, not an area/city 
         this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
         this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id})) } 
-        else{ this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));}
+        else{ 
+          this.geoService.coords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }})
+          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));}
     })
   ),
 { dispatch: false }
 );
+
+
+
 
 
  getLocationByPlaceId$ = createEffect(() =>

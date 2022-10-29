@@ -26,14 +26,14 @@ import { Location } from 'src/app/shared/models/location.model';
         this.actions$.pipe(
         ofType(SearchFilterActions.SET_FILTERS),
         switchMap(() => {   
-          console.log('getting locations')
+        //  console.log('getting locations')
           return  this.locations$
             .pipe(
                 take(1),
                 map(state => {
-                    console.log('locations: ', state.locations)
+                  //  console.log('locations: ', state.locations)
                     const filteredLocations = JSON.parse(JSON.stringify(this.displayLocationsService.filterLocationResults(state.locations)));
-                    console.log('filtered: ', filteredLocations)
+                  //  console.log('filtered: ', filteredLocations)
                     return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
                 })
             )

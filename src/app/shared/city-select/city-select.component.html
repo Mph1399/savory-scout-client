@@ -8,7 +8,7 @@
         <mat-form-field style="z-index: 1005;">
           <mat-label>Select a City</mat-label>
           <mat-select (selectionChange)="onSearch($event.value)">
-            <mat-option #citySelection *ngFor="let city of cities" [value]="city.city" mat-dialog-close>
+            <mat-option #citySelection *ngFor="let city of cities" [value]="city.city">
               {{city.city}}
             </mat-option>
           </mat-select>

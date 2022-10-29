@@ -62,11 +62,7 @@ export class FirebaseAuthService {
 
     //  console.log( moment(user?.metadata.creationTime, 'ddd, D MMM YYYY HH:mm:ss z').diff(now, 'minutes', true));
       if (user !== null) {
-        // check if the user is anonymous and how long ago from now the user was created.
-        if(user.isAnonymous && hoursSinceCreation < -168 ){
-          // The anon user was created over a week ago so the user must log in with real credentials
-          
-        }
+
         // Create a copy of the user state
         const loggedUser = { ...user };
 
@@ -95,7 +91,7 @@ export class FirebaseAuthService {
           }).catch((error) => {
             console.log('Error: ', error);
           })
-
+          localStorage.removeItem('userDate');
         };
         // Initiate the token renewal method
         renewToken();
