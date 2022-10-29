@@ -1,3 +1,4 @@
+import { SearchComponent } from './../dialogs/search/search.component';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -26,7 +27,7 @@ export class MainNavComponent {
     private mobileBreakpointService: MobileBreakpointService, 
     private store: Store,
     public router: Router,
-    private openFilterDialog: MatDialog) {
+    private matDialog: MatDialog) {
     
     // subscribe to the User store
   }
@@ -44,10 +45,14 @@ export class MainNavComponent {
   }
 
   openFilter = () => {
-    this.openFilterDialog.open(SearchFilterComponent);
+    this.matDialog.open(SearchFilterComponent);
   }
 
   closeSidenav = () => {
     this.drawer.close();
+  }
+
+  openSearch = () => {
+    this.matDialog.open(SearchComponent)
   }
 }

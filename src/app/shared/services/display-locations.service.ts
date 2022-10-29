@@ -147,7 +147,7 @@ will return a true boolean if any special turned out to be active */
     // let tempLocation: Location = location;
     let tempSpecials: Special[] = specials;
     let active = false;
-
+    specials = JSON.parse(JSON.stringify(specials));
     specials.forEach((special, i) => {
       //  location[category][dateType].forEach((special: Special, index) => {
       /* reset the active from previous filter setting/search */

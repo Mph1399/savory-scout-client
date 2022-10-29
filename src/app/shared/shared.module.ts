@@ -23,13 +23,13 @@ import { CitySelectService } from './city-select/city-select.service';
 import { GoogleService } from './services/google.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { LocationDetailsService } from './services/location-details.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './dialogs/search/search.component';
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, FooterNavbarComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -49,7 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     
   ],
   providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],
-  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, FooterNavbarComponent],
+  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

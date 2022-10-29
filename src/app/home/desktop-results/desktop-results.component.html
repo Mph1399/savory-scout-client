@@ -2,7 +2,7 @@
      <!-- /////////////////////////// LOCATION RESULTS DESKTOP START /////////////////////////////-->
      <div class="locations-container">
       <ng-container *ngFor="let location of filteredLocations ; let i = index">
-        <mat-card class="location-card mat-elevation-z8" *ngIf="
+        <mat-card class="location-card mat-elevation-z5" *ngIf="
         (filters$ | async)!.filters.active && location.active && location.food!.active && location.display || 
         (filters$ | async)!.filters.active && location.active && location.drinks!.active && location.display || 
         (filters$ | async)!.filters.active && location.active && location.events!.active && location.display ||

@@ -83,6 +83,15 @@
       <!-- Spacer to put hamburger on the far right side per @material docs-->
       <span style="flex: 1 1 auto"></span>
       <button type="button"
+      aria-label="search"
+      mat-icon-button
+      (click)="openSearch()"
+      style="float: right">
+      <!-- *ngIf="isHandset$ | async" -->
+    <mat-icon aria-label="search">search</mat-icon>
+    </button>
+
+      <button type="button"
               aria-label="filter"
               mat-icon-button
               (click)="openFilter()"

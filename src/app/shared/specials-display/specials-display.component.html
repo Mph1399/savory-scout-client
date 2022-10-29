@@ -15,7 +15,7 @@
         <span *ngIf="special.active && (filters$ | async)!.filters.active" [ngClass]="location[category][dateType][k].color" class="special-time">
           {{ category | titlecase }} Ending @ {{special.end}}
         </span>
-        <span *ngIf="!(filters$ | async)!.filters.active && location[category].active" [ngClass]="location[category][dateType][k].color" class="special-time">
+        <span *ngIf="!(filters$ | async)!.filters.active && location[category].active" [ngClass]="location[category].color" class="special-time">
         <span *ngIf="!special.date; else date">{{ special.days }} <br> {{ special.start }} - {{special.end}}</span>
         <ng-template #date>{{ special.date }} <br> {{ special.start }}  {{special.end}}</ng-template>
         </span>
