@@ -55,10 +55,10 @@ export class FirebaseAuthService {
 
   userAuth = () => {
     onAuthStateChanged(auth, (user) => {
-      console.log('Auth State User: ', user);
-      console.log('Created At: ', user?.metadata.creationTime);
+    //  console.log('Auth State User: ', user);
+    //  console.log('Created At: ', user?.metadata.creationTime);
       const hoursSinceCreation = (moment(user?.metadata.creationTime).diff(moment(), 's') / 60) / 60;
-      console.log('Hours since creation: ', hoursSinceCreation);
+    //  console.log('Hours since creation: ', hoursSinceCreation);
 
     //  console.log( moment(user?.metadata.creationTime, 'ddd, D MMM YYYY HH:mm:ss z').diff(now, 'minutes', true));
       if (user !== null) {

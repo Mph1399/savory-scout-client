@@ -26,6 +26,6 @@ export class DesktopResultsComponent {
    }
 
    ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
+   // console.log(changes)
   }
 }

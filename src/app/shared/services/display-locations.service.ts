@@ -40,7 +40,7 @@ export class DisplayLocationsService implements OnDestroy {
 
   filterLocationResults = (locations: Location[]) => {
     // console.log('Filters: ', this.searchFilter.filters);
-    // console.log('locations: ', locations)
+    console.log('locations AT BEGINNING FILTER LOC: ', locations);
     locations = JSON.parse(JSON.stringify(locations));
     /* The locations are meant to be retrieved from the DB once and filter changes will just change the display. 
     Use a display boolean as the ultimate decider on whether or not to display the location.
@@ -73,7 +73,7 @@ export class DisplayLocationsService implements OnDestroy {
 
 
   displaySelectedCategories = (locations: Location[]): Location[] => {
-    const locationsWithSelectedCategories: Location[] = locations;
+    const locationsWithSelectedCategories: Location[] = JSON.parse(JSON.stringify(locations));
     /*  Check to see if the location has specials that meet the filter crieria first. I.e it has Drink specials if that's selected. */
     locations.forEach((location, index) => {
       /* Reset the active and display status of the currently saved location before filtering */
@@ -106,6 +106,7 @@ will return a true boolean if any special turned out to be active */
                 locationsWithSelectedCategories[index].active = true;
                 locationsWithSelectedCategories[index][category].active = true;
                 locationsWithSelectedCategories[index].display = true;
+                locationsWithSelectedCategories[index][category][dateType].color = "gray";
                 // location[category].active = true;
                 // locationsWithSelectedCategories[index][category][dateType] = location[category][dateType];
               }

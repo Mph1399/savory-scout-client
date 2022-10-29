@@ -11,6 +11,7 @@
     <div class="specials-list"
          *ngFor="let special of location[category][dateType]; let k = index">
       <!-- <ng-container *ngIf="special.active"> -->
+        <!-- Active Specials title -->
         <span *ngIf="special.active && (filters$ | async)!.filters.active" [ngClass]="location[category][dateType][k].color" class="special-time">
           {{ category | titlecase }} Ending @ {{special.end}}
         </span>
