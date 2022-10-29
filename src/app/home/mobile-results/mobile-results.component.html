@@ -1,7 +1,7 @@
         <!-- LOCATION RESULTS MOBILE START-->
         <div class="locations-container" >
             <carousel [cellWidth]="'100%'" [objectFit]="'cover'" [dots]="true" [counter]="true" [arrows]="true"
-              [loop]="true" style="height: calc(100vh - 65px)">
+              [loop]="true" style="height: calc(100vh - 65px)" #carousel>
               <ng-container *ngFor="let location of filteredLocations; let i = index" >
               <mat-card *ngIf="(filters$ | async)!.filters.active && location.active && location.food!.active && location.display || 
               (filters$ | async)!.filters.active && location.active && location.drinks!.active && location.display || 

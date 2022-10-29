@@ -34,7 +34,10 @@ export class SearchComponent implements OnDestroy {
   }
 
   ngOnDestroy(){
-    this.geoService$.unsubscribe();
+    try{
+      this.geoService$.unsubscribe();
+    }catch(e){}
+    
   }
 
 }

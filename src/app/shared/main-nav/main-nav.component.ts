@@ -53,6 +53,6 @@ export class MainNavComponent {
   }
 
   openSearch = () => {
-    this.matDialog.open(SearchComponent)
+    this.matDialog.open(SearchComponent, { width: '300px'})
   }
 }

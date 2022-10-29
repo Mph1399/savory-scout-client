@@ -135,9 +135,6 @@ will return a true boolean if any special turned out to be active */
 
 
 
-
-
-
   displayLocationWithActiveSpecials = (
     specials: Special[],
     category,
@@ -145,9 +142,10 @@ will return a true boolean if any special turned out to be active */
   ) => {
     /* For recurring specials, We will first check that the day of the week matches. Then, we will compare the start and end times with the current times  */
     // let tempLocation: Location = location;
+    specials = JSON.parse(JSON.stringify(specials));
     let tempSpecials: Special[] = specials;
     let active = false;
-    specials = JSON.parse(JSON.stringify(specials));
+  
     specials.forEach((special, i) => {
       //  location[category][dateType].forEach((special: Special, index) => {
       /* reset the active from previous filter setting/search */

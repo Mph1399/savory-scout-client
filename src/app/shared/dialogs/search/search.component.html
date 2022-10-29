@@ -1,10 +1,10 @@
 
     <!-- Searchbar -->
 
-
+    <div>
       <div>
         <form>
-          <mat-form-field [floatLabel]="'never'" color="primary">
+          <mat-form-field [floatLabel]="'never'" color="primary" style="width: 85%;">
             <input matInput type="text" #searchInput2 placeholder="Search..." (keydown.enter)="onSearch(searchInput2)">
             <!-- <mat-placeholder class="placeholder">Arlington, VA</mat-placeholder> -->
           </mat-form-field>
@@ -14,12 +14,12 @@
         </form>
       </div>
 
-
       <div text-align="center">
         <button mat-button (click)="getUserLocation()">
         <mat-icon aria-label="my location" color="primary"
           >my_location</mat-icon> My Location
         </button>
       </div>
+    </div>
     <!-- Searchbar End-->
 
