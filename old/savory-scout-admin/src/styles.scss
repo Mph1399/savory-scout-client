@@ -1,0 +1,342 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import './variables';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-blue);
+$my-app-accent:  mat-palette($mat-green, A400);
+$my-app-warn:    mat-palette($mat-deep-orange, 900);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent:  mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}
+// Import Material Icons
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 
+
+html {
+  overscroll-behavior: none;
+  
+}
+p, label, span, h1, h2, h3, h4, h5, h6, section, div, a, mat-card {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+body {
+    margin: 0;
+    overscroll-behavior-y: contain;
+}
+
+.max-content-width{
+  width: 80%;
+  margin: auto;
+}
+
+
+@media only screen and (max-width: 776px) {
+  // Scree sizes smaller than 776px
+  .max-content-width{
+    width: 92%;
+  }
+}
+
+  ///////////////////////////////////////////  MEDIA QUERY 540 & Under //////////////
+@media only screen and (max-width: 540px) {
+    // The price form field switches to below the special input on small screens. 
+    // Take away the padding so it aligns all the way to the left
+    #price{
+      padding-left: 0px !important
+    }
+    .special-results {
+      padding-left: 0 !important;
+    }
+  } 
+
+.no-margin{
+  margin: 0 !important
+}
+
+.logo {
+    width: 200px;
+    margin: 6px 0 0 0;
+    position: absolute;
+    left: 10px;
+}
+.mat-card-content{
+  padding: 0 10px;
+}
+:host ::ng-deep .mat-tab-link {
+  min-width: 30px !important;
+  padding: 0px 10px !important;
+  &:hover{
+    background-color: $primary;
+  }
+}
+.mat-ink-bar{
+  background-color: #12b2ec !important;
+  height: 8px !important;
+}
+.mat-tab-label-active {
+  color: #12b2ec !important;
+} 
+.center{
+  display: block !important;
+  margin: auto !important;
+}
+// elongate the <mat-tab> labels so they're centered across the screen
+.mat-tab-label {
+  width: 50%;
+}
+// Make the day selection popup panels large enought to not have to scroll
+.mat-select-panel {
+min-height: 294px !important;
+}
+// Apply this class to a div and all nested divs will be set up in a in a column grid according to the number
+.grid-container-7{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+  }
+.grid-container-6 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+  }
+.grid-container-5 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+  }
+.grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+  }
+  .grid-container-3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .grid-container-1 {
+    display: grid;
+    grid-template-columns: auto ;
+  }
+  .header-toolbar {
+    display: block !important;
+  }
+// Widen the form field inputs
+  .mat-form-field-infix {
+    width: 250px !important;
+  }
+//
+.navLink{
+  float: right;
+  cursor: pointer !important;
+  z-index: 1000;
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.edit-warning {
+  background-color: rgb(206, 10, 10);
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  padding: 5px;
+}
+.spinner-overlay{
+  position: absolute;
+  z-index: 100000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.95);
+  text-align: center
+}
+.spinner{
+  width: 100px;
+  height: 100px;
+  position: absolute !important;
+  z-index: 100010;
+  top: 40vh;
+  left: calc(50vw - 57px);
+}
+.spinner-text{
+  font-weight: bold;
+  position: absolute;
+  z-index: 1000;
+  top: 30vh;
+  left: calc(50vw - 101px);
+  font-size: 23px;
+}
+
+#titleInput , #priceInput {
+  padding: 5px 15px;
+}
+
+.specials-list-title {
+  color: #19c42b;
+}
+.specials-buttons {
+  float: right;
+}
+
+.additonal-time-title {
+  font-weight: bold;
+  margin: 0 0;
+  font-size: 18px;
+  color: #d54848;
+}
+.additional-days {
+  font-size: 16px;
+  background-color: #8cbfff;
+  padding: 2px 5px
+}
+.upload-menu {
+  padding: 5px 0;
+  margin-right: 10px;
+  max-width: 400px;
+  width: 60vw;
+}
+.upload-btn {
+  padding: 0 7px !important;
+}
+
+.segment-button {
+  width: 100%;
+}
+// Checkmark for completed special portions
+.item-checkmark {
+  color: green;
+}
+
+.time-input {
+  height: 30px;
+}
+// Button to submit specials
+.special-btn {
+  margin: auto !important;
+  width: 300px;
+}
+
+.special-btn-sm {
+
+}
+// Button to edit specials 
+.edit-btn {
+  margin: auto;
+  display: grid;
+  width: 150px;
+  margin: 5px 10px !important;
+}
+
+// Ready Notice When a special is ready
+.ready{
+  font-size: 28px;
+  color: green;
+}
+// decoate the word "step" on the specials page
+.step {
+font-weight: bold;
+font-size: 18px;
+}
+// label for the specials time inputs
+.time-label {
+  font-size: 16px; 
+  display: grid;
+  color: #2196f3;
+}
+
+.red {
+  color: red !important;
+}
+.green {
+  color: green !important;
+}
+
+/////////////////////////  DRAGGABLE LIST START  ////////////////////////
+.specials-list {
+  width: 100%;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.specials-box {
+  padding: 5px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: list-item;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.specials-box:last-child {
+  border: none;
+}
+
+.specials-list.cdk-drop-list-dragging .specials-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+/////////////////////////  DRAGGABLE LIST END  ////////////////////////
+
+///////////////////////// LOADING SPINNER //////////////////////////////
+.lds-circle {
+  display: inline-block;
+  transform: translateZ(1px);
+  top: 40vh;
+  position: fixed;
+  left: calc(50% - 50px);
+  z-index: 10000000000
+}
+.lds-circle > div {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 8px;
+  border-radius: 50%;
+  background: #00a4ef;
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes lds-circle {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+/////////////////////////////////////  END SPINNER   /////////////////////////////////////// 

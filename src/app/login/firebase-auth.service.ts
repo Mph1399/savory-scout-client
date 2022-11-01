@@ -105,30 +105,19 @@ export class FirebaseAuthService {
        if(userDate === null){
         localStorage.setItem('userDate', JSON.stringify(new Date())) 
       } else { 
-        console.log('TIME: ', (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60);
+        const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60;
+        console.log('TIME: ', elapsed);
+        /* This is where the user has a timestamp in local storage bc they haven't used a login. Lets check the time elapsed since the timestamp creation
+        and either allow their trial to continue by using cloud functions to find their locations, or prompt them to login after the trial period has passed
+        */
+       if (elapsed < -7){
+        // The tial period of 7 days has elapsed.
+         this.router.navigateByUrl('login');
+       } 
       }
 
       }
     });
-  }
-
-  userExpiration(){
-
-  if (this.screenWidth < 800) {
-    // Open the dialog with these settings if the device is mobile
-    const detailsModal = this.dialog.open(LoginComponent, {
-      panelClass: 'myapp-no-padding-dialog',
-      minWidth: '100vw',
-      height: '100vh',
-    });
-  } else {
-    // Open the dialog with these settings if the device is NOT MOBILE
-    const detailsModal = this.dialog.open(LoginComponent, {
-      width: '60vw',
-      panelClass: 'myapp-no-padding-dialog',
-    });
-  }
-
   }
   }
 

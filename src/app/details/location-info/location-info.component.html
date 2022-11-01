@@ -9,19 +9,28 @@
 <div style="text-align: right; padding: 0 10px;">
   <button mat-raised-button id="report-button" color="warn" (click)="openReport()">Report</button></div>
 </div>
-    <div appNoPadding>
-      <mat-card-subtitle><a href="{{ data.website }}" target="_blank" rel="noopener noreferrer"> {{data.name }}'s Website</a></mat-card-subtitle>
-      <mat-card-subtitle *ngIf="data.happyHourMenu && data.happyHourMenu.length > 0">Happy Hour Menu: <a href="{{ data.happyHourMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
-      <mat-card-subtitle *ngIf="data.brunchMenu && data.brunchMenu.length > 0">Brunch Menu: <a href="{{ data.brunchMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
-    </div>
+<div class="grid-container-2">
+  <div >
+    <mat-card-subtitle><a href="{{ data.website }}" target="_blank" rel="noopener noreferrer"> {{data.name }}'s Website</a></mat-card-subtitle>
+    <mat-card-subtitle *ngIf="data.happyHourMenu && data.happyHourMenu.length > 0">Happy Hour Menu: <a href="{{ data.happyHourMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
+    <mat-card-subtitle *ngIf="data.brunchMenu && data.brunchMenu.length > 0">Brunch Menu: <a href="{{ data.brunchMenu }}" target="_blank" rel="noopener noreferrer">HERE</a></mat-card-subtitle>
+  </div>
+  <div style="text-align: right; padding: 0 10px;">
+    <mat-card-subtitle>Owner Managed: <strong
+        [style.color]="data.managed ? 'green' : (!data.managed ? 'red': null)">{{ !data.managed ? 'No' : 'Yes'  }}</strong></mat-card-subtitle>
+  </div>
 
-  <div appNoPadding appTextCenter class="grid-container-2">
+</div>
+
+
+  <div class="grid-container-2">
     <div >
       <mat-card-subtitle>Last Update: <strong>{{ date }}</strong> </mat-card-subtitle>
     </div>
-    <div style="text-align: right; padding: 0 10px;">
-      <mat-card-subtitle>Owner Managed: <strong
-          [style.color]="data.managed ? 'green' : (!data.managed ? 'red': null)">{{ !data.managed ? 'No' : 'Yes'  }}</strong></mat-card-subtitle>
+    <div>
+      <button mat-icon-button aria-label="Disclaimer Button" (click)="infoClick()" class="info-btn">
+        <mat-icon>info</mat-icon>
+      </button>
     </div>
   </div>
 </div>

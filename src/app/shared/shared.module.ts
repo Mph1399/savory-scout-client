@@ -26,10 +26,11 @@ import { MatInputModule } from '@angular/material/input';
 import { LocationDetailsService } from './services/location-details.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './dialogs/search/search.component';
+import { DisclaimerComponent } from './dialogs/disclaimer/disclaimer.component';
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent],
   imports: [
     CommonModule,
     MatIconModule,
