@@ -17,7 +17,8 @@
     !(filters$ | async)!.filters.active && marker.info.drinks!.active ||
     !(filters$ | async)!.filters.active && marker.info.events!.active "
     [position]="marker.position"
-    [title]="marker.title" 
+    [title]="marker.title"
+    [options]="{icon: marker.info.active ? {url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'} : {url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}}" 
     (mapClick)="openInfo(somemarker, marker.info)" >
     </map-marker>
 </ng-container>    
