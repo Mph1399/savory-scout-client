@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
-import { catchError, of, Subscription } from "rxjs";
+import { catchError, map, of, Subscription } from "rxjs";
 import { CitySelectComponent } from "../shared/city-select/city-select.component";
 import { Location } from "../shared/models/location.model";
 import { DeviceDetailsService } from "../shared/services/device-details.service";
@@ -10,6 +10,7 @@ import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import * as geodist from 'geodist';
 
 export interface Marker {
     position: {lat: number, lng: number},
@@ -24,7 +25,9 @@ export interface Marker {
 
 @Injectable()
 export class MapService implements OnDestroy{
-    geoService$: Subscription;
+    geoCoords$ = this.geolocationService.coords.subscribe(coords => this.geoCoords = coords.location);
+    geoCoords;
+    geoIp$: Subscription;
     screenWidth = this.deviceDetailsService.screenWidth;
 
     constructor(
@@ -43,14 +46,19 @@ export class MapService implements OnDestroy{
                 title: location.name,
                 label: {color: 'red', text: location.address},
                 info: location,
-                options: { animation: google.maps.Animation.BOUNCE }  
+                options: { 
+                  animation: google.maps.Animation.DROP,
+                  icon: location.active ? {url: 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png'} : 
+                  {url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png'},
+
+                 }  
             })
         });
         return markers;
     }
 
     geoMyLocation = () => {
-        this.geoService$ =  this.geolocationService.findIpGeo()
+        this.geoIp$ = this.geolocationService.findIpGeo()
         .pipe(
            catchError(error => {
                this.openCitySelect();  
@@ -65,20 +73,35 @@ export class MapService implements OnDestroy{
              return of(error)
            })
         )
-        .subscribe(locationResults => {
-          localStorage.getItem('userDate') !== null ?
-          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :
-          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.lat, lng: locationResults.lng}))
-       });
+        .subscribe(locationResults => this.searchByCoords(locationResults.lat, locationResults.lng));
        }
 
     openCitySelect = () => {
         console.log('OPening City Select')
         this.screenWidth < 800 ? this.dialog.open(
-            CitySelectComponent, { panelClass: 'myapp-no-padding-dialog', minWidth: '100vw',  maxWidth: '100vw', height: '60vh',}) : 
-            this.dialog.open(CitySelectComponent, {panelClass: 'myapp-no-padding-dialog', width: '60vw',})
-    }  
+          CitySelectComponent, { panelClass: 'myapp-no-padding-dialog', minWidth: '100vw',  maxWidth: '100vw', height: '60vh',}) : 
+          this.dialog.open(CitySelectComponent, {panelClass: 'myapp-no-padding-dialog', width: '60vw',})
+    }
+    evaluateMapDistanceFromLastCenter = (lat: number, lng: number, filters) => {
+      console.log('Coords: ', this.geoCoords)
+          const dist = geodist({lat: this.geoCoords.lat, lng: this.geoCoords.lng},{lat: lat, lng: lng}, ['miles']);
+          console.log("Distance: ", dist);
+          if(dist > filters.radius / 2){
+            console.log('long distance');
+            this.geolocationService.coords.next({location: {lat: lat, lng: lng}});
+            this.searchByCoords(lat, lng);
+          }
+    }
+
+    searchByCoords = (lat: number, lng: number) => {
+      localStorage.getItem('userDate') !== null ?
+      this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: lat, lng:lng})) :
+      this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}))
+    }
+
     ngOnDestroy(){
-        this.geoService$.unsubscribe();
+       this.geoIp$.unsubscribe();
+      this.geoCoords$.unsubscribe();
       }
+
 }

@@ -66,18 +66,7 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
 
   }
 
-  // returnIpPackage = () => {
-  //   return this.findIpGeo().pipe(
-  //         map(ipInfo => {
-  //             return {
-  //                 lat: ipInfo.location.latitude,
-  //                 lng: ipInfo.location.longitude,
-  //                 hash: geofire.geohashForLocation([ipInfo.location.latitude, ipInfo.location.longitude])
-  //             }
-  //         })
-  //     )
-  // }
-// }
+
   fetchCoords = () => {
     return {lat: this.lat, lng: this.lng};
 }

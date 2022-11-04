@@ -92,7 +92,7 @@ export class DisplayLocationsService implements OnDestroy {
             if (location[category as keyof typeof location]! [dateType as keyof typeof location].length > 0) {
               /* This location has specials in a main category that the filter has selected */
               /* Check if that category has a special that is currently active if the Active filter is selected by sending it to a helper function. */
-              if (this.searchFilter.filters.active) {
+             
                 const filteredSpecials = this.displayLocationWithActiveSpecials(location[category][dateType],category, dateType );
                 /* If one of the specials turns out to be active, mark the location and the location category as active: true. displayLocationWithActiveSpecials
 will return a true boolean if any special turned out to be active */
@@ -100,11 +100,11 @@ will return a true boolean if any special turned out to be active */
                 filteredSpecials.active ? (locationsWithSelectedCategories[index][category].active = true) : '';
                 filteredSpecials.active ? (locationsWithSelectedCategories[index].display = true) : '';
                 locationsWithSelectedCategories[index][category][dateType] = filteredSpecials.specials;
-              } else {
+                if (!this.searchFilter.filters.active)  {
                 /* Active isn't selected but the filter found that specials exist in the current main category. 
                 This means we're going to display all locations that have specials by setting the location.display to true */
-                locationsWithSelectedCategories[index].active = true;
-                locationsWithSelectedCategories[index][category].active = true;
+                // locationsWithSelectedCategories[index].active = true;
+                // locationsWithSelectedCategories[index][category].active = true;
                 locationsWithSelectedCategories[index].display = true;
                 locationsWithSelectedCategories[index][category][dateType].color = "gray";
                 // location[category].active = true;
@@ -128,18 +128,14 @@ will return a true boolean if any special turned out to be active */
          /* end of locations forEeach category */
       });
       /* If the locations distance is outside of the search radius, set its display to false */
-   //   locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
+     locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
     });
     return locationsWithSelectedCategories;
   };
 
 
 
-  displayLocationWithActiveSpecials = (
-    specials: Special[],
-    category,
-    dateType
-  ) => {
+  displayLocationWithActiveSpecials = (specials: Special[], category, dateType) => {
     /* For recurring specials, We will first check that the day of the week matches. Then, we will compare the start and end times with the current times  */
     // let tempLocation: Location = location;
     specials = JSON.parse(JSON.stringify(specials));
@@ -153,11 +149,8 @@ will return a true boolean if any special turned out to be active */
       special.color = 'gray';
       /* For each special, Check if the day of the week for the special matches today in the case of arecurring special.
   If the special is on a specific date, check to see if that date is Todays date. */
-      if (
-        (dateType == 'recurringSpecials' &&
-          special.days!.indexOf(this.dayOfTheWeek) != -1) ||
-        (dateType === 'specificDateSpecials' &&
-          special.date === this.todaysDate)
+      if ( (dateType == 'recurringSpecials' && special.days!.indexOf(this.dayOfTheWeek) != -1) ||
+        (dateType === 'specificDateSpecials' &&  special.date === this.todaysDate)
       ) {
         /*  A match was found for either the current day or date. Send the special to determine if the time of the specialis currently active. */
         tempSpecials[i] = this.determineIfSpecialTimeIsActive(special);

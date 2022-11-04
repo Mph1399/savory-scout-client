@@ -18,7 +18,8 @@ import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
-  filters$ = this.store.select(FilterSelectors.getFilterState);
+  filters;
+  filters$ = this.store.select(FilterSelectors.getFilterState).pipe(tap(state => this.filters = state.filters));
   // apiLoaded: Observable<boolean>;
 
   lastSelectedInfoWindow: any;
@@ -36,12 +37,14 @@ export class MapComponent implements OnInit {
     minZoom: 8,
   }
   markers: Array<Marker> = [];
+  previous;
   // bounds = new google.maps.LatLngBounds();
   filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
     tap(val => {
       console.log('Map Page locations: ', val.locations);
       this.store.dispatch(SpinnerActions.SPINNER_END());
       this.markers = this.mapService.createMarkersArray(val.locations);
+     // this.setInitialBounds()
     })
   )
 
@@ -55,8 +58,16 @@ export class MapComponent implements OnInit {
   }
 
   openInfo(marker: MapMarker, content: Location) {
+   // this.previous = this.infoWindow;
     this.infoContent = content;
     this.infoWindow.open(marker)
+  }
+
+  closeInfoWindow = (marker: MapMarker) => {
+    if (this.previous) {
+      this.previous.close(marker);
+  }
+  this.previous = marker;
   }
 
   setInitialBounds = () => {
@@ -65,8 +76,10 @@ export class MapComponent implements OnInit {
     console.log('Marker Bounds: ', this.bounds);
 
     this.store.select(FilterSelectors.getFilterState).subscribe(state => {
+      console.log('Filter changed in map bounds')
       if(this.map.getBounds() !== this.bounds && !this.initialBoundsSet){
         // reset map bounds
+        console.log('resetting map bounds')
           this.bounds = new google.maps.LatLngBounds();
           this.markers.forEach(marker => {
             // only include markers that will be displayed on the map
@@ -85,10 +98,14 @@ export class MapComponent implements OnInit {
         }
     })
 
-
   }
   openCitySelect = () => {
     this.mapService.openCitySelect();
+  }
+
+  evaluateMapDistanceFromLastCenter = () => {
+    console.log("Event: ", this.map.getCenter()!.lat(), 'lng: ', this.map.getCenter()!.lng())
+      this.mapService.evaluateMapDistanceFromLastCenter(this.map.getCenter()!.lat(), this.map.getCenter()!.lng(), this.filters);
   }
 
 }
