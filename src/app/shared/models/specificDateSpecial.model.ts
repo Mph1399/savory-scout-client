@@ -1,11 +1,9 @@
-export class SpecificDateSpecial {
-    constructor(
-       public active: boolean,
-       public specials: Array<string>,
-       public date:string,
-       public start:number,
-       public end:number,
-       public formattedTime: string
-    ){
-    }
+export interface SpecificDateSpecial {
+        active: boolean;
+        display: boolean;
+        specials: Array<string>;
+        date:string;
+        start:number;
+        end:number;
+        formattedTime: string;
 }

@@ -3,8 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { MailService } from 'src/app/shared/mail.service';
+
 import { Location } from 'src/app/shared/models/location.model';
+import { MailService } from 'src/app/shared/services/mail.service';
 import * as SpinnerActions from '../../shared/spinner/store/spinner.actions'
 
 @Component({
@@ -48,7 +49,7 @@ export class ReportComponent implements OnInit {
     this.errorMessage = false;
     this.store.dispatch(SpinnerActions.SPINNER_START());
     const info = form.value;
-    // console.log('info: ', info)
+    console.log('info: ', info)
     // Check Honey Pot
     if (info.phone === null) {
       this.report = this.mail.sendReportForm(info.name, info.email, info.text, this.data.id, this.data.name)

@@ -33,7 +33,7 @@ import { Location } from 'src/app/shared/models/location.model';
                 map(state => {
                   //  console.log('locations: ', state.locations)
                     const filteredLocations = JSON.parse(JSON.stringify(this.displayLocationsService.displaySelectedCategories(state.locations)));
-                  //  console.log('filtered: ', filteredLocations)
+                    console.log('filtered: ', filteredLocations)
                     return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
                 })
             )

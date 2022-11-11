@@ -8,20 +8,23 @@
 <!-- SPECIALS -->
 <div *ngFor="let category of categories; let i = index">
   <ng-container *ngFor="let dateType of dateTypes; let l = index">
-    <div class="specials-list"
-         *ngFor="let special of location[category][dateType]; let k = index">
+    <div class="specials-list" *ngFor="let special of location[category][dateType]; let k = index">
       <!-- <ng-container *ngIf="special.active"> -->
         <!-- Active Specials title -->
-        <span *ngIf="special.active && (filters$ | async)!.filters.active" [ngClass]="location[category][dateType][k].color" class="special-time">
+        <span *ngIf="
+        special.active && (filters$ | async)!.filters.active && special.display" [ngClass]="location[category][dateType][k].color" class="special-time">
           {{ category | titlecase }} Ending @ {{special.end}}
         </span>
-        <span *ngIf="!(filters$ | async)!.filters.active && location[category].active" [ngClass]="location[category].color" class="special-time">
+        <span *ngIf="!(filters$ | async)!.filters.active && location[category].display" [ngClass]="location[category].color" class="special-time">
         <span *ngIf="!special.date; else date">{{ special.days }} <br> {{ special.start }} - {{special.end}}</span>
         <ng-template #date>{{ special.date }} <br> {{ special.start }}  {{special.end}}</ng-template>
         </span>
 
-        <!-- RECURRING START-->
-        <mat-list role="list" *ngIf="!(filters$ | async)!.filters.active && location[category].active || (filters$ | async)!.filters.active && location[category].active && special.active">
+        <!--SPECIALS START-->
+        <ng-container *ngIf="mapPage === false">
+        <mat-list role="list" *ngIf="
+        !(filters$ | async)!.filters.active && location.display && location[category].display && special.display || 
+        (filters$ | async)!.filters.active && location[category].active && special.active && special.display">
           <mat-list-item class="specials-item" *ngFor="let title of special.title; let i = index;">
             <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px' }">restaurant
             </mat-icon>
@@ -32,13 +35,15 @@
             <div>{{ title | titlecase }}</div> <!--  - <span class="price">${{ special.price }}</span> -->
           </mat-list-item>
         </mat-list>
-
-        <!--RECURRING END-->
+      </ng-container>
+      <!--RECURRING END-->
       <!-- </ng-container> -->
     </div>
     <!-- </ng-container> -->
   </ng-container>
+
 </div>
+<p *ngIf="mapPage === true" style="text-align: center;">Click to see specials</p>
 <!-- </ng-container> -->
 
 <!-- [ngClass]="{'map-adjust-font' : pageUrl === '/map'}" above -->

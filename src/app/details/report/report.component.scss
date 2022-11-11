@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+.phone-input {
+    display: none;
+}
+
 ::ng-deep .mat-form-field {
     width: 100% !important;
 }

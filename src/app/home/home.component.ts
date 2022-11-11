@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnChanges {
       this.filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
       .pipe(
         tap(val => {
-    
+        // console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
         if (val.locations.length > 0 ){

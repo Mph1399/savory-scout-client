@@ -27,12 +27,12 @@ export interface FilterState {
       food: true,
       drinks: true,
       events: true,
-      happyHour: true,
-      brunch: true,
-      breakfast: true,
-      lunch: true,
-      dinner: true,
-      kids: true,
+      happyHour: false,
+      brunch: false,
+      breakfast: false,
+      lunch: false,
+      dinner: false,
+      kids: false,
       outdoor: false,
       radius: 50
     }

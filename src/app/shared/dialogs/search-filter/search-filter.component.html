@@ -21,8 +21,8 @@
       </div>
     </div>
 
-
-    <div class="grid-container-2">
+    <label for="main">Main Categories:</label>
+    <div class="grid-container-2" #main>
       <div>
         <mat-slide-toggle formControlName="active"
                           [ngModelOptions]="{standalone: true}">Active
@@ -46,6 +46,7 @@
         </mat-slide-toggle>
       </div>
     </div>
+    <label for="main">Additional Filters:</label>
     <div class="grid-container-2">
       <div>
         <mat-slide-toggle formControlName="breakfast"

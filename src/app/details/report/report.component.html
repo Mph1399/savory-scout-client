@@ -33,7 +33,7 @@
         <br>
         <mat-form-field color="primary">
           <textarea matInput placeholder="What would you like to report?:" #text formControlName="text"
-            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="25"></textarea>
             <mat-hint align="end">Not more then 800 characters long.</mat-hint>
           <mat-error *ngIf="hasError('text', 'required')">Text content is required</mat-error>

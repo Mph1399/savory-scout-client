@@ -4,6 +4,7 @@ export  interface SpecialObject{
         color: string;
         active: boolean;
         recurring: boolean;
+        display: boolean;
         recurringSpecials: Array<RecurringSpecial>;
         specificDate: false;
         specificDateSpecials: Array<SpecificDateSpecial>;

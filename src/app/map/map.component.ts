@@ -8,6 +8,7 @@ import { Location } from '../shared/models/location.model';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors'; 
 import { MapService, Marker } from './map.service';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class MapComponent implements OnInit {
   center: google.maps.LatLngLiteral;
   bounds: google.maps.LatLngBounds;
   initialBoundsSet = false;
+  mapPage = false;
   zoom = 13;
   infoContent: Location;
   options: google.maps.MapOptions = {
@@ -50,7 +52,9 @@ export class MapComponent implements OnInit {
 
   constructor(
     private mapService: MapService,
-    private store: Store) {
+    private store: Store,
+    private router: Router) {
+      this.router.url == '/map' ? this.mapPage = true : this.mapPage = false;
      }
 
   ngOnInit(): void {
@@ -83,12 +87,10 @@ export class MapComponent implements OnInit {
           this.bounds = new google.maps.LatLngBounds();
           this.markers.forEach(marker => {
             // only include markers that will be displayed on the map
-            if(state.filters.active && marker.info.active && marker.info.food!.active || 
-            state.filters.active && marker.info.active && marker.info.drinks!.active || 
-            state.filters.active && marker.info.active && marker.info.events!.active ||
-            !state.filters.active && marker.info.food!.active ||
-            !state.filters.active && marker.info.drinks!.active ||
-            !state.filters.active && marker.info.events!.active ){
+            if(state.filters.active && marker.info.active && marker.info.food!.active && marker.info.display || 
+            state.filters.active && marker.info.active && marker.info.drinks!.active && marker.info.display || 
+            state.filters.active && marker.info.active && marker.info.events!.active && marker.info.display ||
+            !state.filters.active && marker.info.display){
               const latLng = new google.maps.LatLng(marker.position.lat, marker.position.lng)
               this.bounds.extend(latLng);
             }

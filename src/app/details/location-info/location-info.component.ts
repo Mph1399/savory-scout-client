@@ -29,7 +29,7 @@ export class LocationInfoComponent implements OnInit {
    openReport = () =>  {
     this.reportLocation = true;
     this.reportEvent.emit(true);
-   // this.dialogRef.close();
+    this.detailsDialogRef.close();
   }
 
   ngOnInit(): void {

@@ -7,6 +7,7 @@ import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-fi
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { LocationsState } from '../firestore/store/firestore.reducers';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,22 +20,22 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
   @Input() location: Location;
   @Input() pageUrl: string;
   @Input() index: number;
+  @Input() mapPage: Boolean = false;
   dayOfTheWeek = moment().format('ddd');
   date;
+  map = false;
   categories = ['food', 'drinks', 'events'];
   dateTypes = ['recurringSpecials', 'specificDateSpecials'];
   constructor(
    // private displayRestaurantFilterService: DisplayRestaurantsFilterService
-   private store: Store
+   private store: Store,
+   private router: Router
     ) {
   }
 
   ngOnInit(): void {
-   // console.log('Location: ', this.locationState)
-
     this.date = new Date();
-    // this.serializedDate = new FormControl((new Date()).toISOString());
-   // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
+    this.router.url === '/map' ? this.map = true : this.map = false;
   }
   ngOnChanges(changes: SimpleChanges) {
    // console.log('Changes: ', changes)
