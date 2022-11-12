@@ -1,25 +1,25 @@
 
     <!-- Searchbar -->
-
-    <div>
-      <div>
+<mat-card>
+    <mat-card-content>
         <form>
           <mat-form-field [floatLabel]="'never'" color="primary" style="width: 85%;">
             <input matInput type="text" #searchInput2 placeholder="Search..." (keydown.enter)="onSearch(searchInput2)">
             <!-- <mat-placeholder class="placeholder">Arlington, VA</mat-placeholder> -->
           </mat-form-field>
-          <mat-icon matSuffix color="primary" aria-label="search icon" style="cursor: pointer; padding-left: 12px;"
+          <mat-icon matSuffix color="primary" aria-label="search icon" style="cursor: pointer; padding-left: 8px;"
           (click)="onSearch(searchInput2)">search
         </mat-icon>
         </form>
-      </div>
+      </mat-card-content>
 
-      <div text-align="center">
+      <mat-card-actions text-align="center">
         <button mat-button (click)="getUserLocation()">
         <mat-icon aria-label="my location" color="primary"
           >my_location</mat-icon> My Location
         </button>
-      </div>
-    </div>
+      </mat-card-actions>
+
+  </mat-card>
     <!-- Searchbar End-->
 

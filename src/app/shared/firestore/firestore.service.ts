@@ -83,13 +83,17 @@ export class FirestoreService implements OnDestroy{
   };
 
   getLocationByPlaceId = async (place_id: string) => {
-    const q = query(locationsRef, where( "google_id", "==", place_id));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(doc => {
-       // doc.data() is never undefined for query doc snapshots
-     doc.exists() ? doc.data() : null;
-    });
+    let results: any[] = [];
+   return db.collection("locations").where("google_id", "==", place_id)
+    .limit(2)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.id, " => ", doc.data());
+        results.push(doc.data());
+      })
+      return results;
+    })
   }
 
   getLocationByPlaceIdAnonymous(google_id: string){

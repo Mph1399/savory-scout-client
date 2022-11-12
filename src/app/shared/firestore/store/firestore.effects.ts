@@ -139,13 +139,18 @@ export class FirestoreEffects {
     switchMap((action) => {
       return this.firestoreService.getLocationByPlaceId(action.place_id);
     }),
-    map((result) => {
-      console.log('place Id result: ', result);
-     // this.store.dispatch(FirestoreActions.SET_LOCATIONS({ locations: result }))
-     // this.store.dispatch(SpinnerActions.SPINNER_END())
+    map((locations: any) => {
+      console.log('START Locations :', locations);
+      if(!locations){return FirestoreActions.NO_LOCATIONS}
+      // make a deep copy of locations
+      const locationsCopy = JSON.parse(JSON.stringify(locations))
+      // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
+      locationsCopy.reverse();
+      const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+      console.log('FINAL Filtered: ', filteredLocations)
+      return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
     })
   ),
-{ dispatch: false }
 );
 
 
