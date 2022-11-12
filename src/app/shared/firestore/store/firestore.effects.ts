@@ -84,7 +84,13 @@ export class FirestoreEffects {
       ),
   );
 
-
+  noLocations$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(FirestoreActions.NO_LOCATIONS),
+        tap(() => {
+          return this.store.dispatch(FilterActions.SET_FILTERS({active: true}))
+        })
+      ))
 
 
   getLocationsFromSearchbar$ = createEffect(() =>
@@ -97,13 +103,27 @@ export class FirestoreEffects {
     }),
     map((coordinates) => {
       console.log('Coordinates :', coordinates[0]);
+      /* Check the local storage userDate to determine if the user is logged in or if we should use a cloud function to initiate the db search/retrieval. 
+      Cloud Functions are used until the user is forced to log in after 1 week free trial. That 1 week time frame is determined by the userDate time stamp in local storage.
+      When a user signs in, userDate is removed from local storage so we just need to check if it exists to determine the type of db search needed.
+      */
+      const userDate = localStorage.getItem('userDate');
       if(coordinates[0].geometry.location_type === 'ROOFTOP'){
         // The results is an actual location, not an area/city 
         this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
-        this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id})) } 
+
+       userDate === null ? 
+       this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id}))  : 
+       this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS({place_id: coordinates[0].place_id}));
+ 
+       } 
         else{ 
           this.geoService.coords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }})
-          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));}
+          userDate === null ? 
+          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()})) :
+          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));
+         
+          ;}
     })
   ),
 { dispatch: false }
@@ -120,10 +140,37 @@ export class FirestoreEffects {
       return this.firestoreService.getLocationByPlaceId(action.place_id);
     }),
     map((result) => {
-      console.log('place Id result: ', result)
+      console.log('place Id result: ', result);
+     // this.store.dispatch(FirestoreActions.SET_LOCATIONS({ locations: result }))
+     // this.store.dispatch(SpinnerActions.SPINNER_END())
     })
   ),
 { dispatch: false }
 );
+
+
+
+
+getLocationByPlaceIdAnonymous$ = createEffect(() =>
+this.actions$.pipe(
+  ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS),
+  switchMap((action) => {
+    return  this.firestoreService.getLocationByPlaceIdAnonymous(action.place_id)
+  }),
+  map((locations: any) => {
+    console.log('START Locations :', locations);
+    if(!locations){return FirestoreActions.NO_LOCATIONS}
+    // make a deep copy of locations
+    const locationsCopy = JSON.parse(JSON.stringify(locations))
+    // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
+    locationsCopy.reverse();
+    const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+    console.log('FINAL Filtered: ', filteredLocations)
+    return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
+  })
+)
+);
+
+
 }
 

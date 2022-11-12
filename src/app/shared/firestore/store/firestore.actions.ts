@@ -21,6 +21,11 @@ export const GET_LOCATIONS_BY_COORDS_ANONYMOUS = createAction(
     props<{ place_id: string }>()
   );
 
+  export const GET_LOCATION_BY_PLACE_ID_ANONYMOUS = createAction(
+    '[Locations] Get Location By Place ID Anonymous',
+    props<{ place_id: string }>()
+  );
+
   export const SET_LOCATIONS = createAction(
     '[Locations] Set Locations',
     props<{ locations: Location[] }>()

@@ -28,7 +28,6 @@ export class SearchComponent implements OnDestroy {
   }
 
   onSearch = (input) => {
-    this.store.dispatch(FilterActions.SET_FILTERS({active: true }));
     this.store.dispatch(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR({input: input.value}));
     this.dialogRef.close();
   }

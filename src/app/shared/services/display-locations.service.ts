@@ -114,7 +114,7 @@ will return a true boolean if any special turned out to be active */
                } else  {
               //  console.log(locationsWithSelectedCategories[index])
                 /* Active isn't selected but the filter found that specials exist in the current main category. 
-                This means we're going to display all locations that have specials by setting the location.display to true */
+                This means we're going to display all locations by setting the location.display to true */
                 // locationsWithSelectedCategories[index].active = true;
                 // locationsWithSelectedCategories[index][category].active = true;
                 locationsWithSelectedCategories[index].display = true;
@@ -122,6 +122,9 @@ will return a true boolean if any special turned out to be active */
                 locationsWithSelectedCategories[index][category][dateType].color = "gray";
                 // location[category].active = true;
                 // locationsWithSelectedCategories[index][category][dateType] = location[category][dateType];
+
+                // Filter secondary categories
+                locationsWithSelectedCategories[index] = this.filterSecondaryCategories( locationsWithSelectedCategories[index]);
               }
             }
           });
@@ -153,7 +156,7 @@ will return a true boolean if any special turned out to be active */
    //    locationsWithSelectedCategories[index].display  ? locationsWithSelectedCategories[index] = this.checkForPositiveDisplay(locationsWithSelectedCategories[index]) : '';
       /* If the locations distance is outside of the search radius, set its display to false */
     //  console.log(locationsWithSelectedCategories[index])
-     locations[index].distance! > this.searchFilter.filters.radius ? locationsWithSelectedCategories[index].display = false : '';
+     locations[index].distance! > this.searchFilter.filters.radius && this.searchFilter.filters.radius !== 50 ? locationsWithSelectedCategories[index].display = false : '';
     });
     return locationsWithSelectedCategories;
   };

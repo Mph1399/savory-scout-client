@@ -20,17 +20,23 @@ import { authState } from 'src/app/login/store/auth.reducer';
 
 
     sendContactForm = (name: string, email: string, text: string ) => {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.post(
-          this.cloudUrl + '.cloudfunctions.net/contactFormEmail',
-          { name, email, text, token: this.token},
-          { headers }
-        );
+      return this.store.select(FirestoreAuthSelectors.getAuthState).pipe(
+        switchMap(state => {
+          const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+          return this.http.post(
+            this.cloudUrl + '.cloudfunctions.net/contactFormEmail',
+            { name, email, text, token: this.token},
+            { headers }
+          );
+        })
+      )
       }
+
+
+
       sendReportForm = (name: string, email: string, text: string, locationId, locationName ) => {
         return this.store.select(FirestoreAuthSelectors.getAuthState).pipe(
           switchMap(state => {
-          console.log('Setting Token: ', state.user!.token)
           const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
           return this.http.post(
             this.cloudUrl + '.cloudfunctions.net/reportFormEmail',
@@ -42,12 +48,16 @@ import { authState } from 'src/app/login/store/auth.reducer';
       }
 
       sendSuggestForm = (name: string, local: string, type: string, text: string, email: string ) => {
-        console.log(name, ' ', local, ' ', type, ' ', text, ' ', email );
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.post(
-          this.cloudUrl + '.cloudfunctions.net/suggestFormEmail',
-          { name, location: local, type, text, email, token: this.token},
-          { headers }
-        );
+        return this.store.select(FirestoreAuthSelectors.getAuthState).pipe(
+          switchMap(state => {        
+          const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+          return this.http.post(
+            this.cloudUrl + '.cloudfunctions.net/suggestFormEmail',
+            { name, location: local, type, text, email, token: this.token},
+            { headers }
+          );
+          })
+        )
+
       }
   }

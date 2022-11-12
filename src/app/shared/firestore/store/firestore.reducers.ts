@@ -53,6 +53,11 @@ export interface LocationsState {
             ...state,
           }
         }),
+        on(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS, (state, action) => {
+          return {
+            ...state,
+          }
+        }),
         on(FirestoreActions.NO_LOCATIONS, (state, action) => {
           return {
             ...state,

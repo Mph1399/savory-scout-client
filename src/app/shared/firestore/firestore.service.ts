@@ -83,7 +83,7 @@ export class FirestoreService implements OnDestroy{
   };
 
   getLocationByPlaceId = async (place_id: string) => {
-    const q = query(locationsRef, where( "place_id", "==", place_id));
+    const q = query(locationsRef, where( "google_id", "==", place_id));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(doc => {
@@ -91,6 +91,16 @@ export class FirestoreService implements OnDestroy{
      doc.exists() ? doc.data() : null;
     });
   }
+
+  getLocationByPlaceIdAnonymous(google_id: string){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      'https://us-central1-savoryscout.cloudfunctions.net/placeIdSearch',
+      { google_id},
+      { headers: headers }
+    );
+  }
+
 
 
   geoCloudSearchLocations(lat: number, lng: number) {
