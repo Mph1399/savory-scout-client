@@ -63,6 +63,7 @@ export class DetailsService {
                    specials.push({
                      specials: special.title,
                      specialDescriptions: special.description,
+                     categories: special.categories,
                      price: special.price,
                      start: special.start,
                      end: special.end
@@ -99,6 +100,7 @@ export class DetailsService {
               price: finalSpecial.price,
               specials: special.title,
               specialDescriptions: special.description,
+              categories: special.categories,
               start,
               end,
             });
@@ -131,7 +133,8 @@ export interface CategorySpecials {
     end: string,
     price: string,
     specials: string[],
-    specialDescriptions: string[]
+    specialDescriptions: string[],
+    categories: string[],
     date?: string,
     days?: string[]
 }

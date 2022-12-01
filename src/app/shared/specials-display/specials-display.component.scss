@@ -26,8 +26,22 @@
 
 .specials-item {
     padding-left: 7px;
-    height: 16px;
+    height: fit-content !important;
   }
+
+ .special-title {
+  white-space: nowrap !important; 
+  overflow: hidden !important;
+  font-weight: bold !important;
+ } 
+.special-description {
+  white-space: normal !important;
+  overflow: visible !important;
+  font-style: italic !important;
+  font-weight: 100 !important;
+  font-size: 11px !important;
+  margin-left: 50px !important;
+}
 
 .down-arrow-icon {
   font-size: 15px;
@@ -39,11 +53,25 @@ mat-list-item:last-child{
   margin-bottom: 7px;
 }
 
-mat-list-item {
+.mat-list-item {
   margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .price {
   font-size: 14px; 
   vertical-align: unset;
+}
+mat-list {
+  padding-bottom: 20px;
+}
+
+// adjust the desceription expansion panel
+::ng-deep .mat-expansion-panel {
+  box-shadow: none !important;
+}
+::ng-deep .mat-expansion-panel-header {
+  height: 20px !important;
+  padding-left: 0 !important;
+  max-width: 300px !important;
 }

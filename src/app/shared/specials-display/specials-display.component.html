@@ -16,7 +16,11 @@
           {{ category | titlecase }} Ending @ {{special.end}}
         </span>
         <span *ngIf="!(filters$ | async)!.filters.active && location[category].display" [ngClass]="location[category].color" class="special-time">
-        <span *ngIf="!special.date; else date">{{ special.days }} <br> {{ special.start }} - {{special.end}}</span>
+        <span *ngIf="!special.date; else date">{{ special.days }} <br> {{ special.start }} - {{special.end}} <br> 
+          <span *ngFor="let category of special.categories; let x = index;">
+            {{ x > 0 ? ', ' : '' }} {{ category === 'happyHour' ? 'Happy Hour' : category | titlecase }} 
+          </span>
+        </span>
         <ng-template #date>{{ special.date }} <br> {{ special.start }}  {{special.end}}</ng-template>
         </span>
 
@@ -26,13 +30,16 @@
         !(filters$ | async)!.filters.active && location.display && location[category].display && special.display || 
         (filters$ | async)!.filters.active && location[category].active && special.active && special.display">
           <mat-list-item class="specials-item" *ngFor="let title of special.title; let i = index;">
-            <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px' }">restaurant
-            </mat-icon>
-            <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '25px'  }">local_bar
-            </mat-icon>
-            <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' , 'line-height': '25px' }">event
-            </mat-icon>
-            <div>{{ title | titlecase }}</div> <!--  - <span class="price">${{ special.price }}</span> -->
+              <p mat-line class="special-title">
+                <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '35px' }">restaurant
+                </mat-icon>
+                <mat-icon *ngIf="category === 'drinks'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '35px'  }">local_bar
+                </mat-icon>
+                <mat-icon *ngIf="category === 'events'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px' , 'line-height': '35px' }">event
+                </mat-icon>
+                {{ title | titlecase }}</p> <!--  - <span class="price">${{ special.price }}</span> -->
+              <div mat-line *ngIf="special.description[i] !== 'null' && inDetails" class="special-description"> {{ special.description[i] | lowercase}}</div>
+           
           </mat-list-item>
         </mat-list>
       </ng-container>

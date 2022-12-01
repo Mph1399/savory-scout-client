@@ -5,8 +5,6 @@ import { Location } from '../models/location.model';
 import * as moment from 'moment'
 import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-filter.selectors'
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { LocationsState } from '../firestore/store/firestore.reducers';
 import { Router } from '@angular/router';
 
 
@@ -20,7 +18,8 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
   @Input() location: Location;
   @Input() pageUrl: string;
   @Input() index: number;
-  @Input() mapPage: Boolean = false;
+  @Input() mapPage: boolean = false;
+  @Input() inDetails: boolean = false;
   dayOfTheWeek = moment().format('ddd');
   date;
   map = false;
@@ -38,7 +37,7 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
     this.router.url === '/map' ? this.map = true : this.map = false;
   }
   ngOnChanges(changes: SimpleChanges) {
-   // console.log('Changes: ', changes)
+    console.log('Changes: ', changes)
   }
 
 }

@@ -34,6 +34,7 @@ export class LocationInfoComponent implements OnInit {
 
   ngOnInit(): void {
         // Change the Timestamp on the location to display the last updated date
+        console.log(this.data)
         const fieldVal = (this.data.updated_at as Timestamp);
         const timeStamp = new Timestamp(fieldVal!.seconds, fieldVal!.nanoseconds);
         const date = timeStamp.toDate()

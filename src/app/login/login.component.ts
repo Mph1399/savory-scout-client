@@ -7,8 +7,8 @@ import * as firebaseui from 'firebaseui'
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ui } from './firebase-auth.service'
 import { Subscription } from 'rxjs';
-import { getAuthState } from './store/auth.selectors'
-
+import { getAuthState } from './store/auth.selectors';
+import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 
 @Component({
   selector: 'app-login',
@@ -58,6 +58,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     ui.start('#firebaseui-auth-container', uiConfig);
 
   //  ui.disableAutoSignIn();
+  /* Someimtes the spinner will still be running after a redirect to the login page. */
+  this.store.dispatch(SpinnerActions.SPINNER_END())
   }
 
 ngOnDestroy(){

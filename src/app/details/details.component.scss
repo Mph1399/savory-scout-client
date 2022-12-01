@@ -1,6 +1,5 @@
 @import '../../../variables';
 
-
 // remove padding from the modal container
 ::ng-deep .mat-dialog-container {
   padding: 0!important;
@@ -89,6 +88,9 @@ i {
   font-weight: normal;
 }
 
+.mat-dialog-content{
+  max-height: 85vh;
+}
 
 ///////////////////// Media Queries /////////////////
 // If the browser window is 800px or Smaller,
@@ -145,6 +147,9 @@ i {
   padding: 0;
   line-height: 12px;
 }
+.card{
+  max-width: 100vw;
+}
 }
 
 .card{
@@ -179,10 +184,8 @@ width: 100%;
   height: calc(100vh - 206px);
 }
 
-// Under 800px
-@media only screen and (max-width: 800px) {
-  .card{
-      max-width: 100vw;
+@media only screen and (min-width: 800px) {
+  .main-tab-group {
+    height: calc(85vh - 257px);
   }
-
 }

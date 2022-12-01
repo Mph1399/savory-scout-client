@@ -92,7 +92,7 @@ i {
 
 .card-specials {
   min-height: 150px;
-  max-height: 150px;
+  max-height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -143,10 +143,10 @@ i {
   background-color: #ebebeb;
 }
 
-.card-specials {
-  max-height: calc(100vh - 360px);
-  // height: 130px;
-}
+// .card-specials {
+//   max-height: calc(100vh - 360px);
+//   // height: 130px;
+// }
 
 ::ng-deep {
   .carousel-arrow {

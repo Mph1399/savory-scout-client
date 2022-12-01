@@ -29,6 +29,7 @@ import { SearchComponent } from './dialogs/search/search.component';
 import { DisclaimerComponent } from './dialogs/disclaimer/disclaimer.component';
 
 
+
 @NgModule({
   declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent],
   imports: [
@@ -46,7 +47,8 @@ import { DisclaimerComponent } from './dialogs/disclaimer/disclaimer.component';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+
     
   ],
   providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],

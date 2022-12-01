@@ -3,6 +3,7 @@ import { SpecialsDisplayComponent } from './specials-display.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -10,8 +11,9 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     CommonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
-  exports: [SpecialsDisplayComponent]
+  exports: [SpecialsDisplayComponent],
 })
 export class SpecialsDisplayModule { }

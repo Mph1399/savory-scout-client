@@ -3,13 +3,16 @@
   <p>No {{ type | titlecase }} Specials Available</p>
 </div>
 <!-- Create a new tab group where each tab will represent a day of the week that the business has a special on. -->
-<mat-tab-group id="secondGroup">
+<mat-tab-group id="secondGroup" [selectedIndex]=0>
     <!-- Loop through the days of the week -->
   <mat-tab *ngFor=" let day of details.days; let i = index" label="{{ day.day | uppercase }}" >
         <ul class="specials-list" *ngFor="let recurringSpecial of day.recurringSpecials; let j = index" no-lines>
            <!-- Show the start and end time of the current special(s) specials -->
            <p class="special-time">
-            {{recurringSpecial.start}} - {{recurringSpecial.end}}
+            {{recurringSpecial.start}} - {{recurringSpecial.end}} <br>
+            <span *ngFor="let category of recurringSpecial.categories; let x = index;">
+              {{ x > 0 ? ', ' : '' }} {{ category === 'happyHour' ? 'Happy Hour' : category | titlecase }} 
+            </span>
           </p>
           <!-- Loop through and display all of the specials listed under this date and time periods -->
           <ng-container *ngFor="let special of recurringSpecial.specials; let m = index;">
@@ -20,7 +23,7 @@
               {{ special | titlecase }}
               <br>
               <ng-container *ngFor="let description of recurringSpecial.specialDescriptions; let x = index">
-                <p *ngIf=" m === x && description !== 'null'" class="special-description"> {{ description }}</p>
+                <p *ngIf=" m === x && description !== 'null'" class="special-description"> {{ description | lowercase }}</p>
               </ng-container>
            
               

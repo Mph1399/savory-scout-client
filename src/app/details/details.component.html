@@ -1,11 +1,11 @@
-<mat-dialog-content>
+<mat-dialog-content style="overflow: hidden;">
   <mat-card>
-    <app-header [data]="data"></app-header>
-    <app-location-info (reportEvent)="openReportForm()" [data]="data"></app-location-info>
-    <mat-tab-group>
+      <app-header [data]="data"></app-header>
+      <app-location-info (reportEvent)="openReportForm()" [data]="data"></app-location-info>
+    <mat-tab-group mat-align-tabs="center" [selectedIndex]="getSelectedIndex()" class="main-tab-group">
       <mat-tab *ngIf="data.food!.active || data.drinks!.active || data.events!.active" label="ACTIVE">
         <!-- <app-active-tab [location]="data"></app-active-tab> -->
-        <app-specials-display *ngIf="(filters$ | async)!.filters.active" [location]="data" [mapPage]="false"></app-specials-display>
+        <app-specials-display *ngIf="(filters$ | async)!.filters.active" [location]="data" [mapPage]="false" [inDetails]="true"></app-specials-display>
         <p *ngIf="!(filters$ | async)!.filters.active" style="text-align: center">Active is not selected in the filter</p>
       </mat-tab>
       <ng-container *ngFor="let categoryDetail of categoryDetails; let i = index">

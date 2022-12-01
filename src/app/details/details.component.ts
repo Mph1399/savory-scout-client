@@ -48,5 +48,13 @@ openReportForm = () => {
    data: this.data
    })
 }
+
+getSelectedIndex = () => {
+  if (this.data.active) { return 0 }
+  if (this.data.food!.recurringSpecials.length > 0 || this.data.food!.specificDateSpecials.length > 0 ) { return 1 };
+  if (this.data.drinks!.recurringSpecials.length > 0 || this.data.drinks!.specificDateSpecials.length > 0 ) { return 2 }
+  if (this.data.events!.recurringSpecials.length > 0 || this.data.events!.specificDateSpecials.length > 0 ) { return 3 }
+  return 0;
+}
 }
 
