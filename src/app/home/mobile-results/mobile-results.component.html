@@ -7,19 +7,19 @@
               (filters$ | async)!.filters.active && location.active && location.food!.active && location.display || 
               (filters$ | async)!.filters.active && location.active && location.drinks!.active && location.display || 
               (filters$ | async)!.filters.active && location.active && location.events!.active && location.display ||
-              !(filters$ | async)!.filters.active  && location.display" class="location-card carousel-cell"  (click)="openDetails(i)">
-                <mat-card-header class="card-header-mobile">
+              !(filters$ | async)!.filters.active  && location.display" class="location-card carousel-cell"> 
+              <!-- (click)="openDetails(i)" above -->
+                <mat-card-header class="card-header-mobile" (click)="openDetails(i)">
                   <img mat-card-image style="background-image: url({{location.thumb_url}});" >
                   <mat-card-title style="font-weight: bold;" >{{ location.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ location.address }}</mat-card-subtitle>
-                  <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance:
-                    <strong>{{ location.distance | number : '1.2-2' }}mi</strong></mat-card-subtitle> -->
+                  <mat-card-subtitle style="font-size: 12px;">{{ location.address }}</mat-card-subtitle>
+                  <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance: -->
+                 <strong style="text-align: center; display: block;">{{ location.distance }}mi away</strong>
                 </mat-card-header>
-  
+                
                 <div style="overflow: scroll; height: 100%">
                 <mat-card-content class="card-specials">
                   <app-specials-display class="specials-container" [location]="filteredLocations[i]" [inDetails]="false"></app-specials-display>
-  
                 </mat-card-content>
               </div>
               </mat-card>

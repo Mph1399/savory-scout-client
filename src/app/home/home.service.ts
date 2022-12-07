@@ -10,7 +10,9 @@ import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class HomeService implements OnDestroy {
     geoService$: Subscription;
     screenWidth = this.deviceDetailsService.screenWidth;
@@ -40,7 +42,7 @@ export class HomeService implements OnDestroy {
         })
      )
      .subscribe(locationResults => {
-      //  console.log('Running SUBSCRIBE GEO');
+        console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
        localStorage.getItem('userDate') !== null ?
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :

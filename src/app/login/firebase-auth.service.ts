@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  signInAnonymously,
   FacebookAuthProvider
 } from 'firebase/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,10 +15,9 @@ import * as firebaseui from 'firebaseui';
 import { Injectable } from '@angular/core';
 import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 import { Store } from '@ngrx/store';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login.component';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
 import { Router } from '@angular/router';
+import { HomeService } from '../home/home.service';
 firebase.initializeApp(environment.firebase);
 
 
@@ -39,7 +37,7 @@ export class FirebaseAuthService {
     private _snackBar: MatSnackBar,
     private store: Store,
     private router: Router,
-    private dialog: MatDialog,
+    private homeService: HomeService,
     private deviceDetailsService: DeviceDetailsService
   ){}
   
@@ -95,6 +93,7 @@ export class FirebaseAuthService {
         };
         // Initiate the token renewal method
         renewToken();
+        this.homeService.geoMyLocation();
       } else {
         // this.router.navigateByUrl('/login');
         /* The user isn't logged in but we want them to have a little bit of a free trial.
@@ -103,7 +102,8 @@ export class FirebaseAuthService {
         3) If the time is over 1 week, redirect to the login page */
         const userDate = localStorage.getItem('userDate')
        if(userDate === null){
-        localStorage.setItem('userDate', JSON.stringify(new Date())) 
+        localStorage.setItem('userDate', JSON.stringify(new Date()));
+        this.homeService.geoMyLocation();
       } else { 
         const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60;
         console.log('TIME: ', elapsed);
@@ -113,7 +113,9 @@ export class FirebaseAuthService {
        if (elapsed < -7){
         // The tial period of 7 days has elapsed.
          this.router.navigateByUrl('login');
+         return;
        } 
+       this.homeService.geoMyLocation();
       }
 
       }

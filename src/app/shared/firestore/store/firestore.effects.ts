@@ -28,7 +28,7 @@ export class FirestoreEffects {
       this.actions$.pipe(
         ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS),
         switchMap((action) => {
-          this.store.dispatch(SpinnerActions.SPINNER_START())
+          this.store.dispatch(SpinnerActions.SPINNER_START('Finding Specials'))
           return this.firestoreService
             .geoSearchLocations(action.lat, action.lng)
             .then((matchingDocs): Location[] => {
@@ -137,6 +137,7 @@ export class FirestoreEffects {
   this.actions$.pipe(
     ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID),
     switchMap((action) => {
+      this.store.dispatch(SpinnerActions.SPINNER_START('Finding Specials'))
       return this.firestoreService.getLocationByPlaceId(action.place_id);
     }),
     map((locations: any) => {
@@ -160,6 +161,7 @@ getLocationByPlaceIdAnonymous$ = createEffect(() =>
 this.actions$.pipe(
   ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS),
   switchMap((action) => {
+    this.store.dispatch(SpinnerActions.SPINNER_START('Finding Specials'));
     return  this.firestoreService.getLocationByPlaceIdAnonymous(action.place_id)
   }),
   map((locations: any) => {

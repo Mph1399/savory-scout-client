@@ -25,6 +25,7 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
   map = false;
   categories = ['food', 'drinks', 'events'];
   dateTypes = ['recurringSpecials', 'specificDateSpecials'];
+  changes;
   constructor(
    // private displayRestaurantFilterService: DisplayRestaurantsFilterService
    private store: Store,
@@ -37,7 +38,7 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
     this.router.url === '/map' ? this.map = true : this.map = false;
   }
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Changes: ', changes)
+    this.changes = changes;
   }
 
 }

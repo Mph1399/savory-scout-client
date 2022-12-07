@@ -26,9 +26,9 @@ html {
   scrollbar-width: none;  /* Firefox */
   overscroll-behavior: none;
 }
-body {
+body, iframe {
     margin: 0;
-    overscroll-behavior-y: contain;
+    overscroll-behavior: contain;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

@@ -36,7 +36,8 @@ export class MobileResultsComponent implements AfterViewInit, OnChanges{
   ngOnChanges(){
    // console.log('Changed');
     // If going from multi locations to less, the carousel needs to be resized so it doesn't show a blank cell
-    this.carousel.resize()
+   try { this.carousel.resize()}
+   catch(e){}
   }
 
 }

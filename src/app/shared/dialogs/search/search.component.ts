@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as FirestoreActions from '../../firestore/store/firestore.actions';
 import * as FilterActions from '../search-filter/store/search-filter.actions';
+import { GeoPackage } from '../../services/geolocation.service';
 
 @Component({
   selector: 'app-search',

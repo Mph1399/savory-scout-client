@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnChanges {
   filteredLocations$: Observable<LocationsState>
   filter;
   filter$ : Subscription;
+  changes;
 
 
   screenWidth = this.deviceDetailsService.screenWidth;
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit, OnChanges {
       )
     })
     console.log('screewidth: ', this.screenWidth)
-    this.homeService.geoMyLocation();
+    // this.homeService.geoMyLocation();
 
    // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))
    // this.firestoreService.geoSearchLocations(this.geoService.fetchHash(), this.geoService.lat, this.geoService.lng)
@@ -63,6 +64,6 @@ export class HomeComponent implements OnInit, OnChanges {
     // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
   }
   ngOnChanges(changes: SimpleChanges) {
-     console.log('Changes: ', changes)
+    this.changes = changes;
    }
 }
