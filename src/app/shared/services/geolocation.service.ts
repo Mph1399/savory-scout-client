@@ -39,34 +39,35 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
     private store: Store
   ) { }
 
-  findIpGeo = (): Observable<GeoPackage> => {
+  findIpGeo = () => {
+
     const scope = this;
     /* First try to use the Navigator to return a geolocation result. If Navigator is disabled or doesn't work, use the Users IP address to as a location point and search from there */
     if (navigator.geolocation) {
       console.log("Navigator : ", navigator.geolocation)
+      return this.geoByBrowser();
 
-
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      };
+      // const options = {
+      //   enableHighAccuracy: true,
+      //   timeout: 5000,
+      //   maximumAge: 0
+      // };
       
-      function success(position): Observable<GeoPackage> {
-        const payload: any = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          hash: geofire.geohashForLocation([position.coords.latitude, position.coords.longitude])
-         }
-         return new Observable(payload);
-      }
+      // function success(position) {
+      //   const payload: any = {
+      //     lat: position.coords.latitude,
+      //     lng: position.coords.longitude,
+      //     hash: geofire.geohashForLocation([position.coords.latitude, position.coords.longitude])
+      //    }
+      //   of(payload);
+      // }
       
-      function error(err): Observable<GeoPackage> {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-        return scope.geoByIp()
-      }
+      // function error(err) {
+      //   console.warn(`ERROR(${err.code}): ${err.message}`);
+      //   scope.geoByIp();
+      // }
       
-     return navigator.geolocation.getCurrentPosition(success, error, options)!;
+      // navigator.geolocation.getCurrentPosition(success, error, options)!;
 
 
   //   let payload: any;
@@ -85,8 +86,12 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
   //   } 
    } else {
      console.log("No support for geolocation")
-    return this.geoByIp();
+     return this.geoByIp();
     }
+
+
+
+
   }
 
   geoByIp = (): Observable<GeoPackage> => {
@@ -128,6 +133,32 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
     })
     )
   }
+
+  geoByBrowser = (): Observable<GeoPackage> => {
+    // this.store.dispatch(SpinnerActions.SPINNER_END());
+    console.log('TEST')
+    return new Observable(obs => {
+     navigator.geolocation.getCurrentPosition(
+       position => {
+        console.log('TEST TEST');
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.coords.next({location: {lat: this.lat, lng: this.lng}})
+         obs.next({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          hash: geofire.geohashForLocation([position.coords.latitude, position.coords.longitude])
+         });
+         obs.complete();
+       },
+       error => {
+         obs.error(error);
+       }
+     );
+   });
+   }
+
+
 
   fetchCoords = () => {
     return {lat: this.lat, lng: this.lng};

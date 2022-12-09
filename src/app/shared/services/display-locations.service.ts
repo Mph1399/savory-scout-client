@@ -6,8 +6,9 @@ import { Store } from '@ngrx/store';
 import { Location } from '../models/location.model';
 import * as moment from 'moment'
 import * as SearchFilterSelectors from '../dialogs/search-filter/store/search-filter.selectors';
-import { initialState } from '../dialogs/search-filter/store/search-filter.reducers'
-import * as geodist from 'geodist';
+import { initialState } from '../dialogs/search-filter/store/search-filter.reducers';
+import getDistance from 'geolib/es/getDistance';
+import convertDistance from 'geolib/es/convertDistance';
 import { GeolocationService } from './geolocation.service';
 
 @Injectable()
@@ -54,9 +55,11 @@ export class DisplayLocationsService implements OnDestroy {
     /* we only want to add a distance, display bool and group the specials according to matching criteria once after the initial database pull */
     if(!locations[index].distance) {
    /*  Assign a distance to each location. This distance will later be used for displaying the special depending on the filter radius.  */
-      locations[index].distance = geodist({lat: this.lat, lng: this.lng},{lat: location.lat as number, lng: location.lng as number}, ['miles']);
+      locations[index].distance = convertDistance(getDistance({lat: this.lat, lon: this.lng},{lat: location.lat as number, lon: location.lng as number}), 'mi') ;
+     // console.log(convertDistance( locations[index].distance as number, 'mi'));
+
       locations[index] = this.groupSpecialsWithMatchingCriteria(location); 
-      /* Add a bool to the location with the name of display. Set it to false */
+      /* Add a bool to the location with the name of display. Set it to false. Display will be the main determiner of showing the location */
       locations[index].display = false;
     }
 

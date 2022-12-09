@@ -8,7 +8,7 @@
 
 <div style="text-align: right; padding: 0 10px;">
   <button mat-raised-button id="report-button" color="warn" (click)="openReport()">Report</button>
-  <strong class="distance">{{ data.distance }}mi away</strong>
+  <strong class="distance">{{ data.distance | number:'0.0-2'}}mi away</strong>
 </div><br>
 
 </div>

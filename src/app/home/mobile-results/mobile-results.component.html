@@ -14,7 +14,7 @@
                   <mat-card-title style="font-weight: bold;" >{{ location.name }}</mat-card-title>
                   <mat-card-subtitle style="font-size: 12px;">{{ location.address }}</mat-card-subtitle>
                   <!-- <mat-card-subtitle *ngIf="!specificLocationSearch">Distance: -->
-                 <strong style="text-align: center; display: block;">{{ location.distance }}mi away</strong>
+                 <strong style="text-align: center; display: block;">{{ location.distance | number:'0.0-2'}}mi away</strong>
                 </mat-card-header>
                 
                 <div style="overflow: scroll; height: 100%">

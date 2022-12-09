@@ -2,7 +2,7 @@
 <!-- <app-warnings [filterValues]="filterValues" [filteredLocations$]="filteredLocations$"></app-warnings> -->
 
 <!-- Loading Screen background -->
-<div class="loading-img-container" *ngIf="(filteredLocations$ | async)!.locations.length == 0 || (filteredLocations$ | async)!.locations[0].name =='' ">
+<div class="loading-img-container" *ngIf="(filteredLocations$ | async)!.locations.length === 0 || (filteredLocations$ | async)!.locations[0].name === '' ">
   <div class="loading-background" role="img"></div>
 </div>
 <!-- *ngIf="( filteredLocations$ | async ).restaurants.length === 0" -->

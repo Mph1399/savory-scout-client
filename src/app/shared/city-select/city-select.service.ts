@@ -12,6 +12,7 @@ export class CitySelectService {
         {city: 'Boulder, CO', total: 0}, 
         {city: 'Colorado Springs, CO', total: 0}, 
         {city: 'Denver, CO', total: 0},
+        {city: 'Fairfax, VA', total: 0},
         {city: 'Fort Collins, CO', total: 0}  
     ];
 

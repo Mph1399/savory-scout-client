@@ -18,7 +18,7 @@
               
               <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
               <mat-card-subtitle style="text-align: right; margin-right: 10px">
-                <strong>{{ location.distance }}mi</strong></mat-card-subtitle>
+                <strong>{{ location.distance | number:'0.0-2'}}mi</strong></mat-card-subtitle>
             </span>
           </mat-card-header>
           <mat-card-content class="card-specials">

@@ -17,7 +17,6 @@ import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 import { Store } from '@ngrx/store';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
 import { Router } from '@angular/router';
-import { HomeService } from '../home/home.service';
 firebase.initializeApp(environment.firebase);
 
 
@@ -37,7 +36,6 @@ export class FirebaseAuthService {
     private _snackBar: MatSnackBar,
     private store: Store,
     private router: Router,
-    private homeService: HomeService,
     private deviceDetailsService: DeviceDetailsService
   ){}
   
@@ -60,10 +58,8 @@ export class FirebaseAuthService {
 
     //  console.log( moment(user?.metadata.creationTime, 'ddd, D MMM YYYY HH:mm:ss z').diff(now, 'minutes', true));
       if (user !== null) {
-
         // Create a copy of the user state
         const loggedUser = { ...user };
-
         const renewToken = () => {
           user.getIdToken(true)
           .then((token) => {
@@ -93,7 +89,6 @@ export class FirebaseAuthService {
         };
         // Initiate the token renewal method
         renewToken();
-        this.homeService.geoMyLocation();
       } else {
         // this.router.navigateByUrl('/login');
         /* The user isn't logged in but we want them to have a little bit of a free trial.
@@ -102,8 +97,8 @@ export class FirebaseAuthService {
         3) If the time is over 1 week, redirect to the login page */
         const userDate = localStorage.getItem('userDate')
        if(userDate === null){
-        localStorage.setItem('userDate', JSON.stringify(new Date()));
-        this.homeService.geoMyLocation();
+        localStorage.setItem('userDate', JSON.stringify(new Date())); 
+        localStorage.setItem('visited', "true");
       } else { 
         const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60;
         console.log('TIME: ', elapsed);
@@ -115,7 +110,7 @@ export class FirebaseAuthService {
          this.router.navigateByUrl('login');
          return;
        } 
-       this.homeService.geoMyLocation();
+
       }
 
       }

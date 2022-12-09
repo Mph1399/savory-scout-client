@@ -12,12 +12,14 @@ export interface SpinnerState {
 
   export const spinnerReducer = createReducer(initialState, 
     on(SpinnerActions.SPINNER_START, (state, action) => {
+      console.log('Spinner ON');
       return {
         ...state,
         isOn: true
       }
     }),
     on(SpinnerActions.SPINNER_END, (state, action) => {
+      console.log('Spinner OFF');
         return {
           ...state,
           isOn: false

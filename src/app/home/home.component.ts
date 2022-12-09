@@ -6,7 +6,7 @@ import { HomeService } from './home.service';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors';
 import * as FilterActions from '../shared/dialogs/search-filter/store/search-filter.actions';
-import { Observable, Subscription, tap } from 'rxjs';
+import { debounceTime, Observable, Subscription, tap } from 'rxjs';
 import { Location } from '../shared/models/location.model';
 import { LocationsState } from '../shared/firestore/store/firestore.reducers';
 
@@ -48,14 +48,17 @@ export class HomeComponent implements OnInit, OnChanges {
           })
           visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
         }
-    
-          this.store.dispatch(SpinnerActions.SPINNER_END())
+          console.log("Location name: ", val.locations[0].name);
+          val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
+         
         //  val.locations.length  == 0 ? this.homeService.openCitySelect() : '';
-        })
+        }),
+
+
       )
     })
     console.log('screewidth: ', this.screenWidth)
-    // this.homeService.geoMyLocation();
+    this.homeService.geoMyLocation();
 
    // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))
    // this.firestoreService.geoSearchLocations(this.geoService.fetchHash(), this.geoService.lat, this.geoService.lng)

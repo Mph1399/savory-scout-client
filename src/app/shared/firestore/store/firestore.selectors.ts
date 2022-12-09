@@ -6,7 +6,7 @@ export const selectLocations = createFeatureSelector<Readonly<LocationsState>>('
 
 export const getLocationsState = createSelector (selectLocations, (state) => {
     if(state.locations.length > 0 && state.locations[0].name === ''){
-        // Try to retrieve an existing state from local storage
+       /*   Try to retrieve an existing state from local storage */
         const storedLocations = JSON.parse(localStorage.getItem('locations')!);
         if(storedLocations){
             return{ locations: storedLocations }

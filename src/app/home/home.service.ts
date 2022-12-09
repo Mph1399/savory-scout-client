@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { catchError, map, of, Subscription } from 'rxjs';
+import { catchError, map, of, Subscription, tap } from 'rxjs';
 import { GeolocationService } from '../shared/services/geolocation.service';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
 import { Store } from '@ngrx/store';
@@ -26,8 +26,11 @@ export class HomeService implements OnDestroy {
         ){}
 
     geoMyLocation = () => {
-     this.geoService$ =  this.geoService.findIpGeo()
+      this.store.dispatch(SpinnerActions.SPINNER_START());
+    try{
+      this.geoService$ = this.geoService.findIpGeo()
      .pipe(
+      tap(val => console.log("Value in findGeo: ",)),
         catchError(error => {
             this.openCitySelect();  
             this.store.dispatch(SpinnerActions.SPINNER_END());
@@ -42,13 +45,16 @@ export class HomeService implements OnDestroy {
         })
      )
      .subscribe(locationResults => {
+      this.store.dispatch(SpinnerActions.SPINNER_START());
+      console.log("results: ", locationResults)
         console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
        localStorage.getItem('userDate') !== null ?
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.lat, lng: locationResults.lng}))
     });
-    }
+   } catch(e){ console.log("Error: ", e)}
+  }
 
     ngOnDestroy(){
         this.geoService$.unsubscribe();

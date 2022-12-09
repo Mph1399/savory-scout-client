@@ -45,19 +45,17 @@ export class FirestoreEffects {
           console.log('START Locations :', locations);
           if(!locations){return FirestoreActions.NO_LOCATIONS}
           // make a deep copy of locations
-          const locationsCopy = JSON.parse(JSON.stringify(locations))
+          let locationsCopy = JSON.parse(JSON.stringify(locations))
           // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
-          locationsCopy.reverse();
-          const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          let filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          filteredLocations = filteredLocations.sort(({distance:a}, {distance:b}) => b!-a!);
+          filteredLocations.reverse();
           console.log('FINAL Filtered: ', filteredLocations)
           return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
         })
       ),
 
   );
-
-
-
 
 
 
@@ -75,12 +73,13 @@ export class FirestoreEffects {
           // make a deep copy of locations
           const locationsCopy = JSON.parse(JSON.stringify(locations))
           // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
-          locationsCopy.reverse();
-          const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          
+          let filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+          filteredLocations = filteredLocations.sort(({distance:a}, {distance:b}) => b!-a!);
+          filteredLocations.reverse();
           console.log('filtered: ', filteredLocations)
            return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
         })
-
       ),
   );
 
@@ -108,11 +107,18 @@ export class FirestoreEffects {
       When a user signs in, userDate is removed from local storage so we just need to check if it exists to determine the type of db search needed.
       */
       const userDate = localStorage.getItem('userDate');
+      const visited = localStorage.getItem('visited');
       if(coordinates[0].geometry.location_type === 'ROOFTOP'){
         // The results is an actual location, not an area/city 
         this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
-
-       userDate === null ? 
+      /* 
+      This code will before the login service assigns local storage vars.
+        Cases: 
+        First visit = local storage vars userData will be null and visited will be null.
+        Second Visit = userData will have a time value and visited will be the string "yes".
+        logged in = userData will be null and visited will be the string "yes".
+      */
+       userDate === null && visited === "true" ? 
        this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id}))  : 
        this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS({place_id: coordinates[0].place_id}));
  

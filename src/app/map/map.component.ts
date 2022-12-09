@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   filters;
@@ -57,9 +57,6 @@ export class MapComponent implements OnInit {
       this.router.url == '/map' ? this.mapPage = true : this.mapPage = false;
      }
 
-  ngOnInit(): void {
-
-  }
 
   openInfo(marker: MapMarker, content: Location) {
    // this.previous = this.infoWindow;

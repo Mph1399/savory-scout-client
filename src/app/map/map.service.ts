@@ -10,7 +10,8 @@ import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import * as geodist from 'geodist';
+import getDistance from 'geolib/es/getDistance';
+import convertDistance from 'geolib/es/convertDistance';
 
 export interface Marker {
     position: {lat: number, lng: number},
@@ -84,7 +85,7 @@ export class MapService implements OnDestroy{
     }
     evaluateMapDistanceFromLastCenter = (lat: number, lng: number, filters) => {
       console.log('Coords: ', this.geoCoords)
-          const dist = geodist({lat: this.geoCoords.lat, lng: this.geoCoords.lng},{lat: lat, lng: lng}, ['miles']);
+          const dist = convertDistance(getDistance({lat: this.geoCoords.lat, lng: this.geoCoords.lng},{lat: lat, lng: lng}), 'mi');
           console.log("Distance: ", dist);
           if(dist > filters.radius / 2){
             console.log('long distance');
