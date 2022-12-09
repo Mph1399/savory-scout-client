@@ -1,7 +1,8 @@
 
     <!-- Searchbar -->
 <mat-card>
-    <mat-card-content>
+
+    <mat-card-content style="margin-bottom: 0px; padding-bottom: 0px;">
         <form>
           <mat-form-field [floatLabel]="'never'" color="primary" style="width: 85%;">
             <input matInput type="text" #searchInput2 placeholder="Search..." (keydown.enter)="onSearch(searchInput2)">
@@ -12,9 +13,8 @@
         </mat-icon>
         </form>
       </mat-card-content>
-
-      <mat-card-actions text-align="center">
-        <button mat-button (click)="getUserLocation()">
+      <mat-card-actions class="actions">
+        <button mat-button (click)="getUserLocation()" style="display: contents">
         <mat-icon aria-label="my location" color="primary"
           >my_location</mat-icon> My Location
         </button>
