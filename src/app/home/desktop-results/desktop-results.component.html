@@ -10,7 +10,7 @@
           <mat-card-header class="card-header-desktop" (click)="openDetails(i)">
             <div mat-card-avatar class="avatar"
               style="background-image: url({{location.thumb_url}}); background-size: cover; cursor: pointer"></div>
-            <span style="cursor: pointer;">
+            <div style="cursor: pointer;">
               <mat-card-title style="font-weight: bold;">{{ location.name }}
               <br>
               <app-address [address]="location.address"></app-address>
@@ -19,7 +19,7 @@
               <!-- <mat-card-subtitle>{{ location.address }}</mat-card-subtitle> -->
               <mat-card-subtitle style="text-align: right; margin-right: 10px">
                 <strong>{{ location.distance | number:'0.0-2'}}mi</strong></mat-card-subtitle>
-            </span>
+              </div>
           </mat-card-header>
           <mat-card-content class="card-specials">
             <app-specials-display class="specials-container" [location]="filteredLocations[i]" [inDetails]="false"></app-specials-display>

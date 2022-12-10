@@ -27,11 +27,11 @@ export class HomeService implements OnDestroy {
 
     geoMyLocation = () => {
       this.store.dispatch(SpinnerActions.SPINNER_START());
-    try{
-      this.geoService$ = this.geoService.findIpGeo()
+  //  try{
+      this.geoService$ = this.geoService.coords
      .pipe(
-      tap(val => console.log("Value in findGeo: ",)),
-        catchError(error => {
+      tap(val => console.log("Value in findGeo: ", val)),
+      catchError(error => {
             this.openCitySelect();  
             this.store.dispatch(SpinnerActions.SPINNER_END());
             this._snackBar.openFromComponent(SnackbarComponent, {
@@ -50,10 +50,10 @@ export class HomeService implements OnDestroy {
         console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
        localStorage.getItem('userDate') !== null ?
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.lat, lng: locationResults.lng})) :
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.lat, lng: locationResults.lng}))
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lat})) :
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}))
     });
-   } catch(e){ console.log("Error: ", e)}
+ // } catch(e){ console.log("Error: ", e)}
   }
 
     ngOnDestroy(){

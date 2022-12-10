@@ -28,7 +28,7 @@ export interface Marker {
 export class MapService implements OnDestroy{
     geoCoords$ = this.geolocationService.coords.subscribe(coords => this.geoCoords = coords.location);
     geoCoords;
-    geoIp$: Subscription;
+    geoService$: Subscription;
     screenWidth = this.deviceDetailsService.screenWidth;
 
     constructor(
@@ -59,7 +59,7 @@ export class MapService implements OnDestroy{
     }
 
     geoMyLocation = () => {
-        this.geoIp$ = this.geolocationService.findIpGeo()
+        this.geoService$ = this.geolocationService.coords
         .pipe(
            catchError(error => {
                this.openCitySelect();  
@@ -74,7 +74,7 @@ export class MapService implements OnDestroy{
              return of(error)
            })
         )
-        .subscribe(locationResults => this.searchByCoords(locationResults.lat, locationResults.lng));
+        .subscribe(locationResults => this.searchByCoords(locationResults.location.lat, locationResults.location.lng));
        }
 
     openCitySelect = () => {
@@ -101,8 +101,8 @@ export class MapService implements OnDestroy{
     }
 
     ngOnDestroy(){
-       this.geoIp$.unsubscribe();
-      this.geoCoords$.unsubscribe();
+       this.geoService$.unsubscribe();
+       this.geoCoords$.unsubscribe();
       }
 
 }

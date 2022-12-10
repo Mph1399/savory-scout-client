@@ -10,7 +10,8 @@
 [options]="options" 
 [zoom]="zoom" 
 [center]="center" height="95vh" width="100vw" 
-(mapDragend)="evaluateMapDistanceFromLastCenter()">
+(mapDragend)="evaluateMapDistanceFromLastCenter()"
+(mapClick)="closeInfoWindow()">
     
 <ng-container *ngFor="let marker of markers; let i = index" >
     <map-marker 

@@ -38,7 +38,7 @@ export class FirestoreEffects {
             })
             .catch((err) => {
               console.log('Error : ', err);
-              throw new Error('Valid token not returned');
+              throw new Error(err);
             });
         }),
         map((locations) => {

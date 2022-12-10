@@ -22,7 +22,6 @@ export class MapComponent {
   filters;
   filters$ = this.store.select(FilterSelectors.getFilterState).pipe(tap(state => this.filters = state.filters));
   // apiLoaded: Observable<boolean>;
-
   lastSelectedInfoWindow: any;
   center: google.maps.LatLngLiteral;
   bounds: google.maps.LatLngBounds;
@@ -64,11 +63,16 @@ export class MapComponent {
     this.infoWindow.open(marker)
   }
 
-  closeInfoWindow = (marker: MapMarker) => {
-    if (this.previous) {
-      this.previous.close(marker);
+  closeInfoWindow = () => {
+  //   if (this.previous) {
+  //     this.previous.close(marker);
+  // }
+  // this.previous = marker;
+  this.infoWindow.close();
   }
-  this.previous = marker;
+
+  currentInfoWindow = (window) => {
+    this.infoWindow = window;
   }
 
   setInitialBounds = () => {
