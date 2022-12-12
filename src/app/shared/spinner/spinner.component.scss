@@ -7,18 +7,19 @@
     top: 0;
     left: 0;
     background-color : #ffffffe8;
-    opacity: 0.5;
+    opacity: 0.95;
 
 }
 
 .lds-circle {
     display: inline-block;
     transform: translateZ(1px);
-    top: 40vh;
+    top: 26vh;
     position: fixed;
-    left: calc(50% - 50px);
+    left: calc(50% - 108px);
     z-index: 10000000000;
     text-align: center;
+    width: 216px;
   }
   .lds-circle > div {
     display: inline-block;
@@ -43,5 +44,16 @@
     100% {
       transform: rotateY(3600deg);
     }
+  }
+
+  .message {
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .after-message {
+    font-size: 14px;
+    font-family: sans-serif;
+    margin: 0;
   }
 /////////////////////////////////////  END SPINNER   ///////////////////////////////////////  

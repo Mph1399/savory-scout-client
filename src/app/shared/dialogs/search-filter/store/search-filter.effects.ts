@@ -31,10 +31,17 @@ import { Location } from 'src/app/shared/models/location.model';
             .pipe(
                 take(1),
                 map(state => {
-                  //  console.log('locations: ', state.locations)
+                    console.log('locations in Filter: ', state.locations)
                     const filteredLocations = JSON.parse(JSON.stringify(this.displayLocationsService.displaySelectedCategories(state.locations)));
                     console.log('filtered: ', filteredLocations)
-                    return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
+                    if(filteredLocations.length > 0 && filteredLocations[0].name !== ''){
+                      console.log('Setting Location')
+                      return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
+                    }else{
+                      console.log('returning no results')
+                      return FirestoreActions.NO_LOCATIONS()
+                    } 
+                    
                 })
             )
         })

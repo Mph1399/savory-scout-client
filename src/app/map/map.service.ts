@@ -95,9 +95,13 @@ export class MapService implements OnDestroy{
     }
 
     searchByCoords = (lat: number, lng: number) => {
-      localStorage.getItem('userDate') !== null ?
-      this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: lat, lng:lng})) :
-      this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}))
+
+      const userDate  = localStorage.getItem('userDate');
+      const visited = localStorage.getItem('visited')
+      userDate == null && visited == null ||
+      userDate !== null && visited === 'true' ?
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: lat, lng: lng})) :
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}));
     }
 
     ngOnDestroy(){

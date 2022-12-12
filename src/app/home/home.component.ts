@@ -6,7 +6,7 @@ import { HomeService } from './home.service';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors';
 import * as FilterActions from '../shared/dialogs/search-filter/store/search-filter.actions';
-import { debounceTime, Observable, Subscription, tap } from 'rxjs';
+import { debounceTime, Observable, Subscription, tap, filter } from 'rxjs';
 import { Location } from '../shared/models/location.model';
 import { LocationsState } from '../shared/firestore/store/firestore.reducers';
 
@@ -36,20 +36,27 @@ export class HomeComponent implements OnInit, OnChanges {
     subscribe(filterState => {
       this.filter = filterState.filters;
       this.filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
+    
       .pipe(
+      //  filter(state => state.locations.length > 0),
         tap(val => {
         // console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
+
+
         if (val.locations.length > 0 ){
           let visible = false;
           val.locations.forEach(location => {
             location.display === true ? visible = true : '';
           })
-          visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
-        }
+       //   visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
+        } 
+          console.log("state: ", val);
+          console.log("Locations: ", val.locations);
           console.log("Location name: ", val.locations[0].name);
-          val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
+          // close the spinner when results are found
+          !val.locations[0] || val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
          
         //  val.locations.length  == 0 ? this.homeService.openCitySelect() : '';
         }),

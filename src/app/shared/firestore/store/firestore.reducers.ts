@@ -38,7 +38,8 @@ export interface LocationsState {
            }
          }),
          on(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS, (state, action) => {
-        //  console.log('Action in SET_LOCATION ANONYMOUS Reducer: ', action)
+          console.log('Action in GET_LOCATION ANONYMOUS Reducer: ', action);
+          console.log('State in GET_LOCATION ANONYMOUS Reducer: ', state)
           return {
             ...state,
           }
@@ -58,14 +59,9 @@ export interface LocationsState {
             ...state,
           }
         }),
-        on(FirestoreActions.NO_LOCATIONS, (state, action) => {
-          return {
-            ...state,
-            location: initialState
-          }
-        }),
+
          on(FirestoreActions.SET_LOCATIONS, (state, action) => {
-        //  console.log('Action in SET_LOCATION Reducer: ', action)
+          console.log('Action in SET_LOCATION Reducer: ', action)
           localStorage.setItem('locations', JSON.stringify(action.locations));
           return {
             ...state,

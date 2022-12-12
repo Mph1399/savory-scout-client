@@ -64,11 +64,7 @@ export class MapComponent {
   }
 
   closeInfoWindow = () => {
-  //   if (this.previous) {
-  //     this.previous.close(marker);
-  // }
-  // this.previous = marker;
-  this.infoWindow.close();
+    this.infoWindow.close();
   }
 
   currentInfoWindow = (window) => {

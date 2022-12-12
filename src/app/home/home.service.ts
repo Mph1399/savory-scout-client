@@ -49,9 +49,19 @@ export class HomeService implements OnDestroy {
       console.log("results: ", locationResults)
         console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
-       localStorage.getItem('userDate') !== null ?
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lat})) :
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}))
+              /* 
+      This code will before the login service assigns local storage vars.
+        Cases: 
+        First visit = local storage vars userData will be null and visited will be null = run anonymous.
+        Second Visit = userData will have a time value and visited will be the string "yes" = run anonymous.
+        logged in = userData will be null and visited will be the string "yes" =  run normal firestore.
+      */
+      const userDate  = localStorage.getItem('userDate');
+      const visited = localStorage.getItem('visited')
+      userDate == null && visited == null ||
+      userDate !== null && visited === 'true' ?
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lng})) :
+       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}));
     });
  // } catch(e){ console.log("Error: ", e)}
   }

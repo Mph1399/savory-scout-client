@@ -16,7 +16,7 @@
     </span>
   </div> -->
   <!-- Show the city select -->
-  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length === 0"></app-city-select>
+  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name == ''"></app-city-select>
          
   <app-mobile-results *ngIf="screenWidth <= 800"   [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-mobile-results>    
   <app-desktop-results *ngIf="screenWidth > 800"   [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-desktop-results>   

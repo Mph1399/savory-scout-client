@@ -32,6 +32,5 @@ export const GET_LOCATIONS_BY_COORDS_ANONYMOUS = createAction(
   );
 
   export const NO_LOCATIONS = createAction(
-    '[Locations] No Locations',
-    props<{ locations: Location[] }>()
+    '[Locations] No Locations'
   );
