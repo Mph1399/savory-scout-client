@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        {provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        scopes: ['email']},
         firebase.auth.TwitterAuthProvider.PROVIDER_ID
       ],
       callbacks: {
@@ -46,6 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             uid: authResult.uid,
             token: authResult.accessToken} 
           ))
+          if (ui.isPendingRedirect()) {
+            ui.start('#firebaseui-auth-container', uiConfig);
+          }
           // User successfully signed in.
           // Retrieve the users location from the DB
           // Return type determines whether we continue the redirect automatically

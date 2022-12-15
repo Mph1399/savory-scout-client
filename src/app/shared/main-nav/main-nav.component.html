@@ -108,7 +108,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <!--     *ngIf="(storeSub$ | async).user" -->
-      <button *ngIf="(auth$ | async)?.user && (auth$ | async)?.user!.email !== null"
+      <button *ngIf="(auth$ | async)?.user && (auth$ | async)?.user! !== null"
               type="button"
               aria-label="Profile"
               mat-icon-button

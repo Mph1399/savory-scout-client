@@ -53,7 +53,7 @@ export class FirebaseAuthService {
     onAuthStateChanged(auth, (user) => {
     //  console.log('Auth State User: ', user);
     //  console.log('Created At: ', user?.metadata.creationTime);
-      const hoursSinceCreation = (moment(user?.metadata.creationTime).diff(moment(), 's') / 60) / 60;
+    //  const hoursSinceCreation = (moment(user?.metadata.creationTime).diff(moment(), 's') / 60) / 60;
     //  console.log('Hours since creation: ', hoursSinceCreation);
 
     //  console.log( moment(user?.metadata.creationTime, 'ddd, D MMM YYYY HH:mm:ss z').diff(now, 'minutes', true));
@@ -70,7 +70,8 @@ export class FirebaseAuthService {
                 token: token,
               })
             );
-
+             // console.log("User: ", loggedUser)
+             /* Facebook login has no email associated */
            if(loggedUser.email !== null){ 
             this._snackBar.openFromComponent(SnackbarComponent, {
               data: {
@@ -100,12 +101,12 @@ export class FirebaseAuthService {
         localStorage.setItem('userDate', JSON.stringify(new Date())); 
         localStorage.setItem('visited', "true");
       } else { 
-        const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 's') / 60) / 60;
+        const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 'days') );
         console.log('TIME: ', elapsed);
         /* This is where the user has a timestamp in local storage bc they haven't used a login. Lets check the time elapsed since the timestamp creation
         and either allow their trial to continue by using cloud functions to find their locations, or prompt them to login after the trial period has passed
         */
-       if (elapsed < -7){
+       if (elapsed > 7){
         // The tial period of 7 days has elapsed.
          this.router.navigateByUrl('login');
          return;

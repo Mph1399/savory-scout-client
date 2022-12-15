@@ -67,6 +67,14 @@ export interface LocationsState {
             ...state,
             locations: action.locations
           }
+        }),
+        on(FirestoreActions.NO_LOCATIONS, (state, action) => {
+          console.log('Action in NO_LOCATIONS Reducer: ', action)
+          localStorage.removeItem('locations');
+          return {
+            ...state,
+            locations: initialState.locations
+          }
         })
     )
 

@@ -52,9 +52,9 @@ export class HomeComponent implements OnInit, OnChanges {
           })
        //   visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
         } 
-          console.log("state: ", val);
-          console.log("Locations: ", val.locations);
-          console.log("Location name: ", val.locations[0].name);
+          // console.log("state: ", val);
+          // console.log("Locations: ", val.locations);
+          // console.log("Location name: ", val.locations[0].name);
           // close the spinner when results are found
           !val.locations[0] || val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
          
