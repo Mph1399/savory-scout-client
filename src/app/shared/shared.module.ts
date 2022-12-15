@@ -27,11 +27,12 @@ import { LocationDetailsService } from './services/location-details.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './dialogs/search/search.component';
 import { DisclaimerComponent } from './dialogs/disclaimer/disclaimer.component';
+import { LoginPromptComponent } from './dialogs/login-prompt/login-prompt.component';
 
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent, LoginPromptComponent],
   imports: [
     CommonModule,
     MatIconModule,

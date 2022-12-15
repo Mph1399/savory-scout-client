@@ -9,6 +9,9 @@ import { ui } from './firebase-auth.service'
 import { Subscription } from 'rxjs';
 import { getAuthState } from './store/auth.selectors';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
+import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginPromptComponent } from '../shared/dialogs/login-prompt/login-prompt.component';
 
 @Component({
   selector: 'app-login',
@@ -19,15 +22,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   ui!: firebaseui.auth.AuthUI;
   authStore$: Subscription = new Subscription;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private store: Store) { 
+  constructor(
+    private router: Router, 
+    private store: Store,
+    private dialog: MatDialog
+    ) { 
     
   }
 
   ngOnInit(): void {
     const scope = this;
     this.authStore$ = this.store.select( getAuthState ).subscribe(user => {
+     const userDate = localStorage.getItem('userDate');
+     console.log(moment(JSON.parse(userDate!)).diff(moment(), 'days'));
       if(!user){
         this.router.navigateByUrl('/home')
+      } else if (userDate !== null && moment(JSON.parse(userDate)).diff(moment(), 'days') < -7){
+        this.dialog.open(LoginPromptComponent)
       }
     })
 

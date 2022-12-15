@@ -106,7 +106,7 @@ export class FirebaseAuthService {
         /* This is where the user has a timestamp in local storage bc they haven't used a login. Lets check the time elapsed since the timestamp creation
         and either allow their trial to continue by using cloud functions to find their locations, or prompt them to login after the trial period has passed
         */
-       if (elapsed > 7){
+       if (elapsed < -7){
         // The tial period of 7 days has elapsed.
          this.router.navigateByUrl('login');
          return;
