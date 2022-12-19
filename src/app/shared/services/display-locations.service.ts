@@ -298,7 +298,9 @@ will return a true boolean if any special turned out to be active */
           // The special has a title and description that are currently a string but we want it to be an array.
           special.title = [];
           special.description = [];
-          special.title.push(`${title} - $${special.price.toString()}`);
+          let price = special.price.toString().toLowerCase();
+          price = price.indexOf('1/2') !== -1 || price.indexOf('free') !== -1 || price.indexOf('%') !== -1 || price.indexOf('half') !== -1 ?  price : `$${price}`;
+          special.title.push(`${title} - ${price}`);
           special.description.push(description);
           //console.log('Special Title: ', special.title)
           // sortedLocation[category][dateType] = JSON.parse(JSON.stringify(sortedLocation[category][dateType]))

@@ -49,8 +49,8 @@ export class MapService implements OnDestroy{
                 info: location,
                 options: { 
                   animation: google.maps.Animation.DROP,
-                  icon: location.active ? {url: 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png'} : 
-                  {url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png'},
+                  icon: location.active ? {url: 'https://maps.google.com/mapfiles/ms/micons/green-dot.png'} : 
+                  {url: 'https://maps.google.com/mapfiles/ms/micons/red-dot.png'},
 
                  }  
             })

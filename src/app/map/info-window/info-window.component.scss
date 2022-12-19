@@ -1,7 +1,7 @@
 
 
 ::ng-deep .mat-card-header-text {
-    margin: 0 0;
+    margin: 0 0 !important;
 }
 ::ng-deep .gm-style .gm-style-iw-c {
     padding: 0 !important;
@@ -9,6 +9,7 @@
 
 mat-card {
     cursor: pointer;
+    padding: 5px;
 }
 
 mat-card-header {

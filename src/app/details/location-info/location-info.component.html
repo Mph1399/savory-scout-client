@@ -14,7 +14,7 @@
 </div>
 <div class="grid-container-2" style="margin-top: -20px">
   <div>
-    <p><a href="{{ data.website }}" target="_blank" rel="noopener noreferrer"> {{data.name }}'s Website</a></p>
+    <p><a href="{{ data.website }}" target="_blank" rel="noopener noreferrer">Website</a></p> <!--  {{data.name }}'s -->
   </div>
   <div style="text-align: right; padding: 0 10px;">
     <p>Owner Managed: <strong
@@ -22,12 +22,12 @@
   </div>
 </div>
 
-<div>
-  <div class="grid-container-2">
-    <p *ngIf="data.happyHourMenu && data.happyHourMenu.length > 0"> <a href="{{ data.happyHourMenu }}" target="_blank" rel="noopener noreferrer">Full HH Menu</a></p>
+<div class="grid-container-2">
+  <div *ngIf="data.happyHourMenu && data.happyHourMenu.length > 0">
+    <p > <a href="{{ data.happyHourMenu }}" target="_blank" rel="noopener noreferrer">Full HH Menu</a></p>
   </div>
-  <div>
-    <p *ngIf="data.brunchMenu && data.brunchMenu.length > 0"> <a href="{{ data.brunchMenu }}" target="_blank" rel="noopener noreferrer">Full Brunch Menu</a></p>
+  <div *ngIf="data.brunchMenu && data.brunchMenu.length > 0" style="text-align: right;">
+    <p > <a href="{{ data.brunchMenu }}" target="_blank" rel="noopener noreferrer">Full Brunch Menu</a></p>
   </div>
 </div>
 
