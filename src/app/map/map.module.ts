@@ -8,18 +8,20 @@ import { MapService } from './map.service';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { MatCardModule } from '@angular/material/card';
 import { SpecialsDisplayModule } from '../shared/specials-display/specials-display.module';
-
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
+import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 
 @NgModule({
-  declarations: [MapComponent, InfoWindowComponent],
+  declarations: [MapComponent, InfoWindowComponent, BottomSheetComponent],
   imports: [
     CommonModule,
     MapRoutingModule,
     SharedModule,
     GoogleMapsModule,
     MatCardModule,
-    SpecialsDisplayModule
+    SpecialsDisplayModule,
+    MatBottomSheetModule
   ],
   exports: [MapComponent],
   providers: [MapService]

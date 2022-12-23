@@ -9,6 +9,9 @@ import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-f
 import { MapService, Marker } from './map.service';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import { Router } from '@angular/router';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component'
+import { DeviceDetailsService } from '../shared/services/device-details.service';
 
 
 @Component({
@@ -39,6 +42,7 @@ export class MapComponent {
   }
   markers: Array<Marker> = [];
   previous;
+  screenWidth = this.deviceDetailsService.screenWidth;
   // bounds = new google.maps.LatLngBounds();
   filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
     tap(val => {
@@ -52,7 +56,9 @@ export class MapComponent {
   constructor(
     private mapService: MapService,
     private store: Store,
-    private router: Router) {
+    private router: Router,
+    private bottomSheet: MatBottomSheet,
+    private deviceDetailsService: DeviceDetailsService) {
       this.router.url == '/map' ? this.mapPage = true : this.mapPage = false;
      }
 
@@ -69,6 +75,12 @@ export class MapComponent {
 
   currentInfoWindow = (window) => {
     this.infoWindow = window;
+  }
+
+  openBottomSheet = (content: Location) => {
+    this.bottomSheet.open(BottomSheetComponent, {
+      data: {location: content}
+    })
   }
 
   setInitialBounds = () => {

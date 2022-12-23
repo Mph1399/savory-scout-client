@@ -19,6 +19,11 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 // Import Material Icons
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; 
 
+/* Prevent page zoom */
+:root {
+  touch-action: pan-x pan-y;
+  height: 100%;
+}
 
 /* Hide scrollbar for IE, Edge and Firefox */
 html {

@@ -33,7 +33,7 @@ export class FirestoreEffects implements OnDestroy{
       this.actions$.pipe(
         ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS),
         switchMap((action) => {
-          this.store.dispatch(SpinnerActions.SPINNER_START('Populating Specials'))
+          this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Specials'}))
           return this.firestoreService
             .geoSearchLocations(action.lat, action.lng)
             .then((matchingDocs): Location[] => {
@@ -76,7 +76,7 @@ export class FirestoreEffects implements OnDestroy{
         ofType(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS),
         filter(action => action.lat !== 0),
         switchMap((action) => {
-          this.store.dispatch(SpinnerActions.SPINNER_START('Populating Specials'))
+          this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Specials'}))
           return this.firestoreService
             .geoCloudSearchLocations(action.lat, action.lng)
         }),
@@ -122,7 +122,7 @@ export class FirestoreEffects implements OnDestroy{
   this.actions$.pipe(
     ofType(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR),
     switchMap((action) => {
-      this.store.dispatch(SpinnerActions.SPINNER_START('Populating Specials'))
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Interpreting Search Request'}));
       return this.googleService
         .getCoordinates(action.input)
     }),
@@ -134,6 +134,7 @@ export class FirestoreEffects implements OnDestroy{
       */
       const userDate = localStorage.getItem('userDate');
       const visited = localStorage.getItem('visited');
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Search Results'}));
       if(coordinates[0].geometry.location_type === 'ROOFTOP'){
         // The results is an actual location, not an area/city 
         this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
@@ -169,7 +170,7 @@ export class FirestoreEffects implements OnDestroy{
   this.actions$.pipe(
     ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID),
     switchMap((action) => {
-      this.store.dispatch(SpinnerActions.SPINNER_START('Populating Specials'))
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Location'}))
       return this.firestoreService.getLocationByPlaceId(action.place_id);
     }),
     map((locations: any) => {
@@ -193,7 +194,7 @@ getLocationByPlaceIdAnonymous$ = createEffect(() =>
 this.actions$.pipe(
   ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS),
   switchMap((action) => {
-    this.store.dispatch(SpinnerActions.SPINNER_START('Populating Specials'));
+    this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Location'}));
     return  this.firestoreService.getLocationByPlaceIdAnonymous(action.place_id)
   }),
   map((locations: any) => {

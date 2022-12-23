@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
      // Shows and hides the loading spinner during RouterEvent changes
      navigationInterceptor(event: RouterEvent): void {
       if (event instanceof NavigationStart) {
-        this.store.dispatch(SpinnerActions.SPINNER_START());
+        this.store.dispatch(SpinnerActions.SPINNER_START({message: ''}));
         //this.loading = true
       }
       if (event instanceof NavigationEnd) {

@@ -8,9 +8,8 @@ import { AppState } from '../../store/app.reducer'
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent  {
-  @Input() message: string = '';
   displaySpinner = false;
-
+  message$ = this.store.pipe(select(state => state.spinner.message))
   spinnerState$ = this.store.pipe(select(state => state.spinner.isOn))
   constructor(private store: Store<AppState>) { }
 

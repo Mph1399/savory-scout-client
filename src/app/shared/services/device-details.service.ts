@@ -22,7 +22,7 @@ constructor(
 console.log(window.navigator.userAgent)
 }
 checkWindowSize = () => {
-  this.screenWidth = window.screen.width;
+  this.screenWidth = window.innerWidth;
  // height = window.innerHeight;
  console.log('Screen Size: ', this.screenWidth)
 }

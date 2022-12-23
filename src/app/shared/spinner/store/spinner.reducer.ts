@@ -3,11 +3,13 @@ import * as SpinnerActions from './spinner.actions'
 
 
 export interface SpinnerState {
-    isOn: boolean
+    isOn: boolean,
+    message: string
   }
   
   const initialState: SpinnerState = {
-    isOn: false
+    isOn: false,
+    message: 'loading'
   };
 
   export const spinnerReducer = createReducer(initialState, 
@@ -15,7 +17,8 @@ export interface SpinnerState {
       console.log('Spinner ON');
       return {
         ...state,
-        isOn: true
+        isOn: true,
+        message: action.message
       }
     }),
     on(SpinnerActions.SPINNER_END, (state, action) => {

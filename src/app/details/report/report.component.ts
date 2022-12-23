@@ -47,7 +47,7 @@ export class ReportComponent implements OnInit {
   submitForm = (form) => {
     // reset the error message
     this.errorMessage = false;
-    this.store.dispatch(SpinnerActions.SPINNER_START());
+    this.store.dispatch(SpinnerActions.SPINNER_START({message: ''}));
     const info = form.value;
     console.log('info: ', info)
     // Check Honey Pot

@@ -24,11 +24,11 @@
     [position]="marker.position"
     [title]="marker.title"
     [options]="marker.options"
-    (mapClick)="openInfo(somemarker, marker.info)" >
+    (mapClick)="screenWidth > 599 ? openInfo(somemarker, marker.info) : openBottomSheet(marker.info)" >
     </map-marker>
 </ng-container>    
 
-
+<!-- If the screen width is above 600px -->
 <map-info-window #infoWindow>
     <app-info-window [infoContent]="infoContent"></app-info-window>
 </map-info-window>

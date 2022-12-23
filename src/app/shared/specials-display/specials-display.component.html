@@ -25,7 +25,6 @@
         </span>
 
         <!--SPECIALS START-->
-        <ng-container *ngIf="mapPage === false">
         <mat-list role="list" *ngIf="
         !(filters$ | async)!.filters.active && location.display && location[category].display && special.display || 
         (filters$ | async)!.filters.active && location[category].active && special.active && special.display">
@@ -42,7 +41,7 @@
            
           </mat-list-item>
         </mat-list>
-      </ng-container>
+   
       <!--RECURRING END-->
       <!-- </ng-container> -->
     </div>
@@ -50,7 +49,7 @@
   </ng-container>
 
 </div>
-<p *ngIf="mapPage === true" style="text-align: center;">Click to see specials</p>
+
 <!-- </ng-container> -->
 
 <!-- [ngClass]="{'map-adjust-font' : pageUrl === '/map'}" above -->

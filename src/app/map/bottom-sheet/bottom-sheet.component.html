@@ -1,0 +1,6 @@
+<mat-card class="main-sheet">
+    <mat-card-title>{{ data.location.name }}</mat-card-title>
+    <mat-card-subtitle style="margin-bottom: 0">{{ data.location.address }}</mat-card-subtitle>
+    <mat-card-subtitle style="margin-bottom: 0">{{ data.location.phone }}</mat-card-subtitle>
+    <app-specials-display [location]="data.location" [mapPage]="true" [inDetails]="false"></app-specials-display>
+</mat-card>

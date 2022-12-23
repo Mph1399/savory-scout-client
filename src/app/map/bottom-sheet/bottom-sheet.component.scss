@@ -1,0 +1,9 @@
+
+::ng-deep .mat-bottom-sheet-container {
+    padding: 0 !important;
+}
+
+.main-sheet {
+    max-height: 200px;
+    overflow: scroll;
+}

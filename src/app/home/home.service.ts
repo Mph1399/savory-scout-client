@@ -26,7 +26,7 @@ export class HomeService implements OnDestroy {
         ){}
 
     geoMyLocation = () => {
-      this.store.dispatch(SpinnerActions.SPINNER_START());
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Locating You'}));
   //  try{
       this.geoService$ = this.geoService.coords
      .pipe(
@@ -45,9 +45,9 @@ export class HomeService implements OnDestroy {
         })
      )
      .subscribe(locationResults => {
-      this.store.dispatch(SpinnerActions.SPINNER_START());
+      
       console.log("results: ", locationResults)
-        console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
+      console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
               /* 
       This code will before the login service assigns local storage vars.
@@ -57,7 +57,10 @@ export class HomeService implements OnDestroy {
         logged in = userData will be null and visited will be the string "yes" =  run normal firestore.
       */
       const userDate  = localStorage.getItem('userDate');
-      const visited = localStorage.getItem('visited')
+      const visited = localStorage.getItem('visited');
+      console.log('visited: ', visited === 'true');
+      if(locationResults.location.lat === 0){return;}
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Locations'}));
       userDate == null && visited == null ||
       userDate !== null && visited === 'true' ?
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lng})) :

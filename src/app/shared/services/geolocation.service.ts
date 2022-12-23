@@ -38,16 +38,24 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
     private _snackBar: MatSnackBar,
     private store: Store
   ) { 
-    this.coords$ = this.geoByIp().subscribe(res => {
-      this.lat = res.lat;
-      this.lng = res.lng;
-      this.coords.next({location: {lat: res.lat, lng: res.lng}})
-      try{navigator.geolocation.getCurrentPosition(pos => {
+
+      try{
+        console.log('Attempting Browser GEO')
+        navigator.geolocation.getCurrentPosition(pos => {
+        this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Asking For Browser Location'}));
         this.lat = pos.coords.latitude;
         this.lng = pos.coords.longitude;
         this.coords.next({location: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
-      })} catch(e){}
-    })
+      })} catch(e){
+        console.log('GEO FAILED, IP BACKUp');
+        this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Browser Location Unavailable, Using IP'}));
+        this.coords$ = this.geoByIp().subscribe(res => {
+          this.lat = res.lat;
+          this.lng = res.lng;
+          this.coords.next({location: {lat: res.lat, lng: res.lng}})
+      })
+      }
+   
   }
 
   // getUserLocation = () : Observable<any> => {
@@ -170,9 +178,10 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
     ).pipe(
       map( (res: any) => {
      // this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
-      this.lat = parseFloat(res.location.latitude);
-      this.lng = parseFloat(res.location.longitude);
-      this.coords.next({location: {lat: this.lat, lng: this.lng}})
+
+      // this.lat = parseFloat(res.location.latitude);
+      // this.lng = parseFloat(res.location.longitude);
+      // this.coords.next({location: {lat: this.lat, lng: this.lng}})
 
       /* DEV TESTING */
       // return {
