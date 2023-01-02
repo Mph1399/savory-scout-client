@@ -16,3 +16,7 @@
     width: 100%;
     opacity: .6;
   }
+
+  ::ng-deep .poi-info-window {
+    display: none !important;
+  }

@@ -16,7 +16,8 @@
   <meta name="description" content="Savory Scout | Discover food, drink, &amp; event specials at local restaurants in real-time. Stop wasting time searching for deals on your own &amp; let us show you all of the local restaurant specials that are available right now or on upcoming dates for future planning.">
   <meta name="keywords" content="Food specials near me, Lunch Specials Near me, Drink specials near me, Happy Hours Near me, Happy Hours, Happy Hours in Denver, Happy Hours in Colorado Springs, Colorado Springs food deals, Denver Happy Hour, Denver Food Specials, Colorado Springs Drink specials, Denver restaurant specials, nearby Happy Hour specials, local happy hour specials, local Food Specials, Colorado Springs restaurant specials, Find Restaurant Specials, All day Happy Hour near me, Late night happy hour near me, Bars with Happy hour near me, Restaurant Deals today"/>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <meta name="viewport" content="viewport-fit=cover, user-scalable=no, shrink-to-fit=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta name="HandheldFriendly" content="true">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUMnV34ARb-r1YAPVpUMeG3aMG-u0dgjo"></script>
@@ -64,6 +65,13 @@
     fbq('init', '498725001048324');
     fbq('track', 'PageView');
   </script>
+  <script>
+    // prevent pinch-zoom for iOS Safari 9~12
+if (window.GestureEvent && !('touchAction' in document.body.style)) {
+  document.body.addEventListener('gesturestart', (e)=>{e.preventDefault()}, {passive: false, capture:true});
+}
+  </script>
+
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=498725001048324&ev=PageView&noscript=1"
   /></noscript>

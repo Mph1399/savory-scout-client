@@ -39,14 +39,15 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
     private store: Store
   ) { 
 
-      try{
-        console.log('Attempting Browser GEO')
-        navigator.geolocation.getCurrentPosition(pos => {
+    navigator.geolocation.getCurrentPosition(
+      (pos)=>{
+        console.log("Position: ", pos)
         this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Asking For Browser Location'}));
         this.lat = pos.coords.latitude;
         this.lng = pos.coords.longitude;
         this.coords.next({location: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
-      })} catch(e){
+      },
+      (i)=>{
         console.log('GEO FAILED, IP BACKUp');
         this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Browser Location Unavailable, Using IP'}));
         this.coords$ = this.geoByIp().subscribe(res => {
@@ -55,8 +56,9 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
           this.coords.next({location: {lat: res.lat, lng: res.lng}})
       })
       }
-   
-  }
+    )
+      }
+
 
   // getUserLocation = () : Observable<any> => {
   //   return this.geoByIp()

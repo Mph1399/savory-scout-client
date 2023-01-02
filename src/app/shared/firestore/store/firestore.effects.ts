@@ -37,6 +37,7 @@ export class FirestoreEffects implements OnDestroy{
           return this.firestoreService
             .geoSearchLocations(action.lat, action.lng)
             .then((matchingDocs): Location[] => {
+              console.log("GEO RESULTS RETURNED")
               return (matchingDocs as any[]).map((doc) => {
                 return doc.data();
               });

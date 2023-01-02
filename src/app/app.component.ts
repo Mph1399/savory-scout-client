@@ -49,5 +49,15 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     // Log the user in
     this.authService.userAuth();
+            //  Disable Browwser Pinch Zoom ios 10~12
+            // document.addEventListener('touchmove', function (event) {
+            //   console.log('Touchstart: ', event.touches.length )
+            //  if (event.touches.length > 1 || event.touches.length < -1) { 
+            //   console.log('Pinch Zoom');
+            //  // document.body.style.zoom = 1;
+            //   event.preventDefault(); 
+            // }
+            // }, false);
+
    }
 }
