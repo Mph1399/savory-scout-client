@@ -13,7 +13,7 @@
 (mapDragend)="evaluateMapDistanceFromLastCenter()"
 (mapClick)="closeInfoWindow()">
     
-<ng-container *ngFor="let marker of markers; let i = index" >
+<ng-container *ngFor="let marker of markers; let i = index">
     <map-marker 
     #somemarker="mapMarker" 
     *ngIf="

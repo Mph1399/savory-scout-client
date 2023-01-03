@@ -1,3 +1,4 @@
+import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
 import { Component, OnInit } from '@angular/core';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { Store } from '@ngrx/store';
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit {
     private store: Store,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private authService: FirebaseAuthService
+    private authService: FirebaseAuthService,
+    private deviceDetailsService: DeviceDetailsService
     ){
       this.router.events.subscribe((e : RouterEvent) => {
         this.navigationInterceptor(e);
@@ -50,14 +52,45 @@ export class AppComponent implements OnInit {
     // Log the user in
     this.authService.userAuth();
             //  Disable Browwser Pinch Zoom ios 10~12
-            // document.addEventListener('touchmove', function (event) {
-            //   console.log('Touchstart: ', event.touches.length )
+            console.log("Browser: ",window.navigator.userAgent);
+             document.addEventListener('touchStart', function (event) {
+               console.log('Touchstart: ',)
             //  if (event.touches.length > 1 || event.touches.length < -1) { 
             //   console.log('Pinch Zoom');
             //  // document.body.style.zoom = 1;
             //   event.preventDefault(); 
             // }
-            // }, false);
+             }, false);
+
+          /* Safari Trackpad */
+          // document.addEventListener('mousewheel', function(event: any){
+          //  // console.log('Mouse Event: ', event.ctrlKey);
+          //   if(event.ctrlKey){
+          //     console.log("Pimch");
+          //     event.preventDefault();
+          //   }
+          // })
+          /* IOS Trackpad prevent pinch*/
+          document.addEventListener('wheel', event => {
+            const { ctrlKey } = event;
+            console.log('Wheel Event', this.deviceDetailsService.OSName);
+            if(this.deviceDetailsService.OSName === 'Mac'){
+              if (ctrlKey) {
+               event.preventDefault();
+               return
+              }
+            }
+         }, { passive: false })
+
+
+            function zoom(e) {
+              console.log("Scale: ", e.scale)
+              e.preventDefault()
+           };
+           document.addEventListener('gesturestart', zoom)
+           document.addEventListener('gesturechange', zoom)
+           document.addEventListener('gestureend', zoom)
+
 
    }
 }

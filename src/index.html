@@ -10,6 +10,16 @@
     
       gtag('config', 'UA-97035986-4');
     </script>
+    <script>
+    function zoom(e) {
+       console.log("Scale: ", e.scale)
+       e.preventDefault()
+    };
+    document.addEventListener('gesturestart', zoom)
+    document.addEventListener('gesturechange', zoom)
+    document.addEventListener('gestureend', zoom)
+
+    </script>
     
   <meta charset="utf-8">
   <title>Savory Scout | Restaurant Specials</title>

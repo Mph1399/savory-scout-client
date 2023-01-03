@@ -12,8 +12,6 @@ import { Location } from '@angular/common';
 export class SuggestComponent  {
   sent = false;
   errorMessage = false;
-  isDesktop = false;
-  menuOpen = false;
   spinner = false;
   screenWidth: any;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;

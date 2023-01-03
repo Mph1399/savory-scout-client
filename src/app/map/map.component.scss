@@ -20,3 +20,7 @@
   ::ng-deep .poi-info-window {
     display: none !important;
   }
+
+  ::ng-deep .map-container {
+    height: calc(100vh - 64px) !important;
+  }
