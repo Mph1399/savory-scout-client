@@ -53,27 +53,18 @@ export class AppComponent implements OnInit {
     this.authService.userAuth();
             //  Disable Browwser Pinch Zoom ios 10~12
             console.log("Browser: ",window.navigator.userAgent);
-             document.addEventListener('touchStart', function (event) {
-               console.log('Touchstart: ',)
+            document.addEventListener('touchStart', function (event) {
+            console.log('Touchstart: ', event)
             //  if (event.touches.length > 1 || event.touches.length < -1) { 
             //   console.log('Pinch Zoom');
             //  // document.body.style.zoom = 1;
-            //   event.preventDefault(); 
+            event.preventDefault(); 
             // }
              }, false);
 
-          /* Safari Trackpad */
-          // document.addEventListener('mousewheel', function(event: any){
-          //  // console.log('Mouse Event: ', event.ctrlKey);
-          //   if(event.ctrlKey){
-          //     console.log("Pimch");
-          //     event.preventDefault();
-          //   }
-          // })
           /* IOS Trackpad prevent pinch*/
           document.addEventListener('wheel', event => {
             const { ctrlKey } = event;
-            console.log('Wheel Event', this.deviceDetailsService.OSName);
             if(this.deviceDetailsService.OSName === 'Mac'){
               if (ctrlKey) {
                event.preventDefault();
