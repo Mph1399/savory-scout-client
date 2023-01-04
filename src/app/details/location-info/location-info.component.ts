@@ -17,6 +17,8 @@ export class LocationInfoComponent implements OnInit {
   @Output() reportEvent = new EventEmitter<boolean>();
   reportLocation = false;
   date;
+  address1 = '';
+  address2 = '';
 
   constructor(
     private detailsDialogRef: MatDialogRef<DetailsComponent>,
@@ -50,6 +52,9 @@ export class LocationInfoComponent implements OnInit {
         //  console.log(date);
         //  console.log(moment(date, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('M/D/YYYY'))
         this.date = moment(date, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('M/D/YYYY');
+
+        this.address1 = this.data.address.slice(0, this.data.address.indexOf(','));
+        this.address2 = this.data.address.slice((this.data.address.indexOf(',') + 2), this.data.address.length)
   }
 
   infoClick = () => {
