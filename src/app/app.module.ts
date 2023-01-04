@@ -1,5 +1,5 @@
 import { environment } from './../environments/environment';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import * as FromApp from './store/app.reducer';
 import { AuthEffects } from './login/store/auth.effects';
@@ -25,6 +25,7 @@ import { SearchFilterEffects } from './shared/dialogs/search-filter/store/search
 import { MatTabsModule } from '@angular/material/tabs';
 import { DetailsModule } from './details/details.module';
 import { AngularFireModule } from '@angular/fire/compat';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -48,7 +49,13 @@ import { AngularFireModule } from '@angular/fire/compat';
     MatButtonModule,
     MatMenuModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
