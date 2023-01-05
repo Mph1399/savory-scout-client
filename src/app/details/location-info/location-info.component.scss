@@ -3,6 +3,7 @@
     margin: 0;
     padding: 6px;
     border-bottom: 1px solid lightgray;
+    font-size: 18px;
 }
 
 .info-btn {
@@ -10,11 +11,18 @@
     margin: -6px 24px 0px 0;
 }
 .distance{
-    text-align: center;
+    text-align: right;
     display: block;
-    margin-top: 8px;
+    margin-top: 15px;
 }
 
 p {
     margin: 5px;
+}
+
+// If the browser window is 413px or Smaller,
+@media only screen and (max-width: 412px) {
+    .loctation-info-wrapper {
+        font-size: 15px;
+    }
 }

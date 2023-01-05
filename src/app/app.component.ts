@@ -62,6 +62,11 @@ export class AppComponent implements OnInit {
             // }
              }, false);
 
+          // prevent pinch-zoom for iOS Safari 9~12
+          // if (window.GestureEvent && !('touchAction' in document.body.style)) {
+          // document.body.addEventListener('gesturestart', (e)=>{e.preventDefault()}, {passive: false, capture:true});
+          // }
+
           /* IOS Trackpad prevent pinch*/
           document.addEventListener('wheel', event => {
             const { ctrlKey } = event;

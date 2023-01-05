@@ -30,7 +30,7 @@ export class FirestoreService implements OnDestroy{
   geoSearchLocations = async (lat: number, lng: number) => {
     // Find cities within 50km of London
     const center: geofire.Geopoint = [lat, lng];
-    const radiusInM = this.filters.radius * 1000;
+    const radiusInM = this.filters.radius * 1700;
 
     // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
     // a separate query for each pair. There can be up to 9 pairs of bounds
@@ -112,7 +112,7 @@ export class FirestoreService implements OnDestroy{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
       'https://us-central1-savoryscout.cloudfunctions.net/geoSearch',
-      { lat , lng, radius: this.filters.radius * 1000},
+      { lat , lng, radius: this.filters.radius * 1700},
       { headers: headers }
     );
   }

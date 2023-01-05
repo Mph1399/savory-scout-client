@@ -1,5 +1,5 @@
 import { DeviceDetailsService } from 'src/app/shared/services/device-details.service';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as SpinnerActions from '../shared/spinner/store/spinner.actions';
 import { HomeService } from './home.service';
@@ -16,7 +16,7 @@ import { LocationsState } from '../shared/firestore/store/firestore.reducers';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnChanges {
+export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   filteredLocations: Location[];
   filteredLocations$: Observable<LocationsState>
   filter;
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit, OnChanges {
           val.locations.forEach(location => {
             location.display === true ? visible = true : '';
           })
-          visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
+         // visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
         } 
           // console.log("state: ", val);
           // console.log("Locations: ", val.locations);
@@ -73,4 +73,8 @@ export class HomeComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     this.changes = changes;
    }
+  
+  ngOnDestroy(): void {
+    this.filter$.unsubscribe();
+  } 
 }

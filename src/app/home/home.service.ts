@@ -44,8 +44,7 @@ export class HomeService implements OnDestroy {
           return of(error)
         })
      )
-     .subscribe(locationResults => {
-      
+     .subscribe(locationResults => { 
       console.log("results: ", locationResults)
       console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
         /* If the user has logged in, the userDate value from local storage will be missing/removed */
