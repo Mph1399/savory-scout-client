@@ -59,7 +59,7 @@ export class FirestoreEffects implements OnDestroy{
           console.log('FINAL Filtered: ', filteredLocations)
           if(filteredLocations.length > 0 && filteredLocations[0].name !== ''){
             return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]})
-          }else{
+          } else{
             if(filteredLocations.length === 0){
               this.store.dispatch(SpinnerActions.SPINNER_END());
           }

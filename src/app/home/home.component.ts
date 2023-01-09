@@ -9,6 +9,8 @@ import * as FilterActions from '../shared/dialogs/search-filter/store/search-fil
 import { debounceTime, Observable, Subscription, tap, filter } from 'rxjs';
 import { Location } from '../shared/models/location.model';
 import { LocationsState } from '../shared/firestore/store/firestore.reducers';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 
 
 @Component({
@@ -28,7 +30,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private deviceDetailsService: DeviceDetailsService,
     private homeService: HomeService,
-    private store: Store
+    private store: Store,
+    private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -42,12 +45,21 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
         // console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
-        if (val.locations.length > 0 ){
+        if (val.locations.length > 0 && val.locations[0].name !== ''){
           let visible = false;
           val.locations.forEach(location => {
             location.display === true ? visible = true : '';
           })
-         // visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
+          visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
+          /* Display a snackbar saying that no active specials are happening in your area */
+          this._snackBar.openFromComponent(SnackbarComponent, {
+            data: {
+              message: 'No ACTIVE specials in this area. Displaying locations offering specials at some time today',
+              color: 'red-text',
+            },
+            panelClass: 'snackbar-font',
+            duration: 10000,
+          });
         } 
           // console.log("state: ", val);
           // console.log("Locations: ", val.locations);

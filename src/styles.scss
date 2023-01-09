@@ -89,6 +89,12 @@ mat-sidenav-content {
   display: grid;
   grid-template-columns: auto ;
 }
+// Panel Classes
+
+.snackbar-font{
+ font-size: 15px;
+ font-weight: bold; 
+}
 
 .myapp-no-padding-dialog .mat-dialog-container {
   padding: 0;
