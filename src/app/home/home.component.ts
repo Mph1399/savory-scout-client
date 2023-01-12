@@ -45,12 +45,14 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
         // console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
-        if (val.locations.length > 0 && val.locations[0].name !== ''){
+        if (val.locations.length > 0 && val.locations[0].name !== '') {
           let visible = false;
           val.locations.forEach(location => {
             location.display === true ? visible = true : '';
           })
-          visible === false && this.filter.active ? this.store.dispatch(FilterActions.SET_FILTERS({active: false})) : '';
+         if ( visible === false && this.filter.active){ 
+          /* No locations are active so set the Active filter to false so that locations are displayed to the user. */
+          this.store.dispatch(FilterActions.SET_FILTERS({active: false}));
           /* Display a snackbar saying that no active specials are happening in your area */
           this._snackBar.openFromComponent(SnackbarComponent, {
             data: {
@@ -60,6 +62,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
             panelClass: 'snackbar-font',
             duration: 10000,
           });
+          }
         } 
           // console.log("state: ", val);
           // console.log("Locations: ", val.locations);
@@ -73,7 +76,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
       )
     })
-    console.log('screewidth: ', this.screenWidth)
     this.homeService.geoMyLocation();
 
    // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))

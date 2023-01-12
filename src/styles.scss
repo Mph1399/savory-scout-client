@@ -6,7 +6,7 @@
 @include mat-core();
 
 $my-app-primary: mat-palette($mat-blue);
-$my-app-accent:  mat-palette($mat-green, A400);
+$my-app-accent:  mat-palette($mat-green);
 $my-app-warn:    mat-palette($mat-deep-orange, 900);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 @include angular-material-theme($my-app-theme);
@@ -89,8 +89,9 @@ mat-sidenav-content {
   display: grid;
   grid-template-columns: auto ;
 }
-// Panel Classes
 
+
+// Panel Classes
 .snackbar-font{
  font-size: 15px;
  font-weight: bold; 
@@ -106,5 +107,12 @@ mat-sidenav-content {
 @media only screen and (max-width: 800px) {
 .myapp-no-padding-dialog .mat-dialog-container {
   padding: 0px !important;
+}
+/* Over 800px */
+@media only screen and (min-width: 800px) {
+  .main-card {
+    max-width: 70vw;
+    margin: auto;
+  }
 }
 }

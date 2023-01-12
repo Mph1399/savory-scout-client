@@ -41,7 +41,7 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
 
     navigator.geolocation.getCurrentPosition(
       (pos)=>{
-        console.log("Position: ", pos)
+       //  console.log("Position: ", pos)
        // this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Asking For Browser Location'}));
         this.lat = pos.coords.latitude;
         this.lng = pos.coords.longitude;

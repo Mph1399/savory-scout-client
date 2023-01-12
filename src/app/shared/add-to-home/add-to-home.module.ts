@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddToHomeComponent } from './add-to-home.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -13,7 +14,8 @@ import { AddToHomeComponent } from './add-to-home.component';
   imports: [
     CommonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ],
   exports: [AddToHomeComponent]
 })

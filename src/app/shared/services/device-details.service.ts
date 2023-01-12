@@ -21,15 +21,13 @@ constructor(private dialog: MatDialog) {
    });
 
 // get browser name
-this.browserName = this.getBrowserName(navigator.userAgent);
+this.browserName = this.setBrowserName(navigator.userAgent);
 console.log(`You are using: ${this.browserName}`);
 // get OS Name
 this.getOperatingSytem(navigator.userAgent)
 }
 checkWindowSize = () => {
   this.screenWidth = window.innerWidth;
- // height = window.innerHeight;
- console.log('Screen Size: ', this.screenWidth)
 }
 
 setIsDesktopDevice = (isDesktop) => {
@@ -37,6 +35,10 @@ setIsDesktopDevice = (isDesktop) => {
 }
 getIsDesktopDevice = () => {
     return this.isDesktopDevice;
+}
+
+getBrowserName = () => {
+  return this.browserName;
 }
 
 getOperatingSytem = (userAgent) => { 
@@ -48,7 +50,7 @@ getOperatingSytem = (userAgent) => {
   return this.OSName = OSName;
 }
 
- getBrowserName = (userAgent) => {
+ setBrowserName = (userAgent) => {
   // The order matters here, and this may report false positives for unlisted browsers.
 
   if (userAgent.includes("Firefox")) {

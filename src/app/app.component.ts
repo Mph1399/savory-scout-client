@@ -52,9 +52,7 @@ export class AppComponent implements OnInit {
     // Log the user in
     this.authService.userAuth();
             //  Disable Browwser Pinch Zoom ios 10~12
-            console.log("Browser: ",window.navigator.userAgent);
             document.addEventListener('touchStart', function (event) {
-            console.log('Touchstart: ', event)
             //  if (event.touches.length > 1 || event.touches.length < -1) { 
             //   console.log('Pinch Zoom');
             //  // document.body.style.zoom = 1;

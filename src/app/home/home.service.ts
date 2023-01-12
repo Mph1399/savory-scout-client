@@ -30,7 +30,7 @@ export class HomeService implements OnDestroy {
   //  try{
       this.geoService$ = this.geoService.coords
      .pipe(
-      tap(val => console.log("Value in findGeo: ", val)),
+    //  tap(val => console.log("Value in findGeo: ", val)),
       catchError(error => {
             this.openCitySelect();  
             this.store.dispatch(SpinnerActions.SPINNER_END());
@@ -45,11 +45,12 @@ export class HomeService implements OnDestroy {
         })
      )
      .subscribe(locationResults => { 
-      console.log("results: ", locationResults)
-      console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
-        /* If the user has logged in, the userDate value from local storage will be missing/removed */
-              /* 
-      This code will before the login service assigns local storage vars.
+    //  console.log("results: ", locationResults)
+    //  console.log('Running SUBSCRIBE GEO. userDate = ', localStorage.getItem('userDate'));
+
+      /*
+        If the user has logged in, the userDate value from local storage will be missing/removed.
+        This code below will run before the login service assigns local storage vars.
         Cases: 
         First visit = local storage vars userData will be null and visited will be null = run anonymous.
         Second Visit = userData will have a time value and visited will be the string "yes" = run anonymous.
@@ -57,7 +58,7 @@ export class HomeService implements OnDestroy {
       */
       const userDate  = localStorage.getItem('userDate');
       const visited = localStorage.getItem('visited');
-      console.log('visited: ', visited === 'true');
+      // console.log('visited: ', visited === 'true');
       if(locationResults.location.lat === 0){return;}
       this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Locations'}));
       userDate == null && visited == null ||

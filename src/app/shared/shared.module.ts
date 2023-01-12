@@ -28,11 +28,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './dialogs/search/search.component';
 import { DisclaimerComponent } from './dialogs/disclaimer/disclaimer.component';
 import { LoginPromptComponent } from './dialogs/login-prompt/login-prompt.component';
+import { AddToHomeComponent } from './add-to-home/add-to-home.component';
+import { AddToHomeFirefoxComponent } from './dialogs/add-to-home-firefox/add-to-home-firefox.component';
 
 
 
 @NgModule({
-  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent, LoginPromptComponent],
+  declarations: [SpinnerComponent, AddToHomeSafariComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, SnackbarComponent, SearchComponent, DisclaimerComponent, LoginPromptComponent, AddToHomeComponent, AddToHomeFirefoxComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -53,7 +55,7 @@ import { LoginPromptComponent } from './dialogs/login-prompt/login-prompt.compon
     
   ],
   providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],
-  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent],
+  exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, AddToHomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

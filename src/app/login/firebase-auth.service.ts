@@ -102,7 +102,7 @@ export class FirebaseAuthService {
         localStorage.setItem('visited', "true");
       } else { 
         const elapsed = (moment(JSON.parse(userDate)).diff(moment(), 'days') );
-        console.log('TIME: ', elapsed);
+        // console.log('TIME: ', elapsed);
         /* This is where the user has a timestamp in local storage bc they haven't used a login. Lets check the time elapsed since the timestamp creation
         and either allow their trial to continue by using cloud functions to find their locations, or prompt them to login after the trial period has passed
         */

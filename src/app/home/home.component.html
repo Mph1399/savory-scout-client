@@ -5,22 +5,16 @@
 <div class="loading-img-container" *ngIf="(filteredLocations$ | async)!.locations.length === 0 || (filteredLocations$ | async)!.locations[0].name === '' ">
   <div class="loading-background" role="img"></div>
 </div>
-<!-- *ngIf="( filteredLocations$ | async ).restaurants.length === 0" -->
-
-<!-- Show the city select -->
-<!-- <app-city-select *ngIf="(filteredLocations$ | async).noResultsInThisArea === true"></app-city-select> -->
 
   <!-- Loading Screen background -->
-  <!-- <div *ngIf="(filteredLocations$ | async).restaurants.length === 0" class="loading-image">
+  <div *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === ''" class="loading-image">
     <span class="loading-background" role="img" aria-label="loading image for local restaurant specials and happy hours near me">
     </span>
-  </div> -->
+  </div>
   <!-- Show the city select -->
-  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name == ''"></app-city-select>
+  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === ''"></app-city-select>
          
-  <app-mobile-results *ngIf="screenWidth <= 800"   [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-mobile-results>    
-  <app-desktop-results *ngIf="screenWidth > 800"   [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-desktop-results>   
+  <app-mobile-results *ngIf="screenWidth <= 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-mobile-results>    
+  <app-desktop-results *ngIf="screenWidth > 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-desktop-results>   
 
-  <!-- Mobile Footer Searchbar -->
-  <!-- <app-footer-navbar *ngIf="screenWidth <= 800"></app-footer-navbar> -->
   

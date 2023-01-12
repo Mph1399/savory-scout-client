@@ -11,6 +11,10 @@
            class="logo">
     </mat-toolbar>
     <mat-nav-list>
+      
+      <!-- Add To Home Button -->
+        <mat-divider></mat-divider>
+        <app-add-to-home></app-add-to-home>
 
       <mat-divider></mat-divider>
       <ng-container *ngIf="!( auth$ | async )?.user">
@@ -59,7 +63,7 @@
       <mat-divider></mat-divider>
       <a mat-list-item
          href="https://www.app.savoryscout.com">
-        <mat-icon class="nav-icon">dashboard</mat-icon>Owner Dashboard
+        <mat-icon class="nav-icon">dashboard</mat-icon>Owner
       </a>
       
       <mat-divider></mat-divider>
@@ -126,7 +130,7 @@
   <div (click)="cancelClick($event)"
        class="dropdown">
     <div>
-      <p *ngIf="(auth$ | async)!.user != null"
+      <p *ngIf="(auth$ | async)!.user !== null"
          style="margin: 0 7px; font-size: 12px;">{{(auth$ | async)!.user!.email }}</p>
       <button mat-flat-button
               class="profile-btn"

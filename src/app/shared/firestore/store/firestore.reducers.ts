@@ -38,8 +38,8 @@ export interface LocationsState {
            }
          }),
          on(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS, (state, action) => {
-          console.log('Action in GET_LOCATION ANONYMOUS Reducer: ', action);
-          console.log('State in GET_LOCATION ANONYMOUS Reducer: ', state)
+        //  console.log('Action in GET_LOCATION ANONYMOUS Reducer: ', action);
+        //  console.log('State in GET_LOCATION ANONYMOUS Reducer: ', state)
           return {
             ...state,
           }
