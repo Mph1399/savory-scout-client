@@ -64,13 +64,9 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
           });
           }
         } 
-          // console.log("state: ", val);
-          // console.log("Locations: ", val.locations);
-          // console.log("Location name: ", val.locations[0].name);
           // close the spinner when results are found
           !val.locations[0] || val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
          
-        //  val.locations.length  == 0 ? this.homeService.openCitySelect() : '';
         }),
 
 
@@ -78,11 +74,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     })
     this.homeService.geoMyLocation();
 
-   // this.geoService.findIpGeo().subscribe(locationResults => console.log("Location Results :", locationResults))
-   // this.firestoreService.geoSearchLocations(this.geoService.fetchHash(), this.geoService.lat, this.geoService.lng)
-    
-    // this.serializedDate = new FormControl((new Date()).toISOString());
-    // this.dayOfTheWeek = this.displayRestaurantFilterService.formatDay(this.date);
   }
   ngOnChanges(changes: SimpleChanges) {
     this.changes = changes;

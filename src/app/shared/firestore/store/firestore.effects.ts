@@ -49,6 +49,7 @@ export class FirestoreEffects implements OnDestroy{
         }),
         map((locations) => {
           console.log('START Locations :', locations);
+          this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Sorting Specials'}))
           if(!locations){return FirestoreActions.NO_LOCATIONS}
           // make a deep copy of locations
           let locationsCopy = JSON.parse(JSON.stringify(locations))
@@ -83,6 +84,7 @@ export class FirestoreEffects implements OnDestroy{
         }),
         map((locations) => {
            console.log('Locations :', locations);
+           this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Sorting Specials'}))
            if(!locations){return FirestoreActions.NO_LOCATIONS}
           // make a deep copy of locations
           const locationsCopy = JSON.parse(JSON.stringify(locations))

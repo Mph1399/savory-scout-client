@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, map, of, Subscription, tap } from 'rxjs';
 import { GeolocationService } from '../shared/services/geolocation.service';
 import * as FirestoreActions from '../shared/firestore/store/firestore.actions';
+import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceDetailsService } from '../shared/services/device-details.service';
@@ -55,14 +56,18 @@ export class HomeService implements OnDestroy {
         First visit = local storage vars userData will be null and visited will be null = run anonymous.
         Second Visit = userData will have a time value and visited will be the string "yes" = run anonymous.
         logged in = userData will be null and visited will be the string "yes" =  run normal firestore.
+        
+        (moment(JSON.parse(userDate)).diff(moment(), 'days') ) >= 7 is so that when a user is forced to login after the 7
+        day trial period, it prevents a location search from running when they're sent to the login screen.
       */
       const userDate  = localStorage.getItem('userDate');
       const visited = localStorage.getItem('visited');
       // console.log('visited: ', visited === 'true');
       if(locationResults.location.lat === 0){return;}
-      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Locations'}));
+      this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Specials'}));
+
       userDate == null && visited == null ||
-      userDate !== null && visited === 'true' ?
+      userDate !== null && visited === 'true' && (moment(JSON.parse(userDate)).diff(moment(), 'days')) >= -7 ?
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lng})) :
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}));
     });
