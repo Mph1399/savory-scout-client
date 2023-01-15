@@ -1,3 +1,4 @@
+import { HomeService } from './../../home/home.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { City, CitySelectService } from './city-select.service';
@@ -14,7 +15,8 @@ cities = this.cityService.getCities();
 
   constructor(
     public cityService: CitySelectService,
-    private store: Store
+    private store: Store,
+    private homeService: HomeService
 
    // public restaurantService: RestaurantService
     ) { }
@@ -25,8 +27,8 @@ onSearch = (city) => {
   console.log("City Selected: ", city)
   this.store.dispatch(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR({input: city}))
 }
-directCityChosen = (event: any) => {
-
+nearbySearch = () => {
+  this.homeService.geoMyLocation();
 }
 }
 

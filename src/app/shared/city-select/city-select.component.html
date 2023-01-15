@@ -5,7 +5,7 @@
         <hr appNoMargin style="border-top: 1px solid lightgray; margin-bottom: 0;">
         <!-- <h4 style="background-color: #ffc800;margin-top: 0; padding: 6px;">We haven't reached this area yet. </h4> -->
         <h4 style="margin-bottom: 0;" >Choose the closest city:</h4>
-        <mat-form-field style="z-index: 1005;">
+        <mat-form-field style="z-index: 1005; max-width: 118px;">
           <mat-label>Select a City</mat-label>
           <mat-select (selectionChange)="onSearch($event.value)">
             <mat-option #citySelection *ngFor="let city of cities" [value]="city.city">
@@ -13,8 +13,11 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <p style="margin-top: 0; font-weight: bold;">or</p>
+        <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="nearbySearch()">Search Nearby</button>
+
         <hr width="75%" style="border-top: 1px solid lightgray;">
-        <h5 style="margin: auto 8px">Help contribute by visiting our suggest page to let us know about your favorite local specials.</h5>
+        <h5 style="margin: auto 8px">Help contribute by visiting our suggest page.</h5>
        <!-- <h4> Additional Search options: </h4>
         <div class="grid-container-1">
           <div>

@@ -72,7 +72,10 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
 
       )
     })
-    this.homeService.geoMyLocation();
+    /* 
+    Instead of auto running, show a user prompt to hit a start search button on the first visit. If locations already exist, 
+    auto update the results
+    this.homeService.geoMyLocation(); */
 
   }
   ngOnChanges(changes: SimpleChanges) {
