@@ -8,7 +8,7 @@
     // Loading Screen background
     .loading-background {
         // background: url("https://firebasestorage.googleapis.com/v0/b/savoryscout.appspot.com/o/loading_img_lg.png?alt=media&token=d9804666-c06c-415e-a4ec-7e5a3275f7d3");
-        background-image: url("../../assets/imgs/loading_img_lg.png"); 
+        background-image: url("../../assets/imgs/loading_img_lg_reduced.png"); 
          background-repeat: no-repeat !important;
          background-position: center;
          background-size: cover !important;
@@ -22,6 +22,6 @@
     // If the browser window is 800px or Smaller,
     @media only screen and (max-width: 800px) {
        .loading-background {
-        background: url("./../../assets/imgs/loading_img_small.png");
+        background: url("./../../assets/imgs/loading_img_small_reduced.png");
       }
     }
