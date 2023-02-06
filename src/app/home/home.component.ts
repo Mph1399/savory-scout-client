@@ -6,7 +6,7 @@ import { HomeService } from './home.service';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors';
 import * as FilterActions from '../shared/dialogs/search-filter/store/search-filter.actions';
-import { debounceTime, Observable, Subscription, tap, filter } from 'rxjs';
+import { debounceTime, Observable, Subscription, tap, filter, distinctUntilChanged } from 'rxjs';
 import { Location } from '../shared/models/location.model';
 import { LocationsState } from '../shared/firestore/store/firestore.reducers';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -41,8 +41,16 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       /* Check the current location state */
       this.filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
       .pipe(
+        distinctUntilChanged((a, b) => { 
+          console.log(a)
+          console.log(b)
+          console.log(a.locations == b.locations)
+          if(a.locations == b.locations ) true;
+          console.log()
+          return false;
+        }),
         tap(val => {
-        // console.log("Val in home: ", val)
+         console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
         if (val.locations.length > 0 && val.locations[0].name !== '') {
@@ -74,8 +82,8 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
     })
     /* 
     Instead of auto running, show a user prompt to hit a start search button on the first visit. If locations already exist, 
-    auto update the results
-    this.homeService.geoMyLocation(); */
+    auto update the results */
+    this.homeService.geoMyLocation();
 
   }
   ngOnChanges(changes: SimpleChanges) {

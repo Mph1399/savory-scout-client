@@ -74,7 +74,6 @@ export class FirestoreService implements OnDestroy{
       .then((matchingDocs) => {
         // Process the matching documents
         return matchingDocs;
-
       })
       .catch((err) => {
         console.log('error: ', err);
@@ -107,15 +106,15 @@ export class FirestoreService implements OnDestroy{
 
 
 
-  geoCloudSearchLocations(lat: number, lng: number) {
-    console.log('FETCHING CLOUD LOCATIONS!')
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(
-      'https://us-central1-savoryscout.cloudfunctions.net/geoSearch',
-      { lat , lng, radius: this.filters.radius * 1700},
-      { headers: headers }
-    );
-  }
+  // geoCloudSearchLocations(lat: number, lng: number) {
+  //   console.log('FETCHING CLOUD LOCATIONS!')
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   return this.http.post(
+  //     'https://us-central1-savoryscout.cloudfunctions.net/geoSearch',
+  //     { lat , lng, radius: this.filters.radius * 1700},
+  //     { headers: headers }
+  //   );
+  // }
 
 ngOnDestroy(){
   this.filters$.unsubscribe();

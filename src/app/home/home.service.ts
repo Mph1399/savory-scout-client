@@ -60,16 +60,17 @@ export class HomeService implements OnDestroy {
         (moment(JSON.parse(userDate)).diff(moment(), 'days') ) >= 7 is so that when a user is forced to login after the 7
         day trial period, it prevents a location search from running when they're sent to the login screen.
       */
-      const userDate  = localStorage.getItem('userDate');
-      const visited = localStorage.getItem('visited');
+      // const userDate  = localStorage.getItem('userDate');
+      // const visited = localStorage.getItem('visited');
       // console.log('visited: ', visited === 'true');
       if(locationResults.location.lat === 0){return;}
       this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Specials'}));
+      this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}));
 
-      userDate == null && visited == null ||
-      userDate !== null && visited === 'true' && (moment(JSON.parse(userDate)).diff(moment(), 'days')) >= -7 ?
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lng})) :
-       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}));
+      // userDate == null && visited == null ||
+      // userDate !== null && visited === 'true' && (moment(JSON.parse(userDate)).diff(moment(), 'days')) >= -7 ?
+      //  this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: locationResults.location.lat, lng: locationResults.location.lng})) :
+      //  this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng}));
     });
  // } catch(e){ console.log("Error: ", e)}
   }
