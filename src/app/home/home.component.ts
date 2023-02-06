@@ -41,14 +41,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       /* Check the current location state */
       this.filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState)
       .pipe(
-        distinctUntilChanged((a, b) => { 
-          console.log(a)
-          console.log(b)
-          console.log(a.locations == b.locations)
-          if(a.locations == b.locations ) true;
-          console.log()
-          return false;
-        }),
         tap(val => {
          console.log("Val in home: ", val)
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active

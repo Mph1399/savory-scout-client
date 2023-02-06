@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { SpecialsDisplayModule } from '../shared/specials-display/specials-display.module';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
     SharedModule,
     GoogleMapsModule,
     MatCardModule,
+    MatIconModule,
     SpecialsDisplayModule,
     MatBottomSheetModule
   ],

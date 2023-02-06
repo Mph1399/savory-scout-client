@@ -7,3 +7,20 @@
     max-height: 200px;
     overflow: scroll;
 }
+.sheet-close {
+    border: none;
+    background-color: white;
+    position: absolute;
+    padding: 8px;
+    right: 0;
+    top: 0;
+    color: red;
+    z-index: 10000;
+}
+.mat-card-title, 
+.mat-card-subtitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 30px;
+}
