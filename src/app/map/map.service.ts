@@ -74,7 +74,7 @@ export class MapService implements OnDestroy{
              return of(error)
            })
         )
-        .subscribe(locationResults => this.searchByCoords(locationResults.location.lat, locationResults.location.lng));
+        .subscribe(locationResults => this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: locationResults.location.lat, lng: locationResults.location.lng})));
        }
 
     openCitySelect = () => {
@@ -87,14 +87,15 @@ export class MapService implements OnDestroy{
       console.log('Coords: ', this.geoCoords)
           const dist = convertDistance(getDistance({lat: this.geoCoords.lat, lng: this.geoCoords.lng},{lat: lat, lng: lng}), 'mi');
           console.log("Distance: ", dist);
-          if(dist > filters.radius / 2){
+          /* When the user has moved the map center more than 1/2 of the current search radius, search db for updated results */
+          if(dist > filters.radius / 1.5){
             console.log('long distance');
             this.geolocationService.coords.next({location: {lat: lat, lng: lng}});
-            this.searchByCoords(lat, lng);
+            this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}));
           }
     }
 
-    searchByCoords = (lat: number, lng: number) => {
+/*     searchByCoords = (lat: number, lng: number) => {
 
       const userDate  = localStorage.getItem('userDate');
       const visited = localStorage.getItem('visited')
@@ -102,7 +103,7 @@ export class MapService implements OnDestroy{
       userDate !== null && visited === 'true' ?
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: lat, lng: lng})) :
        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}));
-    }
+    } */
 
     ngOnDestroy(){
        this.geoService$.unsubscribe();
