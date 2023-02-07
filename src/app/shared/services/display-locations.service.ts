@@ -13,9 +13,12 @@ import { GeolocationService } from './geolocation.service';
 
 @Injectable()
 export class DisplayLocationsService implements OnDestroy {
-  lat = 0;
-  lng = 0;
-  geoService$: Subscription;
+  userLat = 0;
+  userLng = 0;
+  searchLat = 0;
+  searchLng = 0;
+  searchCoords$: Subscription;
+  userCoords$: Subscription;
   categories = ['food', 'drinks', 'events'];
   dateTypes = ['recurringSpecials', 'specificDateSpecials'];
   todaysDate = moment().format('MMMM Do YYYY');
@@ -31,9 +34,13 @@ export class DisplayLocationsService implements OnDestroy {
     private geoService: GeolocationService,
     private store: Store,
     ) {
-      this.geoService$ = this.geoService.coords.subscribe(coords => {
-        this.lat = coords.location.lat;
-        this.lng = coords.location.lng;
+      this.searchCoords$ = this.geoService.searchCoords.subscribe(coords => {
+        this.searchLat = coords.location.lat;
+        this.searchLng = coords.location.lng;
+      })
+      this.userCoords$ = this.geoService.userCoords.subscribe(coords => {
+        this.userLat = coords.location.lat;
+        this.userLng = coords.location.lng;
       })
     }
 
@@ -55,7 +62,7 @@ export class DisplayLocationsService implements OnDestroy {
     /* we only want to add a distance, display bool and group the specials according to matching criteria once after the initial database pull */
     if(!locations[index].distance) {
    /*  Assign a distance to each location. This distance will later be used for displaying the special depending on the filter radius.  */
-      locations[index].distance = convertDistance(getDistance({lat: this.lat, lon: this.lng},{lat: location.lat as number, lon: location.lng as number}), 'mi') ;
+      locations[index].distance = convertDistance(getDistance({lat: this.userLat, lon: this.userLng},{lat: location.lat as number, lon: location.lng as number}), 'mi') ;
      // console.log(convertDistance( locations[index].distance as number, 'mi'));
 
       locations[index] = this.groupSpecialsWithMatchingCriteria(location); 
@@ -159,7 +166,8 @@ will return a true boolean if any special turned out to be active */
    //    locationsWithSelectedCategories[index].display  ? locationsWithSelectedCategories[index] = this.checkForPositiveDisplay(locationsWithSelectedCategories[index]) : '';
       /* If the locations distance is outside of the search radius, set its display to false */
     //  console.log(locationsWithSelectedCategories[index])
-     locations[index].distance! > this.searchFilter.filters.radius && this.searchFilter.filters.radius !== 50 ? locationsWithSelectedCategories[index].display = false : '';
+    const searchDistance = convertDistance(getDistance({lat: this.searchLat, lon: this.searchLng},{lat: location.lat as number, lon: location.lng as number}), 'mi') ;
+    searchDistance > this.searchFilter.filters.radius && this.searchFilter.filters.radius !== 50 ? locationsWithSelectedCategories[index].display = false : '';
     });
     return locationsWithSelectedCategories;
   };
@@ -409,6 +417,7 @@ will return a true boolean if any special turned out to be active */
 
   ngOnDestroy() {
     this.searchFilter$.unsubscribe();
-    this.geoService$.unsubscribe();
+    this.searchCoords$.unsubscribe();
+    this.userCoords$.unsubscribe();
   }
 }

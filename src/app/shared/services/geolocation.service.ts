@@ -31,7 +31,8 @@ export class GeolocationService implements OnDestroy{
 coords$: Subscription;
 lat: number;
 lng: number;
-coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
+userCoords = new BehaviorSubject({location: {lat: 0, lng: 0}});
+searchCoords = new BehaviorSubject({location: {lat: 0, lng: 0}});
 
   constructor(
     private http: HttpClient,
@@ -45,7 +46,8 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
        // this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Asking For Browser Location'}));
         this.lat = pos.coords.latitude;
         this.lng = pos.coords.longitude;
-        this.coords.next({location: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
+        this.userCoords.next({location: {lat: pos.coords.latitude, lng: pos.coords.longitude}});
+        this.searchCoords.next({location: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
       },
       (i)=>{
         console.log('GEO FAILED, IP BACKUp');
@@ -53,7 +55,8 @@ coords = new BehaviorSubject({location: {lat: 0, lng: 0}});
         this.coords$ = this.geoByIp().subscribe(res => {
           this.lat = res.lat;
           this.lng = res.lng;
-          this.coords.next({location: {lat: res.lat, lng: res.lng}})
+          this.userCoords.next({location: {lat: res.lat, lng: res.lng}})
+          this.searchCoords.next({location: {lat: res.lat, lng: res.lng}})
       })
       }
     )

@@ -29,7 +29,7 @@ export class HomeService implements OnDestroy {
     geoMyLocation = () => {
       this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Locating You'}));
   //  try{
-      this.geoService$ = this.geoService.coords
+      this.geoService$ = this.geoService.userCoords
      .pipe(
     //  tap(val => console.log("Value in findGeo: ", val)),
       catchError(error => {

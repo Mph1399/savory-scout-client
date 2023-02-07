@@ -154,7 +154,7 @@ export class FirestoreEffects implements OnDestroy{
  
        } 
         else{ 
-          this.geoService.coords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }})
+          this.geoService.searchCoords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }})
           userDate === null ? 
           this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()})) :
           this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));

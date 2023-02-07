@@ -28,6 +28,15 @@
     </map-marker>
 </ng-container>    
 
+<map-marker 
+id="user"
+class="circle"
+style = "height: 30px; width: 30px"
+[position]="(userLocation$ | async)!.location"
+[options]="userLocationMarkerOptions"
+>
+</map-marker>
+
 <!-- If the screen width is above 600px -->
 <map-info-window #infoWindow>
     <app-info-window [infoContent]="infoContent"></app-info-window>

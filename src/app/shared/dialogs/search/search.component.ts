@@ -21,7 +21,7 @@ export class SearchComponent implements OnDestroy {
     ) { }
 
   getUserLocation = () => {
-    this.geoService$ = this.geoService.coords.subscribe(coords => {
+    this.geoService$ = this.geoService.userCoords.subscribe(coords => {
       this.store.dispatch(FilterActions.SET_FILTERS({active: true }));
       this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coords.location.lat, lng: coords.location.lng}));
       this.dialogRef.close();

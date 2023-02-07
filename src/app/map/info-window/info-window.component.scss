@@ -14,7 +14,15 @@ mat-card {
 
 mat-card-header {
     font-size: 17px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 30px;
 }
+mat-card-subtitle {
+    margin-bottom: 5px;
+}
+
 .title {
     font-size: 20px;
     font-weight: bold;

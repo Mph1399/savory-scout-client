@@ -26,8 +26,8 @@ export interface Marker {
 
 @Injectable()
 export class MapService implements OnDestroy{
-    geoCoords$ = this.geolocationService.coords.subscribe(coords => this.geoCoords = coords.location);
-    geoCoords;
+    searchCoords$ = this.geolocationService.searchCoords.subscribe(coords => this.searchCoords = coords.location);
+    searchCoords;
     geoService$: Subscription;
     screenWidth = this.deviceDetailsService.screenWidth;
 
@@ -51,7 +51,6 @@ export class MapService implements OnDestroy{
                   animation: google.maps.Animation.DROP,
                   icon: location.active ? {url: 'https://maps.google.com/mapfiles/ms/micons/green-dot.png'} : 
                   {url: 'https://maps.google.com/mapfiles/ms/micons/red-dot.png'},
-
                  }  
             })
         });
@@ -59,7 +58,7 @@ export class MapService implements OnDestroy{
     }
 
     geoMyLocation = () => {
-        this.geoService$ = this.geolocationService.coords
+        this.geoService$ = this.geolocationService.userCoords
         .pipe(
            catchError(error => {
                this.openCitySelect();  
@@ -84,13 +83,13 @@ export class MapService implements OnDestroy{
           this.dialog.open(CitySelectComponent, {panelClass: 'myapp-no-padding-dialog', width: '60vw',})
     }
     evaluateMapDistanceFromLastCenter = (lat: number, lng: number, filters) => {
-      console.log('Coords: ', this.geoCoords)
-          const dist = convertDistance(getDistance({lat: this.geoCoords.lat, lng: this.geoCoords.lng},{lat: lat, lng: lng}), 'mi');
-          console.log("Distance: ", dist);
+      console.log('Coords: ', this.searchCoords)
+          const dist = convertDistance(getDistance({lat: this.searchCoords.lat, lng: this.searchCoords.lng},{lat: lat, lng: lng}), 'mi');
+         // console.log("Distance: ", dist);
           /* When the user has moved the map center more than 1/2 of the current search radius, search db for updated results */
           if(dist > filters.radius / 1.5){
-            console.log('long distance');
-            this.geolocationService.coords.next({location: {lat: lat, lng: lng}});
+         //   console.log('long distance');
+            this.geolocationService.searchCoords.next({location: {lat: lat, lng: lng}});
             this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: lat, lng: lng}));
           }
     }
@@ -107,7 +106,7 @@ export class MapService implements OnDestroy{
 
     ngOnDestroy(){
        this.geoService$.unsubscribe();
-       this.geoCoords$.unsubscribe();
+       this.searchCoords$.unsubscribe();
       }
 
 }

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component'
 import { DeviceDetailsService } from '../shared/services/device-details.service';
-
+import { GeolocationService } from '../shared/services/geolocation.service'
 
 @Component({
   selector: 'app-map',
@@ -24,7 +24,19 @@ export class MapComponent {
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   filters;
   filters$ = this.store.select(FilterSelectors.getFilterState).pipe(tap(state => this.filters = state.filters));
-  // apiLoaded: Observable<boolean>;
+  userLocation$ = this.geolocationService.userCoords.pipe(
+    tap(user => {
+      if(user.location.lat != 0){
+        window.setTimeout(() => {
+          console.log(user.location.lat, ' ' , user.location.lng)
+          this.bounds.extend(new google.maps.LatLng(user.location.lat, user.location.lng));
+          this.map.fitBounds(this.bounds);
+        }, 1000)
+
+      }
+    })
+  );
+  userLocationMarkerOptions = { icon:  {url: './../assets/icons/markers/user_location_2.gif'}}  
   lastSelectedInfoWindow: any;
   center: google.maps.LatLngLiteral;
   bounds: google.maps.LatLngBounds;
@@ -37,7 +49,7 @@ export class MapComponent {
     zoomControl: true,
     scrollwheel: false,
     disableDoubleClickZoom: true,
-    maxZoom: 15,
+    maxZoom: 18,
     minZoom: 8,
   }
   markers: Array<Marker> = [];
@@ -58,7 +70,8 @@ export class MapComponent {
     private store: Store,
     private router: Router,
     private bottomSheet: MatBottomSheet,
-    private deviceDetailsService: DeviceDetailsService) {
+    private deviceDetailsService: DeviceDetailsService,
+    private geolocationService: GeolocationService) {
       this.router.url == '/map' ? this.mapPage = true : this.mapPage = false;
      }
 
@@ -84,9 +97,11 @@ export class MapComponent {
   }
 
   setInitialBounds = () => {
-    console.log('Content changed');
-    console.log('map bounds: ', this.map.getBounds());
-    console.log('Marker Bounds: ', this.bounds);
+  //  console.log('Content changed');
+  //  console.log('map bounds: ', this.map.getBounds());
+  //  console.log('Marker Bounds: ', this.bounds);
+
+  /* On the initial load, include the users location in the map bounds */
 
     this.store.select(FilterSelectors.getFilterState).subscribe(state => {
       console.log('Filter changed in map bounds')
