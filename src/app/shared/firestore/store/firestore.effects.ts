@@ -131,35 +131,16 @@ export class FirestoreEffects implements OnDestroy{
     }),
     map((coordinates) => {
       console.log('Coordinates :', coordinates[0]);
-      /* Check the local storage userDate to determine if the user is logged in or if we should use a cloud function to initiate the db search/retrieval. 
-      Cloud Functions are used until the user is forced to log in after 1 week free trial. That 1 week time frame is determined by the userDate time stamp in local storage.
-      When a user signs in, userDate is removed from local storage so we just need to check if it exists to determine the type of db search needed.
-      */
-      const userDate = localStorage.getItem('userDate');
-      const visited = localStorage.getItem('visited');
       this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Search Results'}));
       if(coordinates[0].geometry.location_type === 'ROOFTOP'){
         // The results is an actual location, not an area/city 
         this.store.dispatch(FilterActions.SET_FILTERS({active: false }));
-      /* 
-      This code will not before the login service assigns local storage vars.
-        Cases: 
-        First visit = local storage vars userData will be null and visited will be null.
-        Second Visit = userData will have a time value and visited will be the string "yes".
-        logged in = userData will be null and visited will be the string "yes".
-      */
-       userDate === null && visited === "true" ? 
-       this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id}))  : 
-       this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS({place_id: coordinates[0].place_id}));
- 
+        this.store.dispatch(FirestoreActions.GET_LOCATION_BY_PLACE_ID({place_id: coordinates[0].place_id}));
        } 
-        else{ 
-          this.geoService.searchCoords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }})
-          userDate === null ? 
-          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()})) :
-          this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS_ANONYMOUS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));
-         
-          ;}
+      else{ 
+        this.geoService.searchCoords.next({location: {lat: coordinates[0].geometry.location.lat(), lng: coordinates[0].geometry.location.lng() }});
+        this.store.dispatch(FirestoreActions.GET_LOCATIONS_BY_COORDS({lat: coordinates[0].geometry.location.lat() , lng: coordinates[0].geometry.location.lng()}));
+      }
     })
   ),
 { dispatch: false }

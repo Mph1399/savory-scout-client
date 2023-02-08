@@ -1,8 +1,8 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import * as FirestoreSelectors from '../shared/firestore/store/firestore.selectors'
 import { Location } from '../shared/models/location.model';
 import * as FilterSelectors from '../shared/dialogs/search-filter/store/search-filter.selectors'; 
@@ -13,29 +13,18 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component'
 import { DeviceDetailsService } from '../shared/services/device-details.service';
 import { GeolocationService } from '../shared/services/geolocation.service'
+import { LocationsState } from '../shared/firestore/store/firestore.reducers';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent {
+export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   filters;
   filters$ = this.store.select(FilterSelectors.getFilterState).pipe(tap(state => this.filters = state.filters));
-  userLocation$ = this.geolocationService.userCoords.pipe(
-    tap(user => {
-      if(user.location.lat != 0){
-        window.setTimeout(() => {
-          console.log(user.location.lat, ' ' , user.location.lng)
-          this.bounds.extend(new google.maps.LatLng(user.location.lat, user.location.lng));
-          this.map.fitBounds(this.bounds);
-        }, 1000)
-
-      }
-    })
-  );
   userLocationMarkerOptions = { icon:  {url: './../assets/icons/markers/user_location_2.gif'}}  
   lastSelectedInfoWindow: any;
   center: google.maps.LatLngLiteral;
@@ -56,14 +45,20 @@ export class MapComponent {
   previous;
   screenWidth = this.deviceDetailsService.screenWidth;
   // bounds = new google.maps.LatLngBounds();
-  filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
-    tap(val => {
-      console.log('Map Page locations: ', val.locations);
-      this.store.dispatch(SpinnerActions.SPINNER_END());
-      this.markers = this.mapService.createMarkersArray(val.locations);
-     // this.setInitialBounds()
+  filteredLocations$ : Observable<LocationsState>;
+  userLocation$ = this.geolocationService.userCoords.pipe(
+    tap(user => {
+      if(user.location.lat != 0){
+        window.setTimeout(() => {
+          console.log(user.location.lat, ' ' , user.location.lng)
+          this.bounds.extend(new google.maps.LatLng(user.location.lat, user.location.lng));
+          this.map.fitBounds(this.bounds);
+        }, 1000)
+
+      }
     })
-  )
+  );
+
 
   constructor(
     private mapService: MapService,
@@ -73,6 +68,15 @@ export class MapComponent {
     private deviceDetailsService: DeviceDetailsService,
     private geolocationService: GeolocationService) {
       this.router.url == '/map' ? this.mapPage = true : this.mapPage = false;
+     }
+     ngOnInit(){
+      this.filteredLocations$ = this.store.select(FirestoreSelectors.getLocationsState).pipe(
+        tap(val => {
+          console.log('Map Page locations: ', val.locations);
+          this.markers = this.mapService.createMarkersArray(val.locations);
+          this.store.dispatch(SpinnerActions.SPINNER_END());
+        })
+      )
      }
 
 

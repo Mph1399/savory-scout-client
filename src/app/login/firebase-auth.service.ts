@@ -94,8 +94,8 @@ export class FirebaseAuthService {
         // this.router.navigateByUrl('/login');
         /* The user isn't logged in but we want them to have a little bit of a free trial.
         1) check to see if a date is set in local storage. If not, set the current date in local storage. 
-        2) check the date and allow 1 week of free usage,
-        3) If the time is over 1 week, redirect to the login page */
+        2) check the date for 30 days of usage,
+        3) If the time is over 30 days, redirect to the login page */
         const userDate = localStorage.getItem('userDate')
        if(userDate === null){
         localStorage.setItem('userDate', JSON.stringify(new Date())); 
@@ -106,7 +106,7 @@ export class FirebaseAuthService {
         /* This is where the user has a timestamp in local storage bc they haven't used a login. Lets check the time elapsed since the timestamp creation
         and either allow their trial to continue by using cloud functions to find their locations, or prompt them to login after the trial period has passed
         */
-       if (elapsed < -7){
+       if (elapsed < -30){
         // The tial period of 7 days has elapsed.
          this.router.navigateByUrl('login');
          return;

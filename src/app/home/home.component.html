@@ -2,17 +2,17 @@
 <!-- <app-warnings [filterValues]="filterValues" [filteredLocations$]="filteredLocations$"></app-warnings> -->
 
 <!-- Loading Screen background -->
-<div class="loading-img-container" *ngIf="(filteredLocations$ | async)!.locations.length === 0 || (filteredLocations$ | async)!.locations[0].name === '' ">
+<div class="loading-img-container" *ngIf="(filteredLocations$ | async)!.locations.length === 0 || (filteredLocations$ | async)!.locations[0].name === '' || noLocationsInArea ">
   <div class="loading-background" role="img"></div>
 </div>
 
   <!-- Loading Screen background -->
-  <div *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === ''" class="loading-image">
+  <div *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === '' || noLocationsInArea" class="loading-image">
     <span class="loading-background" role="img" aria-label="loading image for local restaurant specials and happy hours near me">
     </span>
   </div>
   <!-- Show the city select -->
-  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === ''"></app-city-select>
+  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === '' || noLocationsInArea"></app-city-select>
          
   <app-mobile-results *ngIf="screenWidth <= 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-mobile-results>    
   <app-desktop-results *ngIf="screenWidth > 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-desktop-results>   

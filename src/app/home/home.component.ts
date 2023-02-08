@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   filter;
   filter$ : Subscription;
   changes;
+  noLocationsInArea = false;
 
 
   screenWidth = this.deviceDetailsService.screenWidth;
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
       .pipe(
         tap(val => {
          console.log("Val in home: ", val)
+         this.noLocationsInArea = false;
          /* If the locations array length is greater than 0, check to see if at least one location has the display bool set to true. If not, set the search filter active
          bool to false so that specials are displayed. */ 
         if (val.locations.length > 0 && val.locations[0].name !== '') {
@@ -62,20 +64,21 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
             panelClass: 'snackbar-font',
             duration: 10000,
           });
+          } else if ( visible === false && !this.filter.active) {
+            this.noLocationsInArea = true;
+
           }
         } 
           // close the spinner when results are found
           !val.locations[0] || val.locations[0].name !== '' ?  this.store.dispatch(SpinnerActions.SPINNER_END()) : '';
          
         }),
-
-
       )
     })
     /* 
     Instead of auto running, show a user prompt to hit a start search button on the first visit. If locations already exist, 
     auto update the results */
-    this.homeService.geoMyLocation();
+   // this.homeService.geoMyLocation();
 
   }
   ngOnChanges(changes: SimpleChanges) {

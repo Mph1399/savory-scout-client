@@ -10,7 +10,7 @@ import * as FirestoreActions from '../../shared/firestore/store/firestore.action
   templateUrl: './city-select.component.html',
   styleUrls: ['./city-select.component.scss']
 })
-export class CitySelectComponent implements OnInit {
+export class CitySelectComponent {
 cities = this.cityService.getCities();
 
   constructor(
@@ -21,8 +21,7 @@ cities = this.cityService.getCities();
    // public restaurantService: RestaurantService
     ) { }
 
-  ngOnInit(): void {
-  }
+
 onSearch = (city) => {
   console.log("City Selected: ", city)
   this.store.dispatch(FirestoreActions.GET_LOCATIONS_FROM_SEARCHBAR({input: city}))
