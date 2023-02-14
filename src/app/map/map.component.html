@@ -1,7 +1,7 @@
 
 
-<!-- Show the city select -->
-<app-city-select *ngIf="(filteredLocations$ | async)!.locations.length === 0"></app-city-select>
+  <!-- Show the city select -->
+  <app-city-select *ngIf="(filteredLocations$ | async)!.locations.length <= 1 && (filteredLocations$ | async)!.locations[0].name === '' && initialLocationsFound"></app-city-select>
 
 
 <div >

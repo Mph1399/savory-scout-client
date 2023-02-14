@@ -1,10 +1,13 @@
      <!-- Popup for when search results aren't found  -->
-     <div appTextCenter class='geo-div'>
-        <mat-card class="geo-card">
-        <h3 class="geo-div-title">{{ 'Restaurant Specials' | uppercase }}</h3>
-        <hr appNoMargin style="border-top: 1px solid lightgray; margin-bottom: 0;">
+     <div appTextCenter class='city-select-div'>
+        <mat-card class="city-select-card">
+        <h3 class="city-select-title">{{ 'Restaurant Specials' | uppercase }}</h3>
+        <hr appNoMargin style="border-top: 1px solid lightgray; margin-bottom: 20px;">
         <!-- <h4 style="background-color: #ffc800;margin-top: 0; padding: 6px;">We haven't reached this area yet. </h4> -->
-        <h4 style="margin-bottom: 0;" >Choose the closest city:</h4>
+       <button mat-raised-button color="accent" style="margin-bottom: 20px; color:white" (click)="nearbySearch()">Search Nearby
+        <mat-icon class="search-btn-icon">search</mat-icon></button>
+        <p style="margin-top: 0;">or</p>
+        <h5 style="margin-bottom: 0;" >Choose the closest city:</h5>
         <mat-form-field style="z-index: 1005;">
           <mat-label>Select a City</mat-label>
           <mat-select (selectionChange)="onSearch($event.value)">
@@ -13,11 +16,9 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <p style="margin-top: 0; font-weight: bold;">or</p>
-        <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="nearbySearch()">Search Nearby</button>
-
+       
         <hr width="75%" style="border-top: 1px solid lightgray;">
-        <h5 style="margin: auto 8px">Help contribute by visiting our suggest page.</h5>
+        <h5 style="margin: auto 8px">Help contribute by visiting our <a routerLink="suggest">suggest</a> page.</h5>
        <!-- <h4> Additional Search options: </h4>
         <div class="grid-container-1">
           <div>

@@ -4,7 +4,7 @@
                fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="!(isHandset$ | async) && router.url === '/dashboard' ? true : false">
+               [opened]="(isHandset$ | async) === false && router.url === '/dashboard' ? true : false">
     <!-- [opened]="(isHandset$ | async) === false" -->
     <mat-toolbar>
       <img src="../../../assets/imgs/logo_120x120.png"
