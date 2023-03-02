@@ -10,12 +10,31 @@
   <ng-container *ngFor="let dateType of dateTypes; let l = index">
     <div class="specials-list" *ngFor="let special of location[category][dateType]; let k = index">
       <!-- <ng-container *ngIf="special.active"> -->
+
+
+        <!--SPECIALS START-->
+        <!-- Display if:
+        1) The Active filter is set to true, the category is set to active and display == true, the location is set to active == true and the location is set to display = true.  
+        2) the Active filter is set to false, the location is set to display == true.
+        -->
+        <mat-list role="list" *ngIf="
+        (filters$ | async)!.filters.active && location.active && location[category].active && special.active 
+        || 
+        !(filters$ | async)!.filters.active && location[category].display && special.display">
+
+
         <!-- Active Specials title -->
         <span *ngIf="
-        special.active && (filters$ | async)!.filters.active && special.display" [ngClass]="location[category][dateType][k].color" class="special-time">
+        special.active && 
+        (filters$ | async)!.filters.active && 
+        special.display" 
+        [ngClass]="location[category][dateType][k].color" 
+        class="special-time">
           {{ category | titlecase }} Ending @ {{special.end}}
         </span>
-        <span *ngIf="!(filters$ | async)!.filters.active && location[category].display" [ngClass]="location[category].color" class="special-time">
+        <span *ngIf="
+        !(filters$ | async)!.filters.active && 
+        location[category].display" [ngClass]="location[category].color" class="special-time">
         <span *ngIf="!special.date; else date">{{ special.days }} <br> {{ special.start }} - {{special.end}} <br> 
           <span *ngFor="let category of special.categories; let x = index;">
             {{ x > 0 ? ', ' : '' }} {{ category === 'happyHour' ? 'Happy Hour' : category | titlecase }} 
@@ -24,10 +43,8 @@
         <ng-template #date>{{ special.date }} <br> {{ special.start }}  {{special.end}}</ng-template>
         </span>
 
-        <!--SPECIALS START-->
-        <mat-list role="list" *ngIf="
-        !(filters$ | async)!.filters.active && location.display && location[category].display && special.display || 
-        (filters$ | async)!.filters.active && location[category].active && special.active && special.display">
+
+
           <mat-list-item class="specials-item" *ngFor="let title of special.title; let i = index;">
               <p mat-line class="special-title">
                 <mat-icon *ngIf="category === 'food'" [ngStyle]="{'font-size' : pageUrl === '/map' ? '9px' : '12px', 'line-height': '35px' }">restaurant

@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './search-filter.component.html',
   styleUrls: ['./search-filter.component.scss']
 })
-export class SearchFilterComponent implements OnInit, OnDestroy {
+export class SearchFilterComponent implements OnDestroy {
 
   formGroup: FormGroup;
   filter: boolean;
@@ -46,8 +46,6 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     });
    }
 
-  ngOnInit(): void {
-  }
 
   isDateSetToToday = (date) => {
     // see if the date matches todays date.

@@ -53,125 +53,16 @@ searchCoords = new BehaviorSubject({location: {lat: 0, lng: 0}});
         console.log('GEO FAILED, IP BACKUp');
         this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Browser Location Unavailable, Using IP'}));
         this.coords$ = this.geoByIp().subscribe(res => {
+          console.log('Coords: ', res)
           this.lat = res.lat;
           this.lng = res.lng;
           this.userCoords.next({location: {lat: res.lat, lng: res.lng}})
           this.searchCoords.next({location: {lat: res.lat, lng: res.lng}})
+          this.store.dispatch(SpinnerActions.SPINNER_END());
       })
       }
     )
       }
-
-
-  // getUserLocation = () : Observable<any> => {
-  //   return this.geoByIp()
-  //   .pipe(
-  //     tap( coords  => {
-  //       this.lat = coords.lat;
-  //       this.lng = coords.lng;
-  //       this.coords.next({location: {lat: coords.lat, lng: coords.lng}})
-  //     }),
-  //    switchMap( (coords):any => {
-  //       if (navigator.geolocation) {
-  //         console.log("Navigator : ", navigator.geolocation)
-  //     try{  navigator.geolocation.getCurrentPosition(pos => {
-  //       console.log("Browser Geo Working")
-  //             return ({
-  //               lat: pos.coords.latitude,
-  //               lng: pos.coords.longitude,
-  //               hash: geofire.geohashForLocation([pos.coords.latitude, pos.coords.longitude])
-  //             } as GeoPackage)
-  //         })
-  //       } catch(e){
-  //         console.log("User Geo Disabled, returning IP")
-  //         return ({
-  //           lat: coords.lat, 
-  //           lng: coords.lng, 
-  //           hash: geofire.geohashForLocation([coords.lat, coords.lng])
-  //         } as GeoPackage )
-  //       }
-    
-  //      } else {
-  //       /* Location services are disabled on the user device */
-  //        console.log("No support for geolocation")
-  //        return ({
-  //         lat: coords.lat, 
-  //         lng: coords.lng, 
-  //         hash: geofire.geohashForLocation([coords.lat, coords.lng])
-  //       } as GeoPackage)
-  //       }
-  //     })
-  //   )
-  //   /* Try to use the Navigator to return a geolocation result. If Navigator is disabled or doesn't work, use the Users IP address to as a location point and search from there */
-  // //   if (navigator.geolocation) {
-  // //     console.log("Navigator : ", navigator.geolocation)
-  // //     return this.geoByBrowser();
-
-  // //  } else {
-  // //   /* Location services are disabled on the user device */
-  // //    console.log("No support for geolocation")
-  // //    return this.geoByIp();
-  // //   }
-  // }
-
-  
-
-  // geoByBrowser = (): GeoPackage => {
-  //   // this.store.dispatch(SpinnerActions.SPINNER_END());
-  //   console.log('TEST')
-
-  //   navigator.geolocation.getCurrentPosition(pos => {
-
-  //   })
-
-
-
-
-
-
-
-    //   return new Observable(obs => {
-  //    navigator.geolocation.getCurrentPosition((position) => {
-  //       console.log('TEST TEST');
-  //       if(position !== undefined){
-  //         console.log("Geo Allowed: ", position)
-  //         /* Location is enabled on the device and allowed by the users browser */
-  //         this.lat = position.coords.latitude;
-  //         this.lng = position.coords.longitude;
-  //         this.coords.next({location: {lat: this.lat, lng: this.lng}})
-  //          obs.next({
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude,
-  //           hash: geofire.geohashForLocation([position.coords.latitude, position.coords.longitude])
-  //          });
-  //          obs.complete();
-  //       } else {
-  //         console.log("Geolocation Disabled by user")
-  //         /* location is enabled on the device but not allowed by the users browser. Use IP Address geo that was retrieved onInit */
-  //         obs.next({
-  //           lat: this.lat, 
-  //           lng: this.lng, 
-  //           hash: geofire.geohashForLocation([this.lat, this.lng])
-  //         })
-  //         obs.complete();
-  //       }
-
-  //      },
-  //      error => {
-  //       console.log('Lat: ', this.lat, ' lng : ', this.lng);
-  //        obs.error(of({
-  //         lat: this.lat, 
-  //         lng: this.lng, 
-  //         hash: geofire.geohashForLocation([this.lat, this.lng])
-  //       }));
-  //      }
-  //    );
-  //  });
-  // }
-
-
-
-
 
 
    geoByIp = (): Observable<GeoPackage> => {
@@ -182,18 +73,6 @@ searchCoords = new BehaviorSubject({location: {lat: 0, lng: 0}});
      'https://api.ipregistry.co/?key=4dn46f0jy85r4r'
     ).pipe(
       map( (res: any) => {
-     // this.coordsSubject.next({lat : parseFloat(res.location.latitude), lng : parseFloat(res.location.longitude)});
-
-      // this.lat = parseFloat(res.location.latitude);
-      // this.lng = parseFloat(res.location.longitude);
-      // this.coords.next({location: {lat: this.lat, lng: this.lng}})
-
-      /* DEV TESTING */
-      // return {
-      //   lat: 50.507351,
-      //   lng: -0.127758,
-      //   hash: geofire.geohashForLocation([50.507351, -0.127758])
-      //  }
 
       return {
               lat: parseFloat(res.location.latitude),
@@ -228,42 +107,3 @@ searchCoords = new BehaviorSubject({location: {lat: 0, lng: 0}});
   }
 }
 
-
-
-      // const options = {
-      //   enableHighAccuracy: true,
-      //   timeout: 5000,
-      //   maximumAge: 0
-      // };
-      
-      // function success(position) {
-      //   const payload: any = {
-      //     lat: position.coords.latitude,
-      //     lng: position.coords.longitude,
-      //     hash: geofire.geohashForLocation([position.coords.latitude, position.coords.longitude])
-      //    }
-      //   of(payload);
-      // }
-      
-      // function error(err) {
-      //   console.warn(`ERROR(${err.code}): ${err.message}`);
-      //   scope.geoByIp();
-      // }
-      
-      // navigator.geolocation.getCurrentPosition(success, error, options)!;
-
-
-  //   let payload: any;
-  //   navigator.geolocation.getCurrentPosition((position)=>{
-  //     console.log("Postion : ", position)
-  //     payload =  {
-  //         lat: position.coords.longitude,
-  //         lng: position.coords.latitude,
-  //         hash: geofire.geohashForLocation([position.coords.longitude, position.coords.latitude])
-  //        }
-  //     })
-  //     console.log("Geo Payload: ", payload);
-  //     /* If the navigator is available but unable to get he user location due to it being set to "Unallowed etc, revert to IP Address geolocation." */
-  //    if(payload == undefined){ return this.geoByIp() 
-  //   } else { return new Observable(payload);
-  //   } 

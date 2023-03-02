@@ -54,7 +54,7 @@ import { AddToHomeFirefoxComponent } from './dialogs/add-to-home-firefox/add-to-
 
     
   ],
-  providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService],
+  providers: [FirestoreService, DisplayLocationsService, CitySelectService, GoogleService, LocationDetailsService,],
   exports: [SpinnerComponent, CitySelectComponent, SearchFilterComponent, AddressComponent, AddToHomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

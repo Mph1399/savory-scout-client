@@ -105,7 +105,7 @@ export class DetailsService {
               end,
             });
           };
-          //  Splice the date out of the date string. Ex. 'Mon 2018-12-10' to '2018-12-10'
+          //  Splice the day out of the date string. Ex. 'Mon 2018-12-10' to '2018-12-10'
           const date = special.date;
           const dayOfTheWeek = moment(special.date, 'MMMM Do YYYY').format('ddd');
   

@@ -174,26 +174,26 @@ export class FirestoreEffects implements OnDestroy{
 
 
 
-getLocationByPlaceIdAnonymous$ = createEffect(() =>
-this.actions$.pipe(
-  ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS),
-  switchMap((action) => {
-    this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Location'}));
-    return  this.firestoreService.getLocationByPlaceIdAnonymous(action.place_id)
-  }),
-  map((locations: any) => {
-    console.log('START Locations :', locations);
-    if(!locations){return FirestoreActions.NO_LOCATIONS}
-    // make a deep copy of locations
-    const locationsCopy = JSON.parse(JSON.stringify(locations))
-    // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
-    locationsCopy.reverse();
-    const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
-    console.log('FINAL Filtered: ', filteredLocations)
-    return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
-  })
-)
-);
+// getLocationByPlaceIdAnonymous$ = createEffect(() =>
+// this.actions$.pipe(
+//   ofType(FirestoreActions.GET_LOCATION_BY_PLACE_ID_ANONYMOUS),
+//   switchMap((action) => {
+//     this.store.dispatch(SpinnerActions.SPINNER_START({message: 'Fetching Location'}));
+//     return  this.firestoreService.getLocationByPlaceIdAnonymous(action.place_id)
+//   }),
+//   map((locations: any) => {
+//     console.log('START Locations :', locations);
+//     if(!locations){return FirestoreActions.NO_LOCATIONS}
+//     // make a deep copy of locations
+//     const locationsCopy = JSON.parse(JSON.stringify(locations))
+//     // The locations array is in Ascending order because Firestore wouldn't return in descending order. Reverse the array order to display the closest locations first.
+//     locationsCopy.reverse();
+//     const filteredLocations = this.displayLocationsService.filterLocationResults(locationsCopy as Location[]);
+//     console.log('FINAL Filtered: ', filteredLocations)
+//     return FirestoreActions.SET_LOCATIONS({locations: filteredLocations as Location[]});
+//   })
+// )
+// );
 
 ngOnDestroy(){
   this.filterState$.unsubscribe();

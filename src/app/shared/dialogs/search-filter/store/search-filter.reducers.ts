@@ -43,7 +43,7 @@ export interface FilterState {
            let stateCopy = JSON.parse(JSON.stringify(state.filters));
          //  console.log('Filters state Copy b4 merge: ', stateCopy)
            stateCopy = {...stateCopy, ...action}
-         //  console.log('Filters state Copy after merge: ', stateCopy)
+           console.log('Filters state Copy after merge: ', stateCopy)
 
            return {
              ...state,

@@ -20,7 +20,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class MainNavComponent {
   @ViewChild('drawer') drawer: MatSidenav;
   isHandset$!: Observable<boolean>;
-  location$ = this.store.select(FirestoreSelectors.getLocationsState)
+  location$ = this.store.select(FirestoreSelectors.getLocationsState);
   auth$ = this.store.select(getAuthState)
 
   constructor(

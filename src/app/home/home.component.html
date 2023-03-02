@@ -16,5 +16,6 @@
          
   <app-mobile-results *ngIf="screenWidth <= 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-mobile-results>    
   <app-desktop-results *ngIf="screenWidth > 800" [filteredLocations]="(filteredLocations$ | async)!.locations" ></app-desktop-results>   
+  <ng-container *ngIf="(filter$ | async)!.filters.active"></ng-container>
 
   

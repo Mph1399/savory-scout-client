@@ -31,6 +31,9 @@ export class SpecialsDisplayComponent implements OnInit, OnChanges {
    private store: Store,
    private router: Router
     ) {
+
+      //CHATGPT
+      
   }
 
   ngOnInit(): void {
