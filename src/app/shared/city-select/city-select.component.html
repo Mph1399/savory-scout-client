@@ -2,14 +2,15 @@
      <div appTextCenter class='city-select-div'>
         <mat-card class="city-select-card">
         <h3 class="city-select-title">{{ 'Restaurant Specials' | uppercase }}</h3>
+        <h6 class="city-select-subtitle">{{ 'In Real-Time' | uppercase }}</h6>
         <hr appNoMargin style="border-top: 1px solid lightgray; margin-bottom: 20px;">
         <!-- <h4 style="background-color: #ffc800;margin-top: 0; padding: 6px;">We haven't reached this area yet. </h4> -->
-        <h4>Select an option below:</h4>
-       <button mat-raised-button color="primary" style="margin-bottom: 20px; color:white" (click)="nearbySearch()">Search Nearby
+        <!-- <h4>Select an option below:</h4> -->
+       <button mat-raised-button color="primary" class="search-btn" (click)="nearbySearch()">Search Nearby
         <mat-icon class="search-btn-icon">search</mat-icon></button>
-        <p style="margin-top: 0;">or</p>
-        <h5 style="margin-bottom: 0;" >Choose a closest city:</h5>
-        <mat-form-field style="z-index: 1005;">
+        <p style="margin-top: 0; margin-bottom: 0;">or</p>
+        <!-- <h5 style="margin-bottom: 0;" >Choose a closest city:</h5> -->
+        <mat-form-field style="z-index: 1005; max-width: 130px;">
           <mat-label>Select a City</mat-label>
           <mat-select (selectionChange)="onSearch($event.value)">
             <mat-option #citySelection *ngFor="let city of cities" [value]="city.city">
